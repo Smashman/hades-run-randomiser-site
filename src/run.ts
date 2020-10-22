@@ -19,12 +19,12 @@ export class Run {
     }
 
     static generateRandomRun(options: RunOptions) {
-        const runWeapon = options?.weaponOptions?.enabled ? weapons.getRandom() : null;
-        const runWeaponAspect = runWeapon && options?.weaponOptions?.randomAspect ? runWeapon.getRandomAspect() : null;
-        const runKeepsake = options?.keepsakeOptions?.enabled ? keepsakes.getRandomKeepsakes(options?.keepsakeOptions) : null;
-        const runCompanion = options?.companionOptions?.enabled ? companions.getRandomCompanion(options?.companionOptions) : null;
-        const runMirror = options?.mirrorOptions?.enabled ? mirror.getRandom() : null;
-        const runPact = options?.pactOptions?.enabled ? pact.getRange(options?.pactOptions?.heatRange) : null;
+        const runWeapon = options.weaponOptions?.enabled ? weapons.getRandom() : null;
+        const runWeaponAspect = runWeapon && options.weaponOptions.randomAspect ? runWeapon.getRandomAspect() : null;
+        const runKeepsake = options.keepsakeOptions?.enabled ? keepsakes.getRandomKeepsakes(options.keepsakeOptions) : null;
+        const runCompanion = options.companionOptions?.enabled ? companions.getRandomCompanion(options.companionOptions) : null;
+        const runMirror = options.mirrorOptions?.enabled ? mirror.getRandom() : null;
+        const runPact = options.pactOptions?.enabled ? pact.getRandomWithRange(options.pactOptions.heatRange) : null;
 
         return new Run(
             runWeapon,

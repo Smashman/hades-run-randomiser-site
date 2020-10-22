@@ -1,4 +1,4 @@
-import { getRandomItemFromArray, Options, ItemList, Item } from "./utils";
+import { getRandomItemFromArray, Options, ItemList, Item } from './utils';
 
 export type KeepsakeConfiguration = [Keepsake] | [Keepsake, Keepsake, Keepsake, Keepsake];
 

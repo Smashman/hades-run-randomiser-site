@@ -1,4 +1,4 @@
-import { getRandomItemFromArray, Item, Options } from "./utils";
+import { getRandomItemFromArray, Item, Options } from './utils';
 
 export class MirrorTalent {
     rankCount: number;
@@ -11,15 +11,18 @@ export class MirrorTalent {
     }
 }
 
-class MirrorTalentSet {
-    constructor(public talents: [MirrorTalent, MirrorTalent]) {}
+export class MirrorTalentSet {
+    constructor(public talents: [MirrorTalent, MirrorTalent]) {
+        talents[0].colour = "red";
+        talents[1].colour = "green";
+    }
 
     getRandom(): MirrorTalent {
         return getRandomItemFromArray(this.talents);
     }
 }
 
-class MirrorGroup extends Item{
+export class MirrorGroup extends Item{
     constructor(public sets: [MirrorTalentSet, MirrorTalentSet], public isUnlocked: boolean = false) {
         super();
     }
@@ -33,11 +36,7 @@ export class Mirror {
     groups: MirrorGroup[] = [];
 
     addGroup(sets: [[MirrorTalent, MirrorTalent], [MirrorTalent, MirrorTalent]], isUnlocked: boolean = false) {
-        const mirrorTalentSets = <[MirrorTalentSet, MirrorTalentSet]>sets.map(set => {
-            set[0].colour = "red";
-            set[1].colour = "green";
-            return new MirrorTalentSet(set);
-        })
+        const mirrorTalentSets = <[MirrorTalentSet, MirrorTalentSet]>sets.map(set => new MirrorTalentSet(set));
         this.groups = [...this.groups, new MirrorGroup(mirrorTalentSets, isUnlocked)];
         return this;
     }
@@ -51,7 +50,7 @@ export class Mirror {
     }
 
     getRandom(): MirrorConfiguration {
-        return new MirrorConfiguration(this.unlockedGroups.map(group => group.getRandom()).reduce((acc, val) => acc.concat(val), []));
+        return new MirrorConfiguration(this.unlockedGroups.map(group => group.getRandom()).reduce((acc, val) => [...acc, ...val], <MirrorTalent[]>[]));
     }
 }
 

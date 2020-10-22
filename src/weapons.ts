@@ -1,5 +1,4 @@
-import { Item, ItemList, Options } from "./utils";
-import { getRandomItemFromArray } from "./utils";
+import { Item, ItemList, Options, getRandomItemFromArray } from './utils';
 
 export class WeaponAspect extends Item {
     constructor(public name: string, public level: number = 1, public isHidden: boolean = false, public isUnlocked: boolean = false){
@@ -39,7 +38,7 @@ export class Weapon extends Item {
     }
 
     getRandomAspect(): WeaponAspect {
-        return getRandomItemFromArray(this.unlockedAspects);
+        return getRandomItemFromArray(this.unlockedAspects) ?? null;
     }
 }
 

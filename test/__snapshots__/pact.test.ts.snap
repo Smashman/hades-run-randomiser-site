@@ -1,0 +1,369 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pact class should add PactCondition to Pact 1`] = `
+Pact {
+  "conditions": Array [
+    PactCondition {
+      "_initialRank": 0,
+      "enforceLimit": false,
+      "name": "Extra Angry",
+      "rankCosts": Array [
+        1,
+        1,
+        1,
+        2,
+        3,
+      ],
+      "rankLimit": undefined,
+    },
+  ],
+}
+`;
+
+exports[`Pact class should create expected Pact class instance 1`] = `
+Pact {
+  "conditions": Array [],
+}
+`;
+
+exports[`PactCondition class should create expected PactCondition class instance 1`] = `
+PactCondition {
+  "_initialRank": 0,
+  "enforceLimit": false,
+  "name": "Extra Angry",
+  "rankCosts": Array [
+    1,
+    1,
+    1,
+    2,
+    3,
+  ],
+  "rankLimit": undefined,
+}
+`;
+
+exports[`PactCondition class should create expected PactCondition class instance with rankLimit 1`] = `
+PactCondition {
+  "_initialRank": 0,
+  "enforceLimit": true,
+  "name": "Extra Angry",
+  "rankCosts": Array [
+    1,
+    1,
+    1,
+    2,
+    3,
+  ],
+  "rankLimit": 4,
+}
+`;
+
+exports[`PactConditionConfiguration class should create expected PactConditionConfiguration class instance 1`] = `
+PactConditionConfiguration {
+  "_rank": 0,
+  "condition": PactCondition {
+    "_initialRank": 0,
+    "enforceLimit": false,
+    "name": "Extra Angry",
+    "rankCosts": Array [
+      1,
+      1,
+      1,
+      2,
+      3,
+    ],
+    "rankLimit": undefined,
+  },
+}
+`;
+
+exports[`PactConditionConfiguration class should create expected PactConditionConfiguration class instance when pact condition has an initialRank 1`] = `
+PactConditionConfiguration {
+  "_rank": 4,
+  "condition": PactCondition {
+    "_initialRank": 4,
+    "enforceLimit": false,
+    "name": "Extra Angry",
+    "rankCosts": Array [
+      1,
+      1,
+      1,
+      2,
+      3,
+    ],
+    "rankLimit": undefined,
+  },
+}
+`;
+
+exports[`PactConditionConfiguration class should create expected PactConditionConfiguration class instance when pact condition has an initialRank and rank parameter is set 1`] = `
+PactConditionConfiguration {
+  "_rank": 2,
+  "condition": PactCondition {
+    "_initialRank": 4,
+    "enforceLimit": false,
+    "name": "Extra Angry",
+    "rankCosts": Array [
+      1,
+      1,
+      1,
+      2,
+      3,
+    ],
+    "rankLimit": undefined,
+  },
+}
+`;
+
+exports[`PactConditionConfiguration class should create expected PactConditionConfiguration class instance with rank parameter 1`] = `
+PactConditionConfiguration {
+  "_rank": 3,
+  "condition": PactCondition {
+    "_initialRank": 0,
+    "enforceLimit": false,
+    "name": "Extra Angry",
+    "rankCosts": Array [
+      1,
+      1,
+      1,
+      2,
+      3,
+    ],
+    "rankLimit": undefined,
+  },
+}
+`;
+
+exports[`PactConfiguration class generateFromHeatRange should return expected PactConfiguration class instance 1`] = `
+PactConfiguration {
+  "conditionConfigurations": Array [
+    PactConditionConfiguration {
+      "_rank": 2,
+      "condition": PactCondition {
+        "_initialRank": 0,
+        "enforceLimit": false,
+        "name": "Extra Angry",
+        "rankCosts": Array [
+          1,
+          1,
+          1,
+          2,
+          3,
+        ],
+        "rankLimit": undefined,
+      },
+    },
+    PactConditionConfiguration {
+      "_rank": 1,
+      "condition": PactCondition {
+        "_initialRank": 0,
+        "enforceLimit": false,
+        "name": "Bigger Slam",
+        "rankCosts": Array [
+          2,
+          2,
+        ],
+        "rankLimit": undefined,
+      },
+    },
+    PactConditionConfiguration {
+      "_rank": 1,
+      "condition": PactCondition {
+        "_initialRank": 0,
+        "enforceLimit": false,
+        "name": "Harder Skin",
+        "rankCosts": Array [
+          5,
+        ],
+        "rankLimit": undefined,
+      },
+    },
+  ],
+  "heatRange": Object {
+    "max": 17,
+    "min": 0,
+  },
+  "heatTarget": 9,
+  "heatTotal": 9,
+}
+`;
+
+exports[`PactConfiguration class generateFromHeatRange should return expected PactConfiguration class instance with heatRange 1`] = `
+PactConfiguration {
+  "conditionConfigurations": Array [
+    PactConditionConfiguration {
+      "_rank": 0,
+      "condition": PactCondition {
+        "_initialRank": 0,
+        "enforceLimit": false,
+        "name": "Extra Angry",
+        "rankCosts": Array [
+          1,
+          1,
+          1,
+          2,
+          3,
+        ],
+        "rankLimit": undefined,
+      },
+    },
+    PactConditionConfiguration {
+      "_rank": 1,
+      "condition": PactCondition {
+        "_initialRank": 0,
+        "enforceLimit": false,
+        "name": "Bigger Slam",
+        "rankCosts": Array [
+          2,
+          2,
+        ],
+        "rankLimit": undefined,
+      },
+    },
+    PactConditionConfiguration {
+      "_rank": 0,
+      "condition": PactCondition {
+        "_initialRank": 0,
+        "enforceLimit": false,
+        "name": "Harder Skin",
+        "rankCosts": Array [
+          5,
+        ],
+        "rankLimit": undefined,
+      },
+    },
+  ],
+  "heatRange": Object {
+    "max": 3,
+    "min": 1,
+  },
+  "heatTarget": 2,
+  "heatTotal": 2,
+}
+`;
+
+exports[`PactConfiguration class should create expected PactConfiguration class instance 1`] = `
+PactConfiguration {
+  "conditionConfigurations": Array [
+    PactConditionConfiguration {
+      "_rank": 0,
+      "condition": PactCondition {
+        "_initialRank": 0,
+        "enforceLimit": false,
+        "name": "Extra Angry",
+        "rankCosts": Array [
+          1,
+          1,
+          1,
+          2,
+          3,
+        ],
+        "rankLimit": undefined,
+      },
+    },
+    PactConditionConfiguration {
+      "_rank": 0,
+      "condition": PactCondition {
+        "_initialRank": 0,
+        "enforceLimit": false,
+        "name": "Bigger Slam",
+        "rankCosts": Array [
+          2,
+          2,
+        ],
+        "rankLimit": undefined,
+      },
+    },
+  ],
+  "heatRange": Object {
+    "max": 12,
+    "min": 0,
+  },
+  "heatTarget": 0,
+  "heatTotal": 0,
+}
+`;
+
+exports[`PactConfiguration class should create expected PactConfiguration class instance with heatRange 1`] = `
+PactConfiguration {
+  "conditionConfigurations": Array [
+    PactConditionConfiguration {
+      "_rank": 0,
+      "condition": PactCondition {
+        "_initialRank": 0,
+        "enforceLimit": false,
+        "name": "Extra Angry",
+        "rankCosts": Array [
+          1,
+          1,
+          1,
+          2,
+          3,
+        ],
+        "rankLimit": undefined,
+      },
+    },
+    PactConditionConfiguration {
+      "_rank": 0,
+      "condition": PactCondition {
+        "_initialRank": 0,
+        "enforceLimit": false,
+        "name": "Bigger Slam",
+        "rankCosts": Array [
+          2,
+          2,
+        ],
+        "rankLimit": undefined,
+      },
+    },
+  ],
+  "heatRange": Object {
+    "max": 3,
+    "min": 1,
+  },
+  "heatTarget": 0,
+  "heatTotal": 0,
+}
+`;
+
+exports[`PactConfiguration class should create expected PactConfiguration class instance with ranks 1`] = `
+PactConfiguration {
+  "conditionConfigurations": Array [
+    PactConditionConfiguration {
+      "_rank": 1,
+      "condition": PactCondition {
+        "_initialRank": 0,
+        "enforceLimit": false,
+        "name": "Extra Angry",
+        "rankCosts": Array [
+          1,
+          1,
+          1,
+          2,
+          3,
+        ],
+        "rankLimit": undefined,
+      },
+    },
+    PactConditionConfiguration {
+      "_rank": 1,
+      "condition": PactCondition {
+        "_initialRank": 0,
+        "enforceLimit": false,
+        "name": "Bigger Slam",
+        "rankCosts": Array [
+          2,
+          2,
+        ],
+        "rankLimit": undefined,
+      },
+    },
+  ],
+  "heatRange": Object {
+    "max": 12,
+    "min": 0,
+  },
+  "heatTarget": 0,
+  "heatTotal": 0,
+}
+`;

@@ -1,18 +1,12 @@
 import { Companion, Companions } from '../src/companions';
 import * as utils from '../src/utils';
+import { getRandomItemFromArrayMock } from './helpers';
 
 describe('Companion class', () => {
-    it('should create expected Companion class', () => {
+    it('should create expected Companion class instance', () => {
         const companion = new Companion('Fluff', 'Jeff');
 
-        expect(companion).toMatchObject({
-            name: 'Fluff',
-            giver: 'Jeff',
-            isUnlocked: false,
-            level: 1,
-            isMaxLevel: false,
-            isMaxCodex: false,
-        });
+        expect(companion).toMatchSnapshot();
     });
 
     it('should return false for isMaxLevel when level is less than 5', () => {
@@ -116,9 +110,7 @@ describe('Companions class', () => {
             companion4 = new Companion('Mr. Bilbadopulous', 'Trevor');
             companions = new Companions().addItems([companion1, companion2, companion3, companion4]);
 
-            getRandomItemFromArraySpy = jest.spyOn(utils, 'getRandomItemFromArray').mockImplementation(array => {
-                return array[Math.ceil((array.length-1)/2)];
-            });
+            getRandomItemFromArraySpy = jest.spyOn(utils, 'getRandomItemFromArray').mockImplementation(getRandomItemFromArrayMock);
         });
 
         afterEach(() => {

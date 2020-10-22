@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Weapon class should create expected Weapon class instance 1`] = `
+Weapon {
+  "aspects": Array [],
+  "isUnlocked": false,
+  "name": "Skybreaker",
+  "title": "Mistblade",
+}
+`;
+
+exports[`WeaponAspect class should create expected WeaponAspect class instance 1`] = `
+WeaponAspect {
+  "isHidden": false,
+  "isUnlocked": false,
+  "level": 1,
+  "name": "Tarak",
+}
+`;
+
+exports[`WeaponAspect class should create expected WeaponAspect class instance with more parameters 1`] = `
+WeaponAspect {
+  "isHidden": true,
+  "isUnlocked": true,
+  "level": 0,
+  "name": "Tarak",
+}
+`;

@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Item and ItemList classes Item should create the expected Item class 1`] = `
+TestItem {
+  "isUnlocked": false,
+}
+`;
+
+exports[`Item and ItemList classes ItemList should create expected ItemList class instance 1`] = `
+TestItemList {
+  "items": Array [],
+}
+`;

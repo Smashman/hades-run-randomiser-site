@@ -1,19 +1,13 @@
 import { Keepsake, Keepsakes } from '../src/keepsakes';
 import type { KeepsakeConfiguration } from '../src/keepsakes';
 import * as utils from '../src/utils';
+import { getRandomItemFromArrayMock } from './helpers';
 
 describe('Keepsake class', () => {
-    it('should create expected Keepsake class', () => {
+    it('should create expected Keepsake class instance', () => {
         const keepsake = new Keepsake('Shoe', 'Jeff');
 
-        expect(keepsake).toMatchObject({
-            name: 'Shoe',
-            giver: 'Jeff',
-            isUnlocked: false,
-            isHidden: false,
-            level: 1,
-            isMaxLevel: false,
-        });
+        expect(keepsake).toMatchSnapshot();
     });
 
     it('should return false for isMaxLevel when level is less than 3', () => {
@@ -89,9 +83,7 @@ describe('Keepsakes class', () => {
             keepsake4 = new Keepsake('Scarf', 'Trevor');
             keepsakes = new Keepsakes().addItems([keepsake1, keepsake2, keepsake3, keepsake4]);
 
-            getRandomItemFromArraySpy = jest.spyOn(utils, 'getRandomItemFromArray').mockImplementation(array => {
-                return array[Math.ceil((array.length-1)/2)];
-            });
+            getRandomItemFromArraySpy = jest.spyOn(utils, 'getRandomItemFromArray').mockImplementation(getRandomItemFromArrayMock);
         });
 
         afterEach(() => {

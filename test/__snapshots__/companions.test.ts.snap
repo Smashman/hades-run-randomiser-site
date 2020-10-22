@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Companion class should create expected Companion class instance 1`] = `
+Companion {
+  "giver": "Jeff",
+  "isMaxCodex": false,
+  "isUnlocked": false,
+  "level": 1,
+  "name": "Fluff",
+}
+`;

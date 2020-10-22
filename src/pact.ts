@@ -1,4 +1,4 @@
-import { getRandomItemFromArray, Options } from "./utils";
+import { getRandomItemFromArray, Options } from './utils';
 
 export class PactCondition {
     enforceLimit: boolean = false;
@@ -36,13 +36,8 @@ export class Pact {
         return this;
     }
 
-    getRange(heatRange: HeatRange) {
-        heatRange = {
-            min: heatRange?.min || this.initialHeat,
-            max: heatRange?.max || this.maxHeat,
-        };
-
-        return new PactConfiguration(this, heatRange);
+    getRandomWithRange(heatRange?: HeatRange) {
+        return PactConfiguration.generateFromHeatRange(this, heatRange);
     }
 
     unlockAll() {
@@ -58,36 +53,62 @@ export class Pact {
     }
 }
 
-class PactConditionConfiguration {
-    rank: number = 0;
+export class PactConditionConfiguration {
+    private _rank: number = 0;
 
-    constructor(public condition: PactCondition) {
-        this.rank = condition.initialRank;
+    constructor(public condition: PactCondition, rank?: number) {
+        this.rank = rank || condition.initialRank;
     }
 
     get heat(): number {
         return this.condition.rankCosts.slice(0, this.rank).reduce((total, value) => total + value, 0);
     }
 
-    rankUp() {
-        this.rank++;
-        return this.condition.rankCosts[this.rank-1];
+    get rank(): number {
+        return this._rank;
+    }
+
+    set rank(rank: number) {
+        this._rank = rank > this.condition.rankCount ? this.condition.rankCount : rank;
+    }
+
+    rankUp(): number {
+        if (this.rank < this.condition.rankCount) {
+            this.rank++;
+            return this.condition.rankCosts[this.rank-1];
+        }
+        else {
+            return null;
+        }
     }
 }
 
 export class PactConfiguration {
     conditionConfigurations: PactConditionConfiguration[];
-    heatTotal: number;
-    heatTarget: number;
+    heatTotal: number = 0;
+    heatTarget: number = 0;
+    heatRange: HeatRange;
 
-    constructor(pact: Pact, public heatRange: HeatRange) {
-        this.conditionConfigurations = pact.conditions.map(condition => new PactConditionConfiguration(condition));
+    constructor(pact: Pact, heatRange?: HeatRange, ranks?: number[]) {
+        this.conditionConfigurations = pact.conditions.map((condition, index) => new PactConditionConfiguration(condition, (ranks && ranks[index]) || null));
+        this.heatRange = {
+            min: heatRange?.min || pact.initialHeat,
+            max: heatRange?.max || pact.maxHeat,
+        };
+    }
 
-        const target = Math.floor(Math.random() * (heatRange.max - heatRange.min + 1) + heatRange.min);
+    static generateFromHeatRange(pact: Pact, heatRange?: HeatRange) {
+        const pactConfiguration = new PactConfiguration(pact, heatRange);
+
+        const configHeatRange = pactConfiguration.heatRange;
+
+
+        const target = Math.floor(Math.random() * (configHeatRange.max - configHeatRange.min + 1) + configHeatRange.min);
 
         let current = pact.initialHeat;
 
-        let remainingConditions = [...this.conditionConfigurations.filter((conditionConfig) => conditionConfig.rank !== conditionConfig.condition.rankCount)];
+        let remainingConditions = [...pactConfiguration.conditionConfigurations.filter((conditionConfig) => conditionConfig.rank !== conditionConfig.condition.rankCount)];
+
 
         while (current < target) {
             const randomCondition = getRandomItemFromArray(remainingConditions);
@@ -98,12 +119,14 @@ export class PactConfiguration {
             }
         }
 
-        this.heatTotal = current;
-        this.heatTarget = target;
+        pactConfiguration.heatTotal = current;
+        pactConfiguration.heatTarget = target;
+
+        return pactConfiguration;
     }
 }
 
-interface HeatRange {
+export interface HeatRange {
     min?: number;
     max?: number;
 }

@@ -19,6 +19,7 @@
     "dev": "npm-run-all --parallel start watch",
     "start": "serve",
     "test": "jest",
+    "test:watch": "jest --watchAll",
     "test:coverage": "jest --coverage"
   }
 }

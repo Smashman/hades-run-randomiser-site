@@ -1,6 +1,5 @@
-import { companions } from "./data";
-import { getRandomItemFromArray, Item, Options } from "./utils";
-import { ItemList } from "./utils";
+import { getRandomItemFromArray, Item, Options } from './utils';
+import { ItemList } from './utils';
 
 export class Companion extends Item {
     level: number = 1;

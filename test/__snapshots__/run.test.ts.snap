@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Run class generateRandomRun should generate empty random run with enabled false in all options 1`] = `
+Run {
+  "companion": null,
+  "keepsake": null,
+  "mirror": null,
+  "pact": null,
+  "weapon": null,
+  "weaponAspect": null,
+}
+`;
+
+exports[`Run class generateRandomRun should generate empty random run with no options 1`] = `
+Run {
+  "companion": null,
+  "keepsake": null,
+  "mirror": null,
+  "pact": null,
+  "weapon": null,
+  "weaponAspect": null,
+}
+`;
+
+exports[`Run class should create expected Run class instance 1`] = `
+Run {
+  "companion": null,
+  "keepsake": null,
+  "mirror": null,
+  "pact": null,
+  "weapon": null,
+  "weaponAspect": null,
+}
+`;

@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Keepsake class should create expected Keepsake class instance 1`] = `
+Keepsake {
+  "giver": "Jeff",
+  "isHidden": false,
+  "isUnlocked": false,
+  "level": 1,
+  "name": "Shoe",
+}
+`;

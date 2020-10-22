@@ -40,9 +40,7 @@ describe('Item and ItemList classes', () => {
         it('should create the expected Item class', () => {
             const item = new TestItem();
 
-            expect(item).toMatchObject({
-                isUnlocked: false,
-            });
+            expect(item).toMatchSnapshot();
         });
 
         it('should return true for isUnlocked after unlock is called', () => {
@@ -54,12 +52,10 @@ describe('Item and ItemList classes', () => {
     });
 
     describe('ItemList', () => {
-        it('should create expected ItemList class', () => {
+        it('should create expected ItemList class instance', () => {
             const itemList = new TestItemList();
 
-            expect(itemList).toMatchObject({
-                items: [],
-            });
+            expect(itemList).toMatchSnapshot();
             expect(itemList.items).toHaveLength(0);
         });
 

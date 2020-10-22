@@ -1,0 +1,247 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Mirror class should add group with addGroup 1`] = `
+Mirror {
+  "groups": Array [
+    MirrorGroup {
+      "isUnlocked": false,
+      "sets": Array [
+        MirrorTalentSet {
+          "talents": Array [
+            MirrorTalent {
+              "colour": "red",
+              "name": "Run Fast",
+              "rankCosts": Array [
+                1,
+                2,
+                3,
+              ],
+              "rankCount": 3,
+              "totalCost": 6,
+            },
+            MirrorTalent {
+              "colour": "green",
+              "name": "Jump High",
+              "rankCosts": Array [
+                3,
+                3,
+                3,
+              ],
+              "rankCount": 3,
+              "totalCost": 9,
+            },
+          ],
+        },
+        MirrorTalentSet {
+          "talents": Array [
+            MirrorTalent {
+              "colour": "red",
+              "name": "Talk Good",
+              "rankCosts": Array [
+                5,
+                5,
+                5,
+                5,
+              ],
+              "rankCount": 4,
+              "totalCost": 20,
+            },
+            MirrorTalent {
+              "colour": "green",
+              "name": "Smile Nice",
+              "rankCosts": Array [
+                20,
+              ],
+              "rankCount": 1,
+              "totalCost": 20,
+            },
+          ],
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`Mirror class should create expected Mirror class instance 1`] = `
+Mirror {
+  "groups": Array [],
+}
+`;
+
+exports[`Mirror class should return expected MirrorConfiguration from getRandom with unlocked groups 1`] = `
+MirrorConfiguration {
+  "talents": Array [
+    MirrorTalent {
+      "colour": "green",
+      "name": "Jump High",
+      "rankCosts": Array [
+        3,
+        3,
+        3,
+      ],
+      "rankCount": 3,
+      "totalCost": 9,
+    },
+    MirrorTalent {
+      "colour": "green",
+      "name": "Smile Nice",
+      "rankCosts": Array [
+        20,
+      ],
+      "rankCount": 1,
+      "totalCost": 20,
+    },
+    MirrorTalent {
+      "colour": "green",
+      "name": "Dodge Quick",
+      "rankCosts": Array [
+        15,
+        15,
+      ],
+      "rankCount": 2,
+      "totalCost": 30,
+    },
+    MirrorTalent {
+      "colour": "green",
+      "name": "Smell Pleasant",
+      "rankCosts": Array [
+        4000,
+      ],
+      "rankCount": 1,
+      "totalCost": 4000,
+    },
+  ],
+  "totalDarkness": 4059,
+}
+`;
+
+exports[`MirrorConfiguration class should create expected MirrorConfiguration class instance 1`] = `
+MirrorConfiguration {
+  "talents": Array [
+    MirrorTalent {
+      "name": "Run Fast",
+      "rankCosts": Array [
+        1,
+        2,
+        3,
+      ],
+      "rankCount": 3,
+      "totalCost": 6,
+    },
+    MirrorTalent {
+      "name": "Talk Good",
+      "rankCosts": Array [
+        5,
+        5,
+        5,
+        5,
+      ],
+      "rankCount": 4,
+      "totalCost": 20,
+    },
+  ],
+  "totalDarkness": 26,
+}
+`;
+
+exports[`MirrorGroup class should create expected MirrorGroup class instance 1`] = `
+MirrorGroup {
+  "isUnlocked": false,
+  "sets": Array [
+    MirrorTalentSet {
+      "talents": Array [
+        MirrorTalent {
+          "colour": "red",
+          "name": "Run Fast",
+          "rankCosts": Array [
+            1,
+            2,
+            3,
+          ],
+          "rankCount": 3,
+          "totalCost": 6,
+        },
+        MirrorTalent {
+          "colour": "green",
+          "name": "Jump High",
+          "rankCosts": Array [
+            3,
+            3,
+            3,
+          ],
+          "rankCount": 3,
+          "totalCost": 9,
+        },
+      ],
+    },
+    MirrorTalentSet {
+      "talents": Array [
+        MirrorTalent {
+          "colour": "red",
+          "name": "Talk Good",
+          "rankCosts": Array [
+            5,
+            5,
+            5,
+            5,
+          ],
+          "rankCount": 4,
+          "totalCost": 20,
+        },
+        MirrorTalent {
+          "colour": "green",
+          "name": "Smile Nice",
+          "rankCosts": Array [
+            20,
+          ],
+          "rankCount": 1,
+          "totalCost": 20,
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`MirrorTalent class should create expected MirrorTalent class instance 1`] = `
+MirrorTalent {
+  "name": "Run Fast",
+  "rankCosts": Array [
+    1,
+    2,
+    3,
+  ],
+  "rankCount": 3,
+  "totalCost": 6,
+}
+`;
+
+exports[`MirrorTalentSet class should create expected MirrorTalentSet class instance 1`] = `
+MirrorTalentSet {
+  "talents": Array [
+    MirrorTalent {
+      "colour": "red",
+      "name": "Run Fast",
+      "rankCosts": Array [
+        1,
+        2,
+        3,
+      ],
+      "rankCount": 3,
+      "totalCost": 6,
+    },
+    MirrorTalent {
+      "colour": "green",
+      "name": "Jump High",
+      "rankCosts": Array [
+        3,
+        3,
+        3,
+      ],
+      "rankCount": 3,
+      "totalCost": 9,
+    },
+  ],
+}
+`;
