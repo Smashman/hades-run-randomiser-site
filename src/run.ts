@@ -14,6 +14,32 @@ export interface RunOptions {
     pactOptions?: PactOptions;
 }
 
+export const defaultRunOptions: RunOptions = {
+    weaponOptions: {
+        enabled: true,
+        randomAspect: true,
+    },
+    keepsakeOptions: {
+        enabled: true,
+        ignoreMaxLevel: true,
+        changeBetweenBiomes: true,
+    },
+    companionOptions: {
+        enabled: true,
+        ignoreMaxCodex: true,
+    },
+    mirrorOptions: {
+        enabled: true,
+    },
+    pactOptions: {
+        enabled: true,
+        // heatRange: {
+        //     min: 4,
+        //     max: 12,
+        // },
+    }
+};
+
 export class Run {
     constructor(public weapon: Weapon, public weaponAspect: WeaponAspect, public keepsake: KeepsakeConfiguration, public companion: Companion, public mirror: MirrorConfiguration, public pact: PactConfiguration) {
     }
@@ -21,7 +47,7 @@ export class Run {
     static generateRandomRun(options: RunOptions) {
         const runWeapon = options.weaponOptions?.enabled ? weapons.getRandom() : null;
         const runWeaponAspect = runWeapon && options.weaponOptions.randomAspect ? runWeapon.getRandomAspect() : null;
-        const runKeepsake = options.keepsakeOptions?.enabled ? keepsakes.getRandomKeepsakes(options.keepsakeOptions) : null;
+        const runKeepsakes = options.keepsakeOptions?.enabled ? keepsakes.getRandomKeepsakes(options.keepsakeOptions) : null;
         const runCompanion = options.companionOptions?.enabled ? companions.getRandomCompanion(options.companionOptions) : null;
         const runMirror = options.mirrorOptions?.enabled ? mirror.getRandom() : null;
         const runPact = options.pactOptions?.enabled ? pact.getRandomWithRange(options.pactOptions.heatRange) : null;
@@ -29,7 +55,7 @@ export class Run {
         return new Run(
             runWeapon,
             runWeaponAspect,
-            runKeepsake,
+            runKeepsakes,
             runCompanion,
             runMirror,
             runPact,

@@ -1,23 +1,24 @@
-import { getRandomItemFromArray, Options, ItemList, Item } from './utils';
+import { getRandomItemFromArray, Options, ItemList, Item, Level } from './utils';
 
-export type KeepsakeConfiguration = [Keepsake] | [Keepsake, Keepsake, Keepsake, Keepsake];
+export type KeepsakeConfiguration = [Keepsake] | [Keepsake, Keepsake, Keepsake, Keepsake] | null;
 
 export class Keepsake extends Item {
-    level: number = 1;
+    level: Level = new Level(1, Keepsake.minLevel, Keepsake.maxLevel);
     constructor(public name: string, public giver: string, public isHidden: boolean = false) {
         super();
     }
 
+    static minLevel = 1;
     static maxLevel = 3;
 
     get isMaxLevel(): boolean {
-        return this.level === Keepsake.maxLevel;
+        return this.level.isMaxLevel();
     }
 }
 
 export class Keepsakes extends ItemList<Keepsake> {
     getRandomKeepsakes(keepsakeOptions?: KeepsakeOptions): KeepsakeConfiguration {
-        const keepsakes = (keepsakeOptions?.ignoreMaxLevel && !this.isAllMaxLevel) ? [...this.unlocked.filter(keepsake => !keepsake.isMaxLevel)] : [...this.unlocked];
+        const keepsakes = (keepsakeOptions?.ignoreMaxLevel && !this.isAllUnlockedMaxLevel) ? [...this.unlocked.filter(keepsake => !keepsake.isMaxLevel)] : [...this.unlocked];
 
         if (keepsakes.length === 0) {
             return null;
@@ -35,7 +36,11 @@ export class Keepsakes extends ItemList<Keepsake> {
     }
 
     maxLevelAll() {
-        this.items.forEach(keepsake => keepsake.level = Keepsake.maxLevel);
+        this.items.forEach(keepsake => keepsake.level.setMaxLevel());
+    }
+
+    get isAllUnlockedMaxLevel() {
+        return this.unlocked.every(keepsake => keepsake.isMaxLevel);
     }
 
     get isAllMaxLevel() {

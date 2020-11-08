@@ -1,15 +1,24 @@
-import json from '@rollup/plugin-json';
 import typescript from '@rollup/plugin-typescript';
+import postcss from 'rollup-plugin-postcss-modules';
 
 export default {
     input: 'src/main.ts',
     output: {
         file: 'dist/bundle.js',
         format: 'iife',
-        sourcemap: true
+        sourcemap: true,
+        globals: {
+            react: 'React',
+            'react-dom': 'ReactDOM',
+        }
     },
+    external: ['react', 'react-dom'],
     plugins: [
-        json(),
+        postcss({
+            modules: true,
+            extract: true,
+            writeDefinitions: true,
+        }),
         typescript(),
     ]
 };

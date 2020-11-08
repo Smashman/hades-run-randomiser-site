@@ -13,7 +13,11 @@ exports[`WeaponAspect class should create expected WeaponAspect class instance 1
 WeaponAspect {
   "isHidden": false,
   "isUnlocked": false,
-  "level": 1,
+  "level": Level {
+    "_value": 1,
+    "max": 5,
+    "min": 1,
+  },
   "name": "Tarak",
 }
 `;
@@ -22,7 +26,11 @@ exports[`WeaponAspect class should create expected WeaponAspect class instance w
 WeaponAspect {
   "isHidden": true,
   "isUnlocked": true,
-  "level": 0,
+  "level": Level {
+    "_value": 0,
+    "max": 5,
+    "min": 0,
+  },
   "name": "Tarak",
 }
 `;

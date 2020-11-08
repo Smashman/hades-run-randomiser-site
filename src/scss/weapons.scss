@@ -1,0 +1,33 @@
+@import './style.scss';
+
+.weapons {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.weapon, .aspect {
+    .weapon-name, .aspect-name {
+        font-family: $spectral-sc;
+        font-weight: bold;
+    }
+    .weapon-title {
+        font-family: $crimson-text;
+        font-style: italic;
+    }
+}
+
+.weapon {
+    border: 1px black solid;
+    width: 300px;
+    .weapon-name {
+        font-size: 1.3em;
+    }
+}
+
+.aspect {
+    border: 1px blue solid;
+    height: 90px;
+    .aspect-name {
+        font-family: $alegreya-sans-sc;
+    }
+}

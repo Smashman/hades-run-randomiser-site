@@ -100,8 +100,8 @@ describe('Weapon class', () => {
 
         weapon.maxLevelAllAspects();
 
-        expect(weaponAspect1.level).toBe(5);
-        expect(weaponAspect2.level).toBe(5);
+        expect(weaponAspect1.level.value).toBe(5);
+        expect(weaponAspect2.level.value).toBe(5);
     });
 
     describe('getRandomAspect', () => {
@@ -176,18 +176,18 @@ describe('Weapons class', () => {
         const weapon2 = new Weapon('Lightsaber', 'Weapon of the Jedi').addAspects([new WeaponAspect('Rey'), new WeaponAspect('Luke'), new WeaponAspect('Anakin')]);
         const weapons = new Weapons().addItems([weapon1, weapon2]);
 
-        expect(weapon1.aspects[0].level).toBe(1);
-        expect(weapon1.aspects[1].level).toBe(1);
-        expect(weapon2.aspects[0].level).toBe(1);
-        expect(weapon2.aspects[1].level).toBe(1);
-        expect(weapon2.aspects[2].level).toBe(1);
+        expect(weapon1.aspects[0].level.value).toBe(1);
+        expect(weapon1.aspects[1].level.value).toBe(1);
+        expect(weapon2.aspects[0].level.value).toBe(1);
+        expect(weapon2.aspects[1].level.value).toBe(1);
+        expect(weapon2.aspects[2].level.value).toBe(1);
 
         weapons.maxLevelAll();
 
-        expect(weapon1.aspects[0].level).toBe(5);
-        expect(weapon1.aspects[1].level).toBe(5);
-        expect(weapon2.aspects[0].level).toBe(5);
-        expect(weapon2.aspects[1].level).toBe(5);
-        expect(weapon2.aspects[2].level).toBe(5);
+        expect(weapon1.aspects[0].level.value).toBe(5);
+        expect(weapon1.aspects[1].level.value).toBe(5);
+        expect(weapon2.aspects[0].level.value).toBe(5);
+        expect(weapon2.aspects[1].level.value).toBe(5);
+        expect(weapon2.aspects[2].level.value).toBe(5);
     });
 });

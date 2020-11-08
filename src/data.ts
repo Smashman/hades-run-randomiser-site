@@ -4,6 +4,7 @@ import { Companion, Companions } from './companions';
 import { Mirror, MirrorTalent } from './mirror';
 import { Pact, PactCondition } from './pact';
 import { fillArray } from './utils';
+import * as React from 'react';
 
 export const weapons = new Weapons().addItems([
     new Weapon('Stygius', 'Blade of the Underworld', true)
@@ -51,7 +52,7 @@ export const weapons = new Weapons().addItems([
 ]);
 
 export const keepsakes = new Keepsakes().addItems([
-    new Keepsake('Old Spike Collar', 'Cerberus'),
+    new Keepsake('Old Spiked Collar', 'Cerberus'),
     new Keepsake('Myrmidon Bracer', 'Achilles'),
     new Keepsake('Black Shawl', 'Nyx'),
     new Keepsake('Pierced Butterfly', 'Thanatos'),
@@ -165,13 +166,33 @@ export const pact = new Pact()
     .addCondition(new PactCondition('Approval Process', [2, 3]))
     .addCondition(new PactCondition('Tight Deadline', [1, 2, 3]));
 
-weapons.unlockAll();
-keepsakes.unlockAll();
-companions.unlockAll();
-mirror.unlockAll();
-pact.unlockAll();
+// weapons.unlockAll();
+// keepsakes.unlockAll();
+// companions.unlockAll();
+// mirror.unlockAll();
+// pact.unlockAll();
 
-weapons.maxLevelAll();
-keepsakes.maxLevelAll();
-companions.maxLevelAll();
-companions.maxCodexAll();
+// weapons.maxLevelAll();
+// keepsakes.maxLevelAll();
+// companions.maxLevelAll();
+// companions.maxCodexAll();
+
+interface Data {
+    weapons: Weapons;
+    keepsakes: Keepsakes;
+    companions: Companions;
+    mirror: Mirror;
+    pact: Pact;
+}
+
+export const defaultData: Data = {
+    weapons,
+    keepsakes,
+    companions,
+    mirror,
+    pact,
+};
+
+export const DataContext = React.createContext<[Data, React.Dispatch<React.SetStateAction<Data>>]>([defaultData, {} as React.Dispatch<React.SetStateAction<Data>>]);
+
+// window.data = defaultData;

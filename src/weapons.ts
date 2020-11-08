@@ -1,8 +1,10 @@
-import { Item, ItemList, Options, getRandomItemFromArray } from './utils';
+import { Item, ItemList, Options, getRandomItemFromArray, Level } from './utils';
 
 export class WeaponAspect extends Item {
-    constructor(public name: string, public level: number = 1, public isHidden: boolean = false, public isUnlocked: boolean = false){
+    level: Level;
+    constructor(public name: string, initialLevel: number = 1, public isHidden: boolean = false, public isUnlocked: boolean = false){
         super();
+        this.level = new Level(initialLevel, initialLevel === 0 ? 0 : 1, WeaponAspect.maxLevel);
     }
 
     static maxLevel = 5;
@@ -34,7 +36,7 @@ export class Weapon extends Item {
     }
 
     maxLevelAllAspects() {
-        this.aspects.forEach(aspect => aspect.level = WeaponAspect.maxLevel);
+        this.aspects.forEach(aspect => aspect.level.setMaxLevel());
     }
 
     getRandomAspect(): WeaponAspect {

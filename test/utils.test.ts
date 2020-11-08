@@ -1,4 +1,4 @@
-import { fillArray, getRandomItemFromArray, Item, ItemList } from '../src/utils';
+import { fillArray, getRandomItemFromArray, Item, ItemList, Level } from '../src/utils';
 
 describe('getRandomItemFromArray', () => {
     const array = [1, 2, 3, 4, 5];
@@ -134,5 +134,81 @@ describe('Item and ItemList classes', () => {
                 expect(randomItem).toBe(item2);
             });
         });
+    });
+});
+
+describe('Level', () => {
+    it('should create expected Level class instance', () => {
+        const level = new Level(1, 1, 3);
+
+        expect(level).toMatchSnapshot();
+    });
+
+    it('should get level', () => {
+        const level = new Level(1, 1, 3);
+
+        expect(level.value).toBe(1);
+    });
+
+    it('should set level', () => {
+        const level = new Level(1, 1, 3);
+
+        expect(level.value).toBe(1);
+
+        level.value = 2;
+        
+        expect(level.value).toBe(2);
+    });
+
+    it('should set level to max if number set higher than max', () => {
+        const level = new Level(1, 1, 3);
+
+        level.value = 5;
+        
+        expect(level.value).toBe(3);
+    });
+
+    it('should set level to min if number set lower than min', () => {
+        const level = new Level(1, 1, 3);
+
+        level.value = 0;
+        
+        expect(level.value).toBe(1);
+    });
+
+    it('should return false for isMaxLevel if level is not max', () => {
+        const level = new Level(1, 1, 3);
+
+        expect(level.isMaxLevel()).toBe(false);
+    });
+
+    it('should return true for isMaxLevel if level is max', () => {
+        const level = new Level(3, 1, 3);
+
+        expect(level.isMaxLevel()).toBe(true);
+    });
+
+    it('should add value as expected when calling addValue', () => {
+        const level = new Level(1, 1, 3);
+
+        level.addValue(2);
+
+        expect(level.value).toBe(3);
+    });
+
+    it('should be incremented as expected when calling increment', () => {
+        const level = new Level(1, 1, 4);
+
+        level.increment();
+
+        expect(level.value).toBe(2);
+    });
+
+    it('should be decremented as expected when calling decrement', () => {
+        const level = new Level(4, 1, 4);
+
+        level.decrement();
+
+        expect(level.value).toBe(3);
     });
 });

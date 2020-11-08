@@ -17,7 +17,7 @@ export class Companion extends Item {
 
 export class Companions extends ItemList<Companion> {
     getRandomCompanion(companionOptions?: CompanionOptions): Companion | null {
-        const companions = (companionOptions?.ignoreMaxCodex && !this.isAllMaxCodex) ? [...this.unlocked.filter(companion => !companion.isMaxCodex)] : [...this.unlocked];
+        const companions = (companionOptions?.ignoreMaxCodex && !this.isAllUnlockedMaxLevel) ? [...this.unlocked.filter(companion => !companion.isMaxCodex)] : [...this.unlocked];
         return getRandomItemFromArray(companions) ?? null;
     }
 
@@ -31,6 +31,10 @@ export class Companions extends ItemList<Companion> {
 
     maxLevelAll() {
         this.items.forEach(companion => companion.level = Companion.maxLevel);
+    }
+
+    get isAllUnlockedMaxLevel() {
+        return this.unlocked.every(companion => companion.isMaxLevel);
     }
 
     get isAllMaxLevel() {

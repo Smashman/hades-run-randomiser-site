@@ -12,14 +12,14 @@ describe('Keepsake class', () => {
 
     it('should return false for isMaxLevel when level is less than 3', () => {
         const keepsake = new Keepsake('Shoe', 'Jeff');
-        keepsake.level = 2;
+        keepsake.level.value = 2;
 
         expect(keepsake.isMaxLevel).toBe(false);
     });
 
     it('should return true for isMaxLevel when level is 3', () => {
         const keepsake = new Keepsake('Shoe', 'Jeff');
-        keepsake.level = 3;
+        keepsake.level.value = 3;
 
         expect(keepsake.isMaxLevel).toBe(true);
     });
@@ -37,7 +37,7 @@ describe('Keepsakes class', () => {
         const keepsake2 = new Keepsake('Coat', 'Delilah');
         const keepsakes = new Keepsakes().addItems([keepsake1, keepsake2]);
 
-        keepsake1.level = 3;
+        keepsake1.level.value = 3;
 
         expect(keepsakes.isAllMaxLevel).toBe(false);
     });
@@ -47,8 +47,8 @@ describe('Keepsakes class', () => {
         const keepsake2 = new Keepsake('Coat', 'Delilah');
         const keepsakes = new Keepsakes().addItems([keepsake1, keepsake2]);
 
-        keepsake1.level = 3;
-        keepsake2.level = 3;
+        keepsake1.level.value = 3;
+        keepsake2.level.value = 3;
 
         expect(keepsakes.isAllMaxLevel).toBe(true);
     });
@@ -60,8 +60,8 @@ describe('Keepsakes class', () => {
 
         keepsakes.maxLevelAll();
 
-        expect(keepsake1.level).toBe(3);
-        expect(keepsake2.level).toBe(3);
+        expect(keepsake1.level.value).toBe(3);
+        expect(keepsake2.level.value).toBe(3);
 
         expect(keepsakes.isAllMaxLevel).toBe(true);
     });
@@ -170,8 +170,8 @@ describe('Keepsakes class', () => {
         it('should filter out keepsakes when called with ignoreMaxLevel true and keepsakes are at max level', () => {
             keepsakes.unlockAll();
 
-            keepsake1.level = Keepsake.maxLevel;
-            keepsake3.level = Keepsake.maxLevel;
+            keepsake1.level.value = Keepsake.maxLevel;
+            keepsake3.level.value = Keepsake.maxLevel;
 
             const randomKeepsakeConfiguration = keepsakes.getRandomKeepsakes({ignoreMaxLevel: true});
 

@@ -1,0 +1,18 @@
+@import './style.scss';
+
+table.display-case {
+    border: 1px black solid;
+    border-collapse: collapse;
+    empty-cells: show;
+    td {
+        border: 1px black solid;
+        width: 150px;
+        height: 150px;
+        max-width: 150px;
+        max-height: 150px;
+    }
+}
+
+.keepsake-name {
+    font-family: $alegreya-sans-sc;
+}

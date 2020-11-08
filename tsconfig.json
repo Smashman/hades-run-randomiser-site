@@ -4,5 +4,7 @@
         "target": "ES2017",
         "moduleResolution": "Node",
         "resolveJsonModule": true,
+        "jsx": "react",
+        // "strict": true,
     },
 }
