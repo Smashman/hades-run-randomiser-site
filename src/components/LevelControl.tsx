@@ -1,13 +1,15 @@
 import * as React from 'react';
 import { Level } from '../utils';
 import style from '../scss/levelControl.scss';
+import classnames from 'classnames';
 
 interface LevelControlProps {
     level: Level;
+    disabled?: boolean;
     onLevelChange: () => void;
 }
 
-const LevelControl: React.FC<LevelControlProps> = ({level, onLevelChange}) => {
+const LevelControl: React.FC<LevelControlProps> = ({level, disabled, onLevelChange}) => {
     
     const levelChange = (changeFunc: () => void) => {
         return () => {
@@ -19,8 +21,12 @@ const LevelControl: React.FC<LevelControlProps> = ({level, onLevelChange}) => {
     const decrement = level.decrement.bind(level);
     const increment = level.increment.bind(level);
 
-    return <div className={style.levelControl}>
-        <button onClick={levelChange(decrement)}>-</button><div>{Array.from({length:level.value}, (v, i) => <span key={`star${i}`}>⭐</span>)}</div><button onClick={levelChange(increment)}>+</button>
+    return <div className={classnames(style.levelControl, {[style.disabled]: disabled})}>
+        <div className={style.starContainer}>{Array.from({length:level.max}, (_v, i) => <div className={classnames(style.star, {[style.inactive]: i >= level.value})} key={`star${i}`}></div>)}</div>
+        <div className={style.buttonContainer}>
+            <button className={style.levelButton} onClick={levelChange(decrement)} disabled={disabled || level.isMinLevel()}>-</button>
+            <button className={style.levelButton} onClick={levelChange(increment)} disabled={disabled || level.isMaxLevel()}>+</button>
+        </div>
     </div>;
 }
 

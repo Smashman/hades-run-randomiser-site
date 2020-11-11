@@ -3,6 +3,7 @@ import { Keepsake } from '../keepsakes';
 import style from '../scss/keepsakes.scss';
 import { DataContext } from '../data';
 import LevelControl from './LevelControl';
+import classnames from 'classnames';
 
 const KeepsakeDisplayCase: React.FC = () => {
     const [data, setData] = React.useContext(DataContext);
@@ -14,6 +15,13 @@ const KeepsakeDisplayCase: React.FC = () => {
     const unlockKeepsake = (keepsake: Keepsake) => {
         return () => {
             keepsake.unlock();
+            updateKeepsakes()
+        }
+    }
+    
+    const lockKeepsake = (keepsake: Keepsake) => {
+        return () => {
+            keepsake.lock();
             updateKeepsakes()
         }
     }
@@ -41,7 +49,7 @@ const KeepsakeDisplayCase: React.FC = () => {
                     {
                         row.map((keepsake, itemIndex) => {
                             const key = `cubby${rowIndex}${itemIndex}`;
-                            return keepsake ? <KeepsakeCubby keepsake={keepsake} unlock={unlockKeepsake(keepsake)} onLevelChange={levelChange()} key={key}></KeepsakeCubby> : <td key={key}></td>;
+                            return keepsake ? <KeepsakeCubby keepsake={keepsake} unlock={unlockKeepsake(keepsake)} lock={lockKeepsake(keepsake)} onLevelChange={levelChange()} key={key}></KeepsakeCubby> : <td key={key}><div className={style.keepsakeCubby}></div></td>;
                         })
                     }
                 </tr>);
@@ -54,23 +62,25 @@ const KeepsakeDisplayCase: React.FC = () => {
 interface KeepsakeProps {
     keepsake: Keepsake;
     unlock: () => void;
+    lock: () => void;
     onLevelChange: () => void;
 }
 
-const KeepsakeCubby: React.FC<KeepsakeProps> = ({keepsake, unlock, onLevelChange}) => {
+const KeepsakeCubby: React.FC<KeepsakeProps> = ({keepsake, unlock, lock, onLevelChange}) => {
+    const nameWithBreak = (name: string): JSX.Element | string => {
+        const splitName = name.split(' ');
+        return splitName.length === 2 ? <React.Fragment>{splitName[0]}<br/>{splitName[1]}</React.Fragment> : name;
+    }
+    const imagePath = (name: string) => name.replace(/[ -]/g, '_').toLowerCase();
     return (
-        <td onClick={unlock}>
-            { 
-            !keepsake.isUnlocked ?
-                <div>{ !keepsake.isHidden ? 'LOCKED' : 'HIDDEN'}</div> :
-                (<div>
-                    <div className={style.keepsakeName}>{keepsake.name}</div>
-                    <LevelControl level={keepsake.level} onLevelChange={onLevelChange}/>
-                    {/* <div> */}
-                        {/* <button onClick={decrease}>-</button>{Array.from({length:keepsake.level}, (v, i) => <span key={`star${i}`}>⭐</span>)}<button onClick={increase}>+</button> */}
-                    {/* </div> */}
-                </div>)
-            }
+        <td>
+            <div className={classnames(style.keepsakeCubby, {[style.locked]: !keepsake.isUnlocked, [style.hidden]: keepsake.isHidden && !keepsake.isUnlocked})} onClick={!keepsake.isUnlocked ? unlock : () => {}}>
+                <div className={style.keepsakeName}>{keepsake.isUnlocked ? nameWithBreak(keepsake.name) : keepsake.isHidden ? '[Hidden]' : '[Locked]'}</div>
+                <div className={style.keepsakeBacking} onClick={keepsake.isUnlocked ? lock : () => {}}>
+                    <img className={style.keepsakeIcon} src={`public/img/keepsake/${keepsake.isUnlocked ? imagePath(keepsake.name) : 'missing_keepsake'}.png`}/>
+                </div>
+                <LevelControl level={keepsake.level} onLevelChange={onLevelChange} disabled={!keepsake.isUnlocked}/>
+            </div>
         </td>
     );
 }

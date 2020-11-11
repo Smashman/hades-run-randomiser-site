@@ -195,4 +195,5 @@ export const defaultData: Data = {
 
 export const DataContext = React.createContext<[Data, React.Dispatch<React.SetStateAction<Data>>]>([defaultData, {} as React.Dispatch<React.SetStateAction<Data>>]);
 
+//@ts-ignore
 // window.data = defaultData;

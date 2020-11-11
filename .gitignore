@@ -1,4 +1,6 @@
 node_modules
 
-dist/
+dist/*
+!dist/index.html
+# !dist/public/
 coverage/

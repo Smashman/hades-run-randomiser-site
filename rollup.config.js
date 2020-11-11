@@ -1,5 +1,7 @@
-import typescript from '@rollup/plugin-typescript';
+import commonjs from '@rollup/plugin-commonjs';
 import postcss from 'rollup-plugin-postcss-modules';
+import typescript from '@rollup/plugin-typescript';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 
 export default {
     input: 'src/main.ts',
@@ -14,11 +16,13 @@ export default {
     },
     external: ['react', 'react-dom'],
     plugins: [
+        commonjs(),
         postcss({
             modules: true,
             extract: true,
             writeDefinitions: true,
         }),
         typescript(),
+        nodeResolve(),
     ]
 };

@@ -49,6 +49,16 @@ describe('Item and ItemList classes', () => {
     
             expect(item.isUnlocked).toBe(true);
         });
+
+        it('should return false for isUnlocked after lock is called', () => {
+            const item = new TestItem();
+            item.unlock();
+    
+            expect(item.isUnlocked).toBe(true);
+            item.lock();
+    
+            expect(item.isUnlocked).toBe(false);
+        });
     });
 
     describe('ItemList', () => {
@@ -176,7 +186,19 @@ describe('Level', () => {
         expect(level.value).toBe(1);
     });
 
-    it('should return false for isMaxLevel if level is not max', () => {
+    it('should return true for isMinLevel if level is min', () => {
+        const level = new Level(1, 1, 3);
+
+        expect(level.isMinLevel()).toBe(true);
+    });
+
+    it('should return false for isMinLevel if level is not min', () => {
+        const level = new Level(3, 1, 3);
+
+        expect(level.isMinLevel()).toBe(false);
+    });
+
+    it('should return false for isMinLevel if level is not max', () => {
         const level = new Level(1, 1, 3);
 
         expect(level.isMaxLevel()).toBe(false);

@@ -11,6 +11,10 @@ export abstract class Item {
     unlock() {
         this.isUnlocked = true;
     }
+
+    lock() {
+        this.isUnlocked = false;
+    }
 }
 
 export abstract class ItemList<T extends Item> {
@@ -40,7 +44,7 @@ export abstract class ItemList<T extends Item> {
 }
 
 export class Level {
-    constructor(protected _value: number, private min: number, private max: number) {}
+    constructor(protected _value: number, readonly min: number, readonly max: number) {}
 
     set value(setTo: number) {
         if (setTo >= this.max) {
@@ -56,6 +60,10 @@ export class Level {
 
     get value() {
         return this._value;
+    }
+
+    isMinLevel(): boolean {
+        return this.value <= this.min;
     }
 
     isMaxLevel(): boolean {
