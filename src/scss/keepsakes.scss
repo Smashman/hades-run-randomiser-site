@@ -1,6 +1,7 @@
 @import 'variables';
 
-$black: #0a0b0d;
+$black: black;
+$grey: #0a0b0d;
 $blue: #677a88;
 $gold: #8b6439;
 
@@ -8,13 +9,13 @@ table.display-case {
     $left-right-border: 9px solid $gold;
     $top-bottom-border: 7px solid $gold;
 
-    background: $black;
+    background: $grey;
     border-collapse: collapse;
     empty-cells: show;
     border-top: $top-bottom-border;
     border-right: $left-right-border;
     border-bottom: $top-bottom-border;
-    border-left: $top-bottom-border;
+    border-left: $left-right-border;
     tr {
         $border: 4px solid $gold;
         border: $border;
@@ -27,14 +28,16 @@ table.display-case {
         height: $height;
         max-width: $width;
         max-height: $height;
-        padding: 1px;
+        background-image: linear-gradient(to top, $black 1px, $blue 1px);
+        padding: 0;
     }
 }
 
 .keepsake-cubby {
+    $left-blue-width: 2px;
     $gradient-stop: 80px;
-    $background-gradient: linear-gradient(to bottom, $black $gradient-stop, $blue $gradient-stop);
-    $border-radius: 5%;
+    $background-gradient: linear-gradient(to right, $blue $left-blue-width, transparent $left-blue-width), linear-gradient(to bottom, $grey $gradient-stop, $blue $gradient-stop);
+    $border-radius: 10px;
 
     background-image: $background-gradient;
     width: 100%;
@@ -45,6 +48,7 @@ table.display-case {
     align-items: center;
     flex-direction: column;
     padding: 8px 2px;
+    border: 1px solid $black;
 
     $icon-glow: drop-shadow(0 0 0.75em $gold);
 
