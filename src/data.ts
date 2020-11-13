@@ -7,42 +7,42 @@ import { fillArray } from './utils';
 import * as React from 'react';
 
 export const weapons = new Weapons().addItems([
-    new Weapon('Stygius', 'Blade of the Underworld', true)
+    new Weapon('Stygius', 'Blade of the Underworld', 'sword', true)
     .addAspects([
         new WeaponAspect('Zagreus', 0, false, true),
         new WeaponAspect('Nemesis'),
         new WeaponAspect('Poseidon'),
         new WeaponAspect('Arthur', 1, true),
     ]),
-    new Weapon('Varatha', 'Eternal Spear')
+    new Weapon('Varatha', 'Eternal Spear', 'spear')
     .addAspects([
         new WeaponAspect('Zagreus', 0, false, true),
         new WeaponAspect('Achilles'),
         new WeaponAspect('Hades'),
         new WeaponAspect('Guan Yu', 1, true),
     ]),
-    new Weapon('Coronacht', 'Heart-Seeking Bow')
+    new Weapon('Coronacht', 'Heart-Seeking Bow', 'bow')
     .addAspects([
         new WeaponAspect('Zagreus', 0, false, true),
         new WeaponAspect('Chiron'),
         new WeaponAspect('Hera'),
         new WeaponAspect('Rama', 1, true),
     ]),
-    new Weapon('Aegis', 'Shield of Chaos')
+    new Weapon('Aegis', 'Shield of Chaos', 'shield')
     .addAspects([
         new WeaponAspect('Zagreus', 0, false, true),
         new WeaponAspect('Chaos'),
         new WeaponAspect('Zeus'),
         new WeaponAspect('Beowulf', 1, true),
     ]),
-    new Weapon('Malphon', 'Twin Fists')
+    new Weapon('Malphon', 'Twin Fists', 'fists')
     .addAspects([
         new WeaponAspect('Zagreus', 0, false, true),
         new WeaponAspect('Talos'),
         new WeaponAspect('Demeter'),
         new WeaponAspect('Gilgamesh', 1, true),
     ]),
-    new Weapon('Exagryph', 'Adamant Rail')
+    new Weapon('Exagryph', 'Adamant Rail', 'gun')
     .addAspects([
         new WeaponAspect('Zagreus', 0, false, true),
         new WeaponAspect('Eris'),

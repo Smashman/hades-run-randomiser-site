@@ -3,31 +3,111 @@
 .weapons {
     display: flex;
     flex-wrap: wrap;
+    width: 1200px;
 }
 
-.weapon, .aspect {
-    .weapon-name, .aspect-name {
+$highlight-color: #3c4036;
+
+.weapon {
+    $title-color: #a3a17a;
+
+    width: 400px;
+    background: black;
+    .weapon-name, .weapon-title {
+        text-align: center;
+    }
+
+    $weapon-name-shadow: 0 0.1em 0 black;
+    .weapon-name {
+        color: white;
         font-family: $spectral-sc;
-        font-weight: bold;
+        font-size: 1.4em;
+        background-color: $highlight-color;
+        text-shadow: $weapon-name-shadow;
+        letter-spacing: 0.3em;
+        padding: 0.3em;
+        border-bottom: 2px solid #76784c;
+        user-select: none;
+    }
+    &.can-be-locked .weapon-name:hover {
+        cursor: pointer;
+        text-shadow: 0 0 0.3em white, $weapon-name-shadow;
     }
     .weapon-title {
         font-family: $crimson-text;
         font-style: italic;
-    }
-}
-
-.weapon {
-    border: 1px black solid;
-    width: 300px;
-    .weapon-name {
-        font-size: 1.3em;
+        color: $title-color;
+        background-color: #222420;
+        padding: 0.2em;
+        margin-bottom: 1px;
+        cursor: default;
     }
 }
 
 .aspect {
-    border: 1px blue solid;
-    height: 90px;
-    .aspect-name {
-        font-family: $alegreya-sans-sc;
+    $height: 100px;
+    $frame-padding: 19px;
+    $hightlight-size: 5px;
+
+    height: $height;
+    clip-path: polygon(0 50%, $height/2 100%, 100% 100%, 100% 0, $height/2 0);
+    background-image: linear-gradient(140deg, $highlight-color 32px, transparent 1px), linear-gradient(117deg, rgba(0,0,0,1) 46%, rgba(21,22,19,1) 1px);
+    display: flex;
+    align-items: center;
+    border-top: $hightlight-size solid $highlight-color;
+    padding-bottom: $hightlight-size;
+    margin-bottom: 8px;
+
+    &:last-of-type {
+        margin-bottom: 0px;
+    }
+
+    .aspect-frame {
+        $frame-size: $height;
+        width: $frame-size;
+        height: $frame-size;
+        background-image: url($img-head-path + 'misc/tray.png');
+        background-size: contain;
+        padding: $frame-padding;
+        display: flex;
+        position: relative;
+
+        .aspect-icon {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .aspect-text {
+        display: flex;
+        height: 100%;
+        flex-grow: 1;
+        align-content: flex-start;
+        padding-top: 10px;
+        padding-left: 2px;
+
+        .aspect-name {
+            @include alegreya-sans-sc-bold;
+            color: white;
+            font-size: 1.2em;
+            white-space: pre;
+        }
+    }
+    &.aspect-locked {
+        .aspect-frame {
+            .aspect-icon {
+                opacity: 0.5;
+            }
+            &:after {
+                content: ' ';
+                width: calc(100% - #{$frame-padding * 2});
+                height: calc(100% - #{$frame-padding * 2});
+                display: block;
+                position: absolute;
+                background-image: url($img-head-path + 'misc/lock.png');
+                background-repeat: no-repeat;
+                background-size: contain;
+            }
+        }
     }
 }

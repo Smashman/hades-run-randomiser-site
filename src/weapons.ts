@@ -2,9 +2,18 @@ import { Item, ItemList, Options, getRandomItemFromArray, Level } from './utils'
 
 export class WeaponAspect extends Item {
     level: Level;
+    canBeLocked: boolean = true;
+
     constructor(public name: string, initialLevel: number = 1, public isHidden: boolean = false, public isUnlocked: boolean = false){
         super();
         this.level = new Level(initialLevel, initialLevel === 0 ? 0 : 1, WeaponAspect.maxLevel);
+        this.canBeLocked = isUnlocked ? false : true;
+    }
+
+    lock() {
+        if (this.canBeLocked) {
+            super.lock();
+        }
     }
 
     static maxLevel = 5;
@@ -12,13 +21,21 @@ export class WeaponAspect extends Item {
 
 export class Weapon extends Item {
     aspects: WeaponAspect[] = [];
+    canBeLocked: boolean = true;
 
-    constructor(public name: string, public title: string, public isUnlocked: boolean = false){
+    constructor(public name: string, public title: string, public shortName: string, public isUnlocked: boolean = false){
         super();
+        this.canBeLocked = isUnlocked ? false : true;
     }
 
     get unlockedAspects() {
         return this.aspects.filter(aspect => aspect.isUnlocked);
+    }
+
+    lock() {
+        if (this.canBeLocked) {
+            super.lock();
+        }
     }
 
     addAspect(aspect: WeaponAspect) {

@@ -65,7 +65,7 @@ describe('Run class', () => {
                     enabled: true,
                 },
             };
-            const weapon = new Weapon('Skybreaker', 'Mistblade');
+            const weapon = new Weapon('Skybreaker', 'Mistblade', 'sword');
 
             (data.weapons.getRandom as jest.MockedFunction<typeof data.weapons.getRandom>).mockReturnValue(weapon);
 
@@ -88,7 +88,7 @@ describe('Run class', () => {
                 },
             };
             const weaponAspect = new WeaponAspect('Tarak');
-            const weapon = new Weapon('Skybreaker', 'Mistblade').addAspect(weaponAspect);
+            const weapon = new Weapon('Skybreaker', 'Mistblade', 'sword').addAspect(weaponAspect);
 
             (data.weapons.getRandom as jest.MockedFunction<typeof data.weapons.getRandom>).mockReturnValue(weapon);
 

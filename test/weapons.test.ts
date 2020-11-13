@@ -23,14 +23,14 @@ describe('WeaponAspect class', () => {
 
 describe('Weapon class', () => {
     it('should create expected Weapon class instance', () => {
-        const weapon = new Weapon('Skybreaker', 'Mistblade');
+        const weapon = new Weapon('Skybreaker', 'Mistblade', 'sword');
 
         expect(weapon).toMatchSnapshot();
     });
 
     it('should add aspect to Weapon', () => {
         const weaponAspect = new WeaponAspect('Tarak');
-        const weapon = new Weapon('Skybreaker', 'Mistblade').addAspect(weaponAspect);
+        const weapon = new Weapon('Skybreaker', 'Mistblade', 'sword').addAspect(weaponAspect);
 
         expect(weapon.aspects).toHaveLength(1);
         expect(weapon.aspects).toContain(weaponAspect);
@@ -39,7 +39,7 @@ describe('Weapon class', () => {
     it('should add aspects to Weapon', () => {
         const weaponAspect1 = new WeaponAspect('Tarak');
         const weaponAspect2 = new WeaponAspect('Shokrug');
-        const weapon = new Weapon('Skybreaker', 'Mistblade').addAspects([weaponAspect1, weaponAspect2]);
+        const weapon = new Weapon('Skybreaker', 'Mistblade', 'sword').addAspects([weaponAspect1, weaponAspect2]);
 
         expect(weapon.aspects).toHaveLength(2);
         expect(weapon.aspects).toContain(weaponAspect1);
@@ -49,7 +49,7 @@ describe('Weapon class', () => {
     it('should return no items for unlockedAspects if no aspects are unlocked', () => {
         const weaponAspect1 = new WeaponAspect('Tarak');
         const weaponAspect2 = new WeaponAspect('Shokrug');
-        const weapon = new Weapon('Skybreaker', 'Mistblade').addAspects([weaponAspect1, weaponAspect2]);
+        const weapon = new Weapon('Skybreaker', 'Mistblade', 'sword').addAspects([weaponAspect1, weaponAspect2]);
 
         expect(weapon.unlockedAspects).toHaveLength(0);
     });
@@ -60,7 +60,7 @@ describe('Weapon class', () => {
 
         const weaponAspect2 = new WeaponAspect('Shokrug');
 
-        const weapon = new Weapon('Skybreaker', 'Mistblade').addAspects([weaponAspect1, weaponAspect2]);
+        const weapon = new Weapon('Skybreaker', 'Mistblade', 'sword').addAspects([weaponAspect1, weaponAspect2]);
 
         expect(weapon.unlockedAspects).toHaveLength(1);
         expect(weapon.unlockedAspects).toContain(weaponAspect1);
@@ -74,7 +74,7 @@ describe('Weapon class', () => {
         const weaponAspect2 = new WeaponAspect('Shokrug');
         weaponAspect2.unlock();
 
-        const weapon = new Weapon('Skybreaker', 'Mistblade').addAspects([weaponAspect1, weaponAspect2]);
+        const weapon = new Weapon('Skybreaker', 'Mistblade', 'sword').addAspects([weaponAspect1, weaponAspect2]);
 
         expect(weapon.unlockedAspects).toHaveLength(2);
         expect(weapon.unlockedAspects).toContain(weaponAspect1);
@@ -84,7 +84,7 @@ describe('Weapon class', () => {
     it('should set all aspects to unlocked when calling unlockAllAspects', () => {
         const weaponAspect1 = new WeaponAspect('Tarak');
         const weaponAspect2 = new WeaponAspect('Shokrug');
-        const weapon = new Weapon('Skybreaker', 'Mistblade').addAspects([weaponAspect1, weaponAspect2]);
+        const weapon = new Weapon('Skybreaker', 'Mistblade', 'sword').addAspects([weaponAspect1, weaponAspect2]);
 
         weapon.unlockAllAspects();
 
@@ -96,7 +96,7 @@ describe('Weapon class', () => {
     it('should set all aspects to max level when calling maxLevelAllAspects', () => {
         const weaponAspect1 = new WeaponAspect('Tarak');
         const weaponAspect2 = new WeaponAspect('Shokrug');
-        const weapon = new Weapon('Skybreaker', 'Mistblade').addAspects([weaponAspect1, weaponAspect2]);
+        const weapon = new Weapon('Skybreaker', 'Mistblade', 'sword').addAspects([weaponAspect1, weaponAspect2]);
 
         weapon.maxLevelAllAspects();
 
@@ -115,7 +115,7 @@ describe('Weapon class', () => {
         beforeEach(() => {
             weaponAspect1 = new WeaponAspect('Tarak');
             weaponAspect2 = new WeaponAspect('Shokrug');
-            weapon = new Weapon('Skybreaker', 'Mistblade').addAspects([weaponAspect1, weaponAspect2]);
+            weapon = new Weapon('Skybreaker', 'Mistblade', 'sword').addAspects([weaponAspect1, weaponAspect2]);
 
             getRandomItemFromArraySpy = jest.spyOn(utils, 'getRandomItemFromArray').mockImplementation(getRandomItemFromArrayMock);
         });
@@ -152,8 +152,8 @@ describe('Weapon class', () => {
 
 describe('Weapons class', () => {
     it('should unlock all aspects as well as all weapons when calling unlockAll', () => {
-        const weapon1 = new Weapon('Skybreaker', 'Mistblade').addAspects([new WeaponAspect('Tarak'), new WeaponAspect('Shokrug')]);
-        const weapon2 = new Weapon('Lightsaber', 'Weapon of the Jedi').addAspects([new WeaponAspect('Rey'), new WeaponAspect('Luke'), new WeaponAspect('Anakin')]);
+        const weapon1 = new Weapon('Skybreaker', 'Mistblade', 'sword').addAspects([new WeaponAspect('Tarak'), new WeaponAspect('Shokrug')]);
+        const weapon2 = new Weapon('Lightsaber', 'Weapon of the Jedi', 'laser sword').addAspects([new WeaponAspect('Rey'), new WeaponAspect('Luke'), new WeaponAspect('Anakin')]);
         const weapons = new Weapons().addItems([weapon1, weapon2]);
 
         expect(weapons.unlocked).toHaveLength(0);
@@ -172,8 +172,8 @@ describe('Weapons class', () => {
     });
 
     it('should max level all aspects of all weapons when calling maxLevelAll', () => {
-        const weapon1 = new Weapon('Skybreaker', 'Mistblade').addAspects([new WeaponAspect('Tarak'), new WeaponAspect('Shokrug')]);
-        const weapon2 = new Weapon('Lightsaber', 'Weapon of the Jedi').addAspects([new WeaponAspect('Rey'), new WeaponAspect('Luke'), new WeaponAspect('Anakin')]);
+        const weapon1 = new Weapon('Skybreaker', 'Mistblade', 'sword').addAspects([new WeaponAspect('Tarak'), new WeaponAspect('Shokrug')]);
+        const weapon2 = new Weapon('Lightsaber', 'Weapon of the Jedi', 'laser sword').addAspects([new WeaponAspect('Rey'), new WeaponAspect('Luke'), new WeaponAspect('Anakin')]);
         const weapons = new Weapons().addItems([weapon1, weapon2]);
 
         expect(weapon1.aspects[0].level.value).toBe(1);

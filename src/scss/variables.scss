@@ -4,4 +4,14 @@ $caesar-dressing: 'Caesar Dressing', cursive;
 $crimson-text: 'Crimson Text', serif;
 $spectral-sc: 'Spectral SC', serif;
 
-$img-head-path: 'public/img/';
+@mixin alegreya-sans-sc-bold {
+    font-family: $alegreya-sans-sc;
+    font-weight: 700;
+}
+
+@mixin alegreya-sans-sc-extra-bold {
+    font-family: $alegreya-sans-sc;
+    font-weight: 800;
+}
+
+$img-head-path: 'src/img/';

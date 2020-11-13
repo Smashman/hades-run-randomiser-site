@@ -1,0 +1,1 @@
+export { default as adamantArrowhead } from './adamant_arrowhead.png';

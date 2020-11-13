@@ -1,8 +1,11 @@
 import * as React from 'react';
 import { Weapon, WeaponAspect } from '../weapons';
 import { DataContext } from '../data';
-import style from '../scss/weapons.scss';
+import style, { weapon } from '../scss/weapons.scss';
 import LevelControl from './LevelControl';
+import classnames from 'classnames';
+import { normaliseToImagePath } from '../utils';
+import { imgPath, unknownIconPath } from '../paths';
 
 const WeaponsDisplay: React.FC = () => {
     const [data, setData] = React.useContext(DataContext);
@@ -11,66 +14,67 @@ const WeaponsDisplay: React.FC = () => {
 
     const updateWeapons = () => setData((state) => ({...state, weapons}));
     
-    const unlockWeapon = (weapon: Weapon) => {
+    const toggleLock = (weapon: Weapon) => {
         return () => {
-            weapon.unlock();
-            updateWeapons()
+            if (weapon.canBeLocked) {
+                weapon.isUnlocked ? weapon.lock() : weapon.unlock();
+                updateWeapons()
+            }
         }
     }
 
     return (
         <div className={style.weapons}>
-            {weapons.items.map((weapon) => <WeaponOptions weapon={weapon} unlock={unlockWeapon(weapon)} update={updateWeapons}></WeaponOptions>)}
+            {weapons.items.map((weapon, index) => <WeaponOptions weapon={weapon} toggleLock={toggleLock(weapon)} update={updateWeapons} key={`${weapon.shortName}`}></WeaponOptions>)}
         </div>
     )
 };
 
 interface WeaponOptionsProps {
     weapon: Weapon;
-    unlock: () => void;
+    toggleLock: () => void;
     update: () => void;
 }
 
 const WeaponOptions: React.FC<WeaponOptionsProps> = (props) => {
-    const {weapon, unlock, update} = props;
-    if (!weapon.isUnlocked) {
-        return (<div className={style.weapon} onClick={unlock}>LOCKED</div>)
-    }
-    return (<div className={style.weapon}>
-        <div className={style.weaponName}>{weapon.name}</div>
-        <div className={style.weaponTitle}>{`The ${weapon.title}`}</div>
-        <div>{weapon.aspects.map(weaponAspect => <WeaponAspectOptions weaponAspect={weaponAspect} update={update}></WeaponAspectOptions>)}</div>
+    const {weapon, toggleLock, update} = props;
+    return (<div className={classnames(style.weapon, {[style.canBeLocked]: weapon.canBeLocked})}>
+        <div className={style.weaponName} onClick={toggleLock}>{weapon.isUnlocked ? weapon.name : '[Locked]'}</div>
+        <div className={style.weaponTitle}>{weapon.isUnlocked ? `The ${weapon.title}` : 'You have not yet unlocked this weapon'}</div>
+        <div>{weapon.aspects.map((aspect, index) => <WeaponAspectOptions aspect={aspect} weapon={weapon} update={update} key={`${weapon.shortName}Aspect${index}`}></WeaponAspectOptions>)}</div>
     </div>);
 };
 
 interface WeaponAspectOptionsProps {
-    weaponAspect: WeaponAspect;
+    aspect: WeaponAspect;
+    weapon: Weapon;
     update: () => void;
 }
 
 const WeaponAspectOptions: React.FC<WeaponAspectOptionsProps> = (props) => {
-    const {weaponAspect, update} = props;
+    const {aspect, weapon, update} = props;
 
     const unlock = () => {
-        weaponAspect.unlock();
+        aspect.unlock();
         update();
     };
 
-    if (weaponAspect.isUnlocked) {
-        return (
-            <div className={style.aspect}>
-                <div className={style.aspectName}>{weaponAspect.name}</div>
-                <LevelControl level={weaponAspect.level} onLevelChange={update}></LevelControl>
+    const isHiddenAndLocked = () => !weapon.isUnlocked || aspect.isHidden && !aspect.isUnlocked;
+
+    const iconPath = `${imgPath}/weapon/${weapon.shortName}/${normaliseToImagePath(aspect.name)}.png`;
+    const hiddenIconPath = unknownIconPath;
+
+    return (
+        <div className={classnames(style.aspect, {[style.aspectLocked]: !weapon.isUnlocked || !aspect.isUnlocked})} onClick={unlock}>
+            <div className={style.aspectFrame}>
+                <img className={style.aspectIcon} src={!isHiddenAndLocked() ? iconPath : hiddenIconPath} />
             </div>
-        );
-    }
-    else {
-        return (
-            <div className={style.aspect} onClick={unlock}>
-                { weaponAspect.isHidden ? 'HIDDEN' : 'LOCKED' }
+            <div className={style.aspectText}>
+                <div className={style.aspectName}>{`Aspect of ${!isHiddenAndLocked() ? aspect.name : '  ?  ?  ?'}`}</div>
             </div>
-        )
-    }
+            {/* <LevelControl level={aspect.level} onLevelChange={update}></LevelControl> */}
+        </div>
+    );
 };
 
 export default WeaponsDisplay;

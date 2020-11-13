@@ -3,14 +3,17 @@
 exports[`Weapon class should create expected Weapon class instance 1`] = `
 Weapon {
   "aspects": Array [],
+  "canBeLocked": true,
   "isUnlocked": false,
   "name": "Skybreaker",
+  "shortName": "sword",
   "title": "Mistblade",
 }
 `;
 
 exports[`WeaponAspect class should create expected WeaponAspect class instance 1`] = `
 WeaponAspect {
+  "canBeLocked": true,
   "isHidden": false,
   "isUnlocked": false,
   "level": Level {
@@ -24,6 +27,7 @@ WeaponAspect {
 
 exports[`WeaponAspect class should create expected WeaponAspect class instance with more parameters 1`] = `
 WeaponAspect {
+  "canBeLocked": false,
   "isHidden": true,
   "isUnlocked": true,
   "level": Level {

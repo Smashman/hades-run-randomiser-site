@@ -1,11 +1,15 @@
 import { getRandomItemFromArray, Options, ItemList, Item, Level } from './utils';
+// import {adamantArrowhead} from './img/keepsake';
 
 export type KeepsakeConfiguration = [Keepsake] | [Keepsake, Keepsake, Keepsake, Keepsake] | null;
 
 export class Keepsake extends Item {
     level: Level = new Level(1, Keepsake.minLevel, Keepsake.maxLevel);
+    image: string;
     constructor(public name: string, public giver: string, public isHidden: boolean = false) {
         super();
+
+        // this.image = adamantArrowhead;
     }
 
     static minLevel = 1;
