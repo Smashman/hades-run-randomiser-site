@@ -14,6 +14,7 @@ Weapon {
 exports[`WeaponAspect class should create expected WeaponAspect class instance 1`] = `
 WeaponAspect {
   "canBeLocked": true,
+  "icon": "base64:icon!",
   "isHidden": false,
   "isUnlocked": false,
   "level": Level {
@@ -28,6 +29,7 @@ WeaponAspect {
 exports[`WeaponAspect class should create expected WeaponAspect class instance with more parameters 1`] = `
 WeaponAspect {
   "canBeLocked": false,
+  "icon": "base64:icon!",
   "isHidden": true,
   "isUnlocked": true,
   "level": Level {

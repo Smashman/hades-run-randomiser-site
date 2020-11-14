@@ -45,18 +45,18 @@ describe('Item and ItemList classes', () => {
 
         it('should return true for isUnlocked after unlock is called', () => {
             const item = new TestItem();
-            item.unlock();
-    
+
+            item.unlock();    
             expect(item.isUnlocked).toBe(true);
         });
 
         it('should return false for isUnlocked after lock is called', () => {
             const item = new TestItem();
-            item.unlock();
-    
+
+            item.unlock();    
             expect(item.isUnlocked).toBe(true);
-            item.lock();
-    
+
+            item.lock();    
             expect(item.isUnlocked).toBe(false);
         });
     });

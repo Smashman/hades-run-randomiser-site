@@ -1,6 +1,5 @@
 export const getRandomItemFromArray = <T>(array: T[]) => array[Math.floor(Math.random() * array.length)];
 export const fillArray = <T>(length: number, fillValue: T) => Array.from<T>({length: length}).fill(fillValue);
-export const normaliseToImagePath = (name: string) => name.replace(/[ -]/g, '_').toLowerCase();
 
 export interface Options {
     enabled?: boolean;

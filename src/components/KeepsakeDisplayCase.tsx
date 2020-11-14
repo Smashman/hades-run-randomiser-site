@@ -4,8 +4,7 @@ import style from '../scss/keepsakes.scss';
 import { DataContext } from '../data';
 import LevelControl from './LevelControl';
 import classnames from 'classnames';
-import { normaliseToImagePath } from '../utils';
-import { imgPath, unknownIconPath } from '../paths';
+import { unknownIcon } from '../img/misc';
 
 const KeepsakeDisplayCase: React.FC = () => {
     const [data, setData] = React.useContext(DataContext);
@@ -73,14 +72,12 @@ const KeepsakeCubby: React.FC<KeepsakeProps> = ({keepsake, unlock, lock, onLevel
         const splitName = name.split(' ');
         return splitName.length === 2 ? <React.Fragment>{splitName[0]}<br/>{splitName[1]}</React.Fragment> : name;
     }
-    const unlockedIconPath = `${imgPath}/keepsake/${normaliseToImagePath(keepsake.name)}.png`;
-    const lockedIconPath = unknownIconPath;
     return (
         <td>
             <div className={classnames(style.keepsakeCubby, {[style.locked]: !keepsake.isUnlocked, [style.hidden]: keepsake.isHidden && !keepsake.isUnlocked})} onClick={!keepsake.isUnlocked ? unlock : () => {}}>
                 <div className={style.keepsakeName}>{keepsake.isUnlocked ? nameWithBreak(keepsake.name) : keepsake.isHidden ? '[Hidden]' : '[Locked]'}</div>
                 <div className={style.keepsakeBacking} onClick={keepsake.isUnlocked ? lock : () => {}}>
-                    <img className={style.keepsakeIcon} src={keepsake.isUnlocked ? unlockedIconPath : lockedIconPath}/>
+                    <img className={style.keepsakeIcon} src={keepsake.isUnlocked ? keepsake.icon : unknownIcon}/>
                 </div>
                 <LevelControl level={keepsake.level} onLevelChange={onLevelChange} disabled={!keepsake.isUnlocked}/>
             </div>

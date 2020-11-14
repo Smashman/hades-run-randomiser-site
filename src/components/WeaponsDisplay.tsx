@@ -4,8 +4,7 @@ import { DataContext } from '../data';
 import style, { weapon } from '../scss/weapons.scss';
 import LevelControl from './LevelControl';
 import classnames from 'classnames';
-import { normaliseToImagePath } from '../utils';
-import { imgPath, unknownIconPath } from '../paths';
+import { unknownIcon } from '../img/misc';
 
 const WeaponsDisplay: React.FC = () => {
     const [data, setData] = React.useContext(DataContext);
@@ -59,15 +58,14 @@ const WeaponAspectOptions: React.FC<WeaponAspectOptionsProps> = (props) => {
         update();
     };
 
-    const isHiddenAndLocked = () => !weapon.isUnlocked || aspect.isHidden && !aspect.isUnlocked;
+    // @TODO: Ensure aspects cannot be unlocked while weapon is locked
 
-    const iconPath = `${imgPath}/weapon/${weapon.shortName}/${normaliseToImagePath(aspect.name)}.png`;
-    const hiddenIconPath = unknownIconPath;
+    const isHiddenAndLocked = () => !weapon.isUnlocked || aspect.isHidden && !aspect.isUnlocked;
 
     return (
         <div className={classnames(style.aspect, {[style.aspectLocked]: !weapon.isUnlocked || !aspect.isUnlocked})} onClick={unlock}>
             <div className={style.aspectFrame}>
-                <img className={style.aspectIcon} src={!isHiddenAndLocked() ? iconPath : hiddenIconPath} />
+                <img className={style.aspectIcon} src={!isHiddenAndLocked() ? aspect.icon : unknownIcon} />
             </div>
             <div className={style.aspectText}>
                 <div className={style.aspectName}>{`Aspect of ${!isHiddenAndLocked() ? aspect.name : '  ?  ?  ?'}`}</div>

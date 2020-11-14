@@ -14,6 +14,7 @@
     "@types/jest": "^26.0.14",
     "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^26.5.3",
     "node-sass": "^5.0.0",
     "npm-run-all": "^4.1.5",
@@ -32,6 +33,7 @@
     "start": "serve dist",
     "test": "jest",
     "test:watch": "jest --watchAll",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "img:index": "create-index ./src/img --recursive --extensions 'png' --outputFile 'index.ts' --ignoreUnsafe"
   }
 }

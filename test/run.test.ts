@@ -5,6 +5,7 @@ import { Keepsake, KeepsakeOptions } from '../src/keepsakes';
 import { Companion, CompanionOptions } from '../src/companions';
 import { MirrorConfiguration, MirrorTalent } from '../src/mirror';
 import { HeatRange, Pact, PactCondition, PactConfiguration, PactOptions} from '../src/pact';
+import { fakeIcon } from './helpers';
 jest.mock('../src/data');
 
 describe('Run class', () => {
@@ -87,7 +88,7 @@ describe('Run class', () => {
                     randomAspect: true,
                 },
             };
-            const weaponAspect = new WeaponAspect('Tarak');
+            const weaponAspect = new WeaponAspect('Tarak', fakeIcon);
             const weapon = new Weapon('Skybreaker', 'Mistblade', 'sword').addAspect(weaponAspect);
 
             (data.weapons.getRandom as jest.MockedFunction<typeof data.weapons.getRandom>).mockReturnValue(weapon);
@@ -114,7 +115,7 @@ describe('Run class', () => {
             const runOptions: RunOptions = {
                 keepsakeOptions
             };
-            const keepsake = new Keepsake('Shoe', 'Jeff');
+            const keepsake = new Keepsake('Shoe', 'Jeff', fakeIcon);
 
             (data.keepsakes.getRandomKeepsakes as jest.MockedFunction<typeof data.keepsakes.getRandomKeepsakes>).mockReturnValue([keepsake]);
 

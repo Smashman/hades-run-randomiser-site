@@ -5,11 +5,8 @@ export type KeepsakeConfiguration = [Keepsake] | [Keepsake, Keepsake, Keepsake, 
 
 export class Keepsake extends Item {
     level: Level = new Level(1, Keepsake.minLevel, Keepsake.maxLevel);
-    image: string;
-    constructor(public name: string, public giver: string, public isHidden: boolean = false) {
+    constructor(public name: string, public giver: string, public icon: string, public isHidden: boolean = false) {
         super();
-
-        // this.image = adamantArrowhead;
     }
 
     static minLevel = 1;

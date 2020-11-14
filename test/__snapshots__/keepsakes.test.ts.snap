@@ -3,6 +3,7 @@
 exports[`Keepsake class should create expected Keepsake class instance 1`] = `
 Keepsake {
   "giver": "Jeff",
+  "icon": "base64:icon!",
   "isHidden": false,
   "isUnlocked": false,
   "level": Level {
