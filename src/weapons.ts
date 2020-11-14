@@ -1,22 +1,18 @@
 import { Item, ItemList, Options, getRandomItemFromArray, Level } from './utils';
 
-export class WeaponAspect extends Item {
-    level: Level;
-    canBeLocked: boolean = true;
+export interface WeaponOptions extends Options {
+    randomAspect?: boolean;
+}
 
-    constructor(public name: string, public icon: string, initialLevel: number = 1, public isHidden: boolean = false, public isUnlocked: boolean = false){
-        super();
-        this.level = new Level(initialLevel, initialLevel === 0 ? 0 : 1, WeaponAspect.maxLevel);
-        this.canBeLocked = !isUnlocked;
+export class Weapons extends ItemList<Weapon> {
+    unlockAll() {
+        super.unlockAll();
+        this.items.forEach(weapon => weapon.unlockAllAspects());
     }
 
-    lock() {
-        if (this.canBeLocked) {
-            super.lock();
-        }
+    maxLevelAll() {
+        this.items.forEach(weapon => weapon.maxLevelAllAspects());
     }
-
-    static maxLevel = 5;
 }
 
 export class Weapon extends Item {
@@ -61,17 +57,21 @@ export class Weapon extends Item {
     }
 }
 
-export class Weapons extends ItemList<Weapon> {
-    unlockAll() {
-        super.unlockAll();
-        this.items.forEach(weapon => weapon.unlockAllAspects());
+export class WeaponAspect extends Item {
+    level: Level;
+    canBeLocked: boolean = true;
+
+    constructor(public name: string, public icon: string, initialLevel: number = 1, public isHidden: boolean = false, public isUnlocked: boolean = false){
+        super();
+        this.level = new Level(initialLevel, initialLevel === 0 ? 0 : 1, WeaponAspect.maxLevel);
+        this.canBeLocked = !isUnlocked;
     }
 
-    maxLevelAll() {
-        this.items.forEach(weapon => weapon.maxLevelAllAspects());
+    lock() {
+        if (this.canBeLocked) {
+            super.lock();
+        }
     }
-}
 
-export interface WeaponOptions extends Options {
-    randomAspect?: boolean;
+    static maxLevel = 5;
 }

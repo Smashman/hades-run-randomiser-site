@@ -1,31 +1,12 @@
 import { getRandomItemFromArray, Options } from './utils';
 
-export class PactCondition {
-    enforceLimit: boolean = false;
-    private _initialRank: number = 0;
-    constructor(public name: string, public readonly rankCosts: number[], public rankLimit?: number) {
-        this.enforceLimit = !!rankLimit;
-    }
+export interface HeatRange {
+    min?: number;
+    max?: number;
+}
 
-    get initialRank(): number {
-        return this._initialRank;
-    }
-
-    set initialRank(rank: number) {
-        this._initialRank = rank > this.rankCount ? this.rankCount : rank;
-    }
-
-    get rankCount(): number {
-        return this.rankLimit && this.enforceLimit ? this.rankLimit : this.rankCosts.length;
-    }
-
-    get totalHeat(): number {
-        return (this.rankLimit && this.enforceLimit ? this.rankCosts.slice(0, this.rankLimit) : this.rankCosts).reduce((totalHeat, cost) => totalHeat + cost);
-    }
-
-    get initialHeat(): number {
-        return this.rankCosts.slice(0, this.initialRank).reduce((total, value) => total + value, 0);
-    }
+export interface PactOptions extends Options {
+    heatRange?: HeatRange
 }
 
 export class Pact {
@@ -53,33 +34,31 @@ export class Pact {
     }
 }
 
-export class PactConditionConfiguration {
-    private _rank: number = 0;
-
-    constructor(public condition: PactCondition, rank?: number) {
-        this.rank = rank || condition.initialRank;
+export class PactCondition {
+    enforceLimit: boolean = false;
+    private _initialRank: number = 0;
+    constructor(public name: string, public readonly rankCosts: number[], public rankLimit?: number) {
+        this.enforceLimit = !!rankLimit;
     }
 
-    get heat(): number {
-        return this.condition.rankCosts.slice(0, this.rank).reduce((total, value) => total + value, 0);
+    get initialRank(): number {
+        return this._initialRank;
     }
 
-    get rank(): number {
-        return this._rank;
+    set initialRank(rank: number) {
+        this._initialRank = rank > this.rankCount ? this.rankCount : rank;
     }
 
-    set rank(rank: number) {
-        this._rank = rank > this.condition.rankCount ? this.condition.rankCount : rank;
+    get rankCount(): number {
+        return this.rankLimit && this.enforceLimit ? this.rankLimit : this.rankCosts.length;
     }
 
-    rankUp(): number {
-        if (this.rank < this.condition.rankCount) {
-            this.rank++;
-            return this.condition.rankCosts[this.rank-1];
-        }
-        else {
-            return null;
-        }
+    get totalHeat(): number {
+        return (this.rankLimit && this.enforceLimit ? this.rankCosts.slice(0, this.rankLimit) : this.rankCosts).reduce((totalHeat, cost) => totalHeat + cost);
+    }
+
+    get initialHeat(): number {
+        return this.rankCosts.slice(0, this.initialRank).reduce((total, value) => total + value, 0);
     }
 }
 
@@ -126,11 +105,32 @@ export class PactConfiguration {
     }
 }
 
-export interface HeatRange {
-    min?: number;
-    max?: number;
-}
+export class PactConditionConfiguration {
+    private _rank: number = 0;
 
-export interface PactOptions extends Options {
-    heatRange?: HeatRange
+    constructor(public condition: PactCondition, rank?: number) {
+        this.rank = rank || condition.initialRank;
+    }
+
+    get heat(): number {
+        return this.condition.rankCosts.slice(0, this.rank).reduce((total, value) => total + value, 0);
+    }
+
+    get rank(): number {
+        return this._rank;
+    }
+
+    set rank(rank: number) {
+        this._rank = rank > this.condition.rankCount ? this.condition.rankCount : rank;
+    }
+
+    rankUp(): number {
+        if (this.rank < this.condition.rankCount) {
+            this.rank++;
+            return this.condition.rankCosts[this.rank-1];
+        }
+        else {
+            return null;
+        }
+    }
 }

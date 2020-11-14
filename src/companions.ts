@@ -1,18 +1,8 @@
 import { getRandomItemFromArray, Item, Options } from './utils';
 import { ItemList } from './utils';
 
-export class Companion extends Item {
-    level: number = 1;
-    isMaxCodex: boolean = false;
-    constructor(public name: string, public giver: string) {
-        super();
-    }
-
-    static maxLevel: number = 5;
-
-    get isMaxLevel(): boolean {
-        return this.level === Companion.maxLevel;
-    }
+export interface CompanionOptions extends Options {
+    ignoreMaxCodex?: boolean;
 }
 
 export class Companions extends ItemList<Companion> {
@@ -42,6 +32,16 @@ export class Companions extends ItemList<Companion> {
     }
 }
 
-export interface CompanionOptions extends Options {
-    ignoreMaxCodex?: boolean;
+export class Companion extends Item {
+    level: number = 1;
+    isMaxCodex: boolean = false;
+    constructor(public name: string, public giver: string) {
+        super();
+    }
+
+    static maxLevel: number = 5;
+
+    get isMaxLevel(): boolean {
+        return this.level === Companion.maxLevel;
+    }
 }
