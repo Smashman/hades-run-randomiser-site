@@ -27,7 +27,7 @@ describe('WeaponAspect class', () => {
         expect(weaponAspect.isUnlocked).toBe(false);
     });
 
-    it('should return false for isUnlocked after lock is called and canBeLocked is true', () => {
+    it('should return false for isUnlocked after lock is called and canBeLocked is false', () => {
         const weaponAspect = new WeaponAspect('Tarak', fakeIcon, 1, false, true);
 
         expect(weaponAspect.canBeLocked).toBe(false);
@@ -139,7 +139,7 @@ describe('Weapon class', () => {
         expect(weapon.isUnlocked).toBe(false);
     });
 
-    it('should return false for isUnlocked after lock is called and canBeLocked is true', () => {
+    it('should return false for isUnlocked after lock is called and canBeLocked is false', () => {
         const weaponAspect = new WeaponAspect('Tarak', fakeIcon);
         const weapon = new Weapon('Skybreaker', 'Mistblade', 'sword', true).addAspect(weaponAspect);
 
