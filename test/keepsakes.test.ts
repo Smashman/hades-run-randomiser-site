@@ -1,31 +1,31 @@
 import { Keepsake, Keepsakes } from '../src/keepsakes';
 import type { KeepsakeConfiguration } from '../src/keepsakes';
 import * as utils from '../src/utils';
-import { getRandomItemFromArrayMock } from './helpers';
+import { getRandomItemFromArrayMock, fakeIcon } from './helpers';
 
 describe('Keepsake class', () => {
     it('should create expected Keepsake class instance', () => {
-        const keepsake = new Keepsake('Shoe', 'Jeff');
+        const keepsake = new Keepsake('Shoe', 'Jeff', fakeIcon);
 
         expect(keepsake).toMatchSnapshot();
     });
 
     it('should return false for isMaxLevel when level is less than 3', () => {
-        const keepsake = new Keepsake('Shoe', 'Jeff');
+        const keepsake = new Keepsake('Shoe', 'Jeff', fakeIcon);
         keepsake.level.value = 2;
 
         expect(keepsake.isMaxLevel).toBe(false);
     });
 
     it('should return true for isMaxLevel when level is 3', () => {
-        const keepsake = new Keepsake('Shoe', 'Jeff');
+        const keepsake = new Keepsake('Shoe', 'Jeff', fakeIcon);
         keepsake.level.value = 3;
 
         expect(keepsake.isMaxLevel).toBe(true);
     });
 
     it('should set isHidden to true when passed into the constructor', () => {
-        const keepsake = new Keepsake('Shoe', 'Jeff', true);
+        const keepsake = new Keepsake('Shoe', 'Jeff', fakeIcon, true);
 
         expect(keepsake.isHidden).toBe(true);
     });
@@ -33,8 +33,8 @@ describe('Keepsake class', () => {
 
 describe('Keepsakes class', () => {
     it('should return false for isAllMaxLevel if not every keepsake is max level', () => {
-        const keepsake1 = new Keepsake('Shoe', 'Jeff');
-        const keepsake2 = new Keepsake('Coat', 'Delilah');
+        const keepsake1 = new Keepsake('Shoe', 'Jeff', fakeIcon);
+        const keepsake2 = new Keepsake('Coat', 'Delilah', fakeIcon);
         const keepsakes = new Keepsakes().addItems([keepsake1, keepsake2]);
 
         keepsake1.level.value = 3;
@@ -43,8 +43,8 @@ describe('Keepsakes class', () => {
     });
 
     it('should return true for isAllMaxLevel if every keepsake is max level', () => {
-        const keepsake1 = new Keepsake('Shoe', 'Jeff');
-        const keepsake2 = new Keepsake('Coat', 'Delilah');
+        const keepsake1 = new Keepsake('Shoe', 'Jeff', fakeIcon);
+        const keepsake2 = new Keepsake('Coat', 'Delilah', fakeIcon);
         const keepsakes = new Keepsakes().addItems([keepsake1, keepsake2]);
 
         keepsake1.level.value = 3;
@@ -54,8 +54,8 @@ describe('Keepsakes class', () => {
     });
 
     it('should max level all keepsakes when maxLevelAll is called', () => {
-        const keepsake1 = new Keepsake('Shoe', 'Jeff');
-        const keepsake2 = new Keepsake('Coat', 'Delilah');
+        const keepsake1 = new Keepsake('Shoe', 'Jeff', fakeIcon);
+        const keepsake2 = new Keepsake('Coat', 'Delilah', fakeIcon);
         const keepsakes = new Keepsakes().addItems([keepsake1, keepsake2]);
 
         keepsakes.maxLevelAll();
@@ -77,10 +77,10 @@ describe('Keepsakes class', () => {
         let keepsake4: Keepsake;
 
         beforeEach(() => {
-            keepsake1 = new Keepsake('Shoe', 'Jeff'),
-            keepsake2 = new Keepsake('Coat', 'Delilah'),
-            keepsake3 = new Keepsake('Skirt', 'Bob'),
-            keepsake4 = new Keepsake('Scarf', 'Trevor');
+            keepsake1 = new Keepsake('Shoe', 'Jeff', fakeIcon),
+            keepsake2 = new Keepsake('Coat', 'Delilah', fakeIcon),
+            keepsake3 = new Keepsake('Skirt', 'Bob', fakeIcon),
+            keepsake4 = new Keepsake('Scarf', 'Trevor', fakeIcon);
             keepsakes = new Keepsakes().addItems([keepsake1, keepsake2, keepsake3, keepsake4]);
 
             getRandomItemFromArraySpy = jest.spyOn(utils, 'getRandomItemFromArray').mockImplementation(getRandomItemFromArrayMock);

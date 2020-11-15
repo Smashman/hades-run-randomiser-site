@@ -1,24 +1,37 @@
 import { Item, ItemList, Options, getRandomItemFromArray, Level } from './utils';
 
-export class WeaponAspect extends Item {
-    level: Level;
-    constructor(public name: string, initialLevel: number = 1, public isHidden: boolean = false, public isUnlocked: boolean = false){
-        super();
-        this.level = new Level(initialLevel, initialLevel === 0 ? 0 : 1, WeaponAspect.maxLevel);
+export interface WeaponOptions extends Options {
+    randomAspect?: boolean;
+}
+
+export class Weapons extends ItemList<Weapon> {
+    unlockAll() {
+        super.unlockAll();
+        this.items.forEach(weapon => weapon.unlockAllAspects());
     }
 
-    static maxLevel = 5;
+    maxLevelAll() {
+        this.items.forEach(weapon => weapon.maxLevelAllAspects());
+    }
 }
 
 export class Weapon extends Item {
     aspects: WeaponAspect[] = [];
+    canBeLocked: boolean = true;
 
-    constructor(public name: string, public title: string, public isUnlocked: boolean = false){
+    constructor(public name: string, public title: string, public shortName: string, public isUnlocked: boolean = false){
         super();
+        this.canBeLocked = !isUnlocked;
     }
 
     get unlockedAspects() {
         return this.aspects.filter(aspect => aspect.isUnlocked);
+    }
+
+    lock() {
+        if (this.canBeLocked) {
+            super.lock();
+        }
     }
 
     addAspect(aspect: WeaponAspect) {
@@ -44,17 +57,27 @@ export class Weapon extends Item {
     }
 }
 
-export class Weapons extends ItemList<Weapon> {
-    unlockAll() {
-        super.unlockAll();
-        this.items.forEach(weapon => weapon.unlockAllAspects());
+export class WeaponAspect extends Item {
+    level: Level;
+    canBeLocked: boolean = true;
+
+    constructor(public name: string, public icon: string, public isHidden: boolean = false, public isUnlocked: boolean = false){
+        super();
+        const onLevelChange = this.onLevelChange.bind(this);
+        this.level = new Level(0, WeaponAspect.minLevel, WeaponAspect.maxLevel, onLevelChange);
+        this.canBeLocked = !isUnlocked;
     }
 
-    maxLevelAll() {
-        this.items.forEach(weapon => weapon.maxLevelAllAspects());
+    lock() {
+        if (this.canBeLocked) {
+            super.lock();
+        }
     }
-}
 
-export interface WeaponOptions extends Options {
-    randomAspect?: boolean;
+    onLevelChange(level: number) {
+        this.isUnlocked = this.canBeLocked ? level > WeaponAspect.minLevel : true;
+    }
+
+    static minLevel = 0;
+    static maxLevel = 5;
 }

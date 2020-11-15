@@ -5,78 +5,80 @@ import { Mirror, MirrorTalent } from './mirror';
 import { Pact, PactCondition } from './pact';
 import { fillArray } from './utils';
 import * as React from 'react';
+import * as keepsakeIcons from './img/keepsake';
+import * as weaponIcons from './img/weapon';
 
 export const weapons = new Weapons().addItems([
-    new Weapon('Stygius', 'Blade of the Underworld', true)
+    new Weapon('Stygius', 'Blade of the Underworld', 'sword', true)
     .addAspects([
-        new WeaponAspect('Zagreus', 0, false, true),
-        new WeaponAspect('Nemesis'),
-        new WeaponAspect('Poseidon'),
-        new WeaponAspect('Arthur', 1, true),
+        new WeaponAspect('Zagreus', weaponIcons.sword.zagreus, false, true),
+        new WeaponAspect('Nemesis', weaponIcons.sword.nemesis),
+        new WeaponAspect('Poseidon', weaponIcons.sword.poseidon),
+        new WeaponAspect('Arthur', weaponIcons.sword.arthur, true),
     ]),
-    new Weapon('Varatha', 'Eternal Spear')
+    new Weapon('Varatha', 'Eternal Spear', 'spear')
     .addAspects([
-        new WeaponAspect('Zagreus', 0, false, true),
-        new WeaponAspect('Achilles'),
-        new WeaponAspect('Hades'),
-        new WeaponAspect('Guan Yu', 1, true),
+        new WeaponAspect('Zagreus', weaponIcons.spear.zagreus, false, true),
+        new WeaponAspect('Achilles', weaponIcons.spear.achilles),
+        new WeaponAspect('Hades', weaponIcons.spear.hades),
+        new WeaponAspect('Guan Yu', weaponIcons.spear.guanYu, true),
     ]),
-    new Weapon('Coronacht', 'Heart-Seeking Bow')
+    new Weapon('Aegis', 'Shield of Chaos', 'shield')
     .addAspects([
-        new WeaponAspect('Zagreus', 0, false, true),
-        new WeaponAspect('Chiron'),
-        new WeaponAspect('Hera'),
-        new WeaponAspect('Rama', 1, true),
+        new WeaponAspect('Zagreus', weaponIcons.shield.zagreus, false, true),
+        new WeaponAspect('Chaos', weaponIcons.shield.chaos),
+        new WeaponAspect('Zeus', weaponIcons.shield.zeus),
+        new WeaponAspect('Beowulf', weaponIcons.shield.beowulf, true),
     ]),
-    new Weapon('Aegis', 'Shield of Chaos')
+    new Weapon('Coronacht', 'Heart-Seeking Bow', 'bow')
     .addAspects([
-        new WeaponAspect('Zagreus', 0, false, true),
-        new WeaponAspect('Chaos'),
-        new WeaponAspect('Zeus'),
-        new WeaponAspect('Beowulf', 1, true),
+        new WeaponAspect('Zagreus', weaponIcons.bow.zagreus, false, true),
+        new WeaponAspect('Chiron', weaponIcons.bow.chiron),
+        new WeaponAspect('Hera', weaponIcons.bow.hera),
+        new WeaponAspect('Rama', weaponIcons.bow.rama, true),
     ]),
-    new Weapon('Malphon', 'Twin Fists')
+    new Weapon('Malphon', 'Twin Fists', 'fists')
     .addAspects([
-        new WeaponAspect('Zagreus', 0, false, true),
-        new WeaponAspect('Talos'),
-        new WeaponAspect('Demeter'),
-        new WeaponAspect('Gilgamesh', 1, true),
+        new WeaponAspect('Zagreus', weaponIcons.fists.zagreus, false, true),
+        new WeaponAspect('Talos', weaponIcons.fists.talos),
+        new WeaponAspect('Demeter', weaponIcons.fists.demeter),
+        new WeaponAspect('Gilgamesh', weaponIcons.fists.gilgamesh, true),
     ]),
-    new Weapon('Exagryph', 'Adamant Rail')
+    new Weapon('Exagryph', 'Adamant Rail', 'gun')
     .addAspects([
-        new WeaponAspect('Zagreus', 0, false, true),
-        new WeaponAspect('Eris'),
-        new WeaponAspect('Hestia'),
-        new WeaponAspect('Lucifer', 1, true),
+        new WeaponAspect('Zagreus', weaponIcons.gun.zagreus, false, true),
+        new WeaponAspect('Eris', weaponIcons.gun.eris),
+        new WeaponAspect('Hestia', weaponIcons.gun.hestia),
+        new WeaponAspect('Lucifer', weaponIcons.gun.lucifer, true),
     ]),
 ]);
 
 export const keepsakes = new Keepsakes().addItems([
-    new Keepsake('Old Spiked Collar', 'Cerberus'),
-    new Keepsake('Myrmidon Bracer', 'Achilles'),
-    new Keepsake('Black Shawl', 'Nyx'),
-    new Keepsake('Pierced Butterfly', 'Thanatos'),
-    new Keepsake('Bone Hourglass', 'Charon'),
-    new Keepsake('Chthonic Coin Purse', 'Hypnos'),
-    new Keepsake('Skull Earring', 'Megaera'),
-    new Keepsake('Distant Memory', 'Orpheus'),
-    new Keepsake('Harpy Feather Duster', 'Dusa'),
-    new Keepsake('Lucky Tooth', 'Skelly'),
-    new Keepsake('Thunder Signet', 'Zeus'),
-    new Keepsake('Conch Shell', 'Poseidon'),
-    new Keepsake('Owl Pendant', 'Athena'),
-    new Keepsake('Eternal Rose', 'Aphrodite'),
-    new Keepsake('Blood-Filled Vial', 'Ares'),
-    new Keepsake('Adamant Arrowhead', 'Artemis'),
-    new Keepsake('Overflowing Cup', 'Dionysus'),
-    new Keepsake('Lambent Plume', 'Hermes'),
-    new Keepsake('Frostbitten Horn', 'Demeter'),
-    new Keepsake('Cosmic Egg', 'Chaos'),
-    new Keepsake('Shattered Shackle', 'Sisyphus'),
-    new Keepsake('Evergreen Acorn', 'Eurydice'),
-    new Keepsake('Broken Spearpoint', 'Patroclus'),
-    new Keepsake('Pom Blossom', 'Persephone'),
-    new Keepsake('Sigil of the Dead', 'Hades', true),
+    new Keepsake('Old Spiked Collar', 'Cerberus', keepsakeIcons.oldSpikedCollar),
+    new Keepsake('Myrmidon Bracer', 'Achilles', keepsakeIcons.myrmidonBracer),
+    new Keepsake('Black Shawl', 'Nyx', keepsakeIcons.blackShawl),
+    new Keepsake('Pierced Butterfly', 'Thanatos', keepsakeIcons.piercedButterfly),
+    new Keepsake('Bone Hourglass', 'Charon', keepsakeIcons.boneHourglass),
+    new Keepsake('Chthonic Coin Purse', 'Hypnos', keepsakeIcons.chthonicCoinPurse),
+    new Keepsake('Skull Earring', 'Megaera', keepsakeIcons.skullEarring),
+    new Keepsake('Distant Memory', 'Orpheus', keepsakeIcons.distantMemory),
+    new Keepsake('Harpy Feather Duster', 'Dusa', keepsakeIcons.harpyFeatherDuster),
+    new Keepsake('Lucky Tooth', 'Skelly', keepsakeIcons.luckyTooth),
+    new Keepsake('Thunder Signet', 'Zeus', keepsakeIcons.thunderSignet),
+    new Keepsake('Conch Shell', 'Poseidon', keepsakeIcons.conchShell),
+    new Keepsake('Owl Pendant', 'Athena', keepsakeIcons.owlPendant),
+    new Keepsake('Eternal Rose', 'Aphrodite', keepsakeIcons.eternalRose),
+    new Keepsake('Blood-Filled Vial', 'Ares', keepsakeIcons.bloodFilledVial),
+    new Keepsake('Adamant Arrowhead', 'Artemis', keepsakeIcons.adamantArrowhead),
+    new Keepsake('Overflowing Cup', 'Dionysus', keepsakeIcons.overflowingCup),
+    new Keepsake('Lambent Plume', 'Hermes', keepsakeIcons.lambentPlume),
+    new Keepsake('Frostbitten Horn', 'Demeter', keepsakeIcons.frostbittenHorn),
+    new Keepsake('Cosmic Egg', 'Chaos', keepsakeIcons.cosmicEgg),
+    new Keepsake('Shattered Shackle', 'Sisyphus', keepsakeIcons.shatteredShackle),
+    new Keepsake('Evergreen Acorn', 'Eurydice', keepsakeIcons.evergreenAcorn),
+    new Keepsake('Broken Spearpoint', 'Patroclus', keepsakeIcons.brokenSpearpoint),
+    new Keepsake('Pom Blossom', 'Persephone', keepsakeIcons.pomBlossom),
+    new Keepsake('Sigil of the Dead', 'Hades', keepsakeIcons.sigilOfTheDead, true),
 ]);
 
 export const companions = new Companions().addItems([

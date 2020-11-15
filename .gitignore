@@ -2,5 +2,5 @@ node_modules
 
 dist/*
 !dist/index.html
-# !dist/public/
+src/img/**/*.png
 coverage/

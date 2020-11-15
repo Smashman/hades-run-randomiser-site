@@ -1,36 +1,8 @@
 import { getRandomItemFromArray, Item, Options } from './utils';
 
-export class MirrorTalent {
-    rankCount: number;
-    colour: "red" | "green";
-    totalCost: number;
+export interface MirrorOptions extends Options {
 
-    constructor(public name: string, public rankCosts: number[]) {
-        this.rankCount = rankCosts.length;
-        this.totalCost = rankCosts.reduce((totalCost, cost) => totalCost + cost);
-    }
-}
-
-export class MirrorTalentSet {
-    constructor(public talents: [MirrorTalent, MirrorTalent]) {
-        talents[0].colour = "red";
-        talents[1].colour = "green";
-    }
-
-    getRandom(): MirrorTalent {
-        return getRandomItemFromArray(this.talents);
-    }
-}
-
-export class MirrorGroup extends Item{
-    constructor(public sets: [MirrorTalentSet, MirrorTalentSet], public isUnlocked: boolean = false) {
-        super();
-    }
-
-    getRandom() {
-        return <[MirrorTalent, MirrorTalent]>this.sets.map(set => set.getRandom());
-    }
-}
+};
 
 export class Mirror {
     groups: MirrorGroup[] = [];
@@ -54,13 +26,41 @@ export class Mirror {
     }
 }
 
+export class MirrorGroup extends Item{
+    constructor(public sets: [MirrorTalentSet, MirrorTalentSet], public isUnlocked: boolean = false) {
+        super();
+    }
+
+    getRandom() {
+        return <[MirrorTalent, MirrorTalent]>this.sets.map(set => set.getRandom());
+    }
+}
+
+export class MirrorTalentSet {
+    constructor(public talents: [MirrorTalent, MirrorTalent]) {
+        talents[0].colour = "red";
+        talents[1].colour = "green";
+    }
+
+    getRandom(): MirrorTalent {
+        return getRandomItemFromArray(this.talents);
+    }
+}
+
+export class MirrorTalent {
+    rankCount: number;
+    colour: "red" | "green";
+    totalCost: number;
+
+    constructor(public name: string, public rankCosts: number[]) {
+        this.rankCount = rankCosts.length;
+        this.totalCost = rankCosts.reduce((totalCost, cost) => totalCost + cost);
+    }
+}
+
 export class MirrorConfiguration {
     totalDarkness: number;
     constructor(public talents: MirrorTalent[]){
         this.totalDarkness = talents.reduce((totalCost, talent) => totalCost + talent.totalCost, 0);
     };
 }
-
-export interface MirrorOptions extends Options {
-
-};

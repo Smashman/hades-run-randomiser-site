@@ -68,7 +68,7 @@ table.display-case {
     
     .keepsake-name {
         cursor: default;
-        font-family: $alegreya-sans-sc;
+        @include alegreya-sans-sc-bold;
         color: white;
         font-size: 1.1em;
         line-height: 21px;
@@ -84,7 +84,7 @@ table.display-case {
 
         width: $size;
         height: $size;
-        background-image: url(public/img/keepsake/backing.png);
+        background-image: url($img-head-path + 'keepsake/backing.png');
         background-size: $size;
         background-repeat: no-repeat;
 

@@ -7,15 +7,18 @@
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^16.0.0",
+    "@rollup/plugin-image": "^2.0.5",
     "@rollup/plugin-node-resolve": "^10.0.0",
     "@rollup/plugin-typescript": "^6.0.0",
     "@types/classnames": "^2.2.11",
     "@types/jest": "^26.0.14",
     "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^26.5.3",
     "node-sass": "^5.0.0",
     "npm-run-all": "^4.1.5",
+    "postcss-image-inliner": "^4.0.3",
     "rollup": "^2.29.0",
     "rollup-plugin-postcss-modules": "^2.0.2",
     "serve": "^11.3.2",
@@ -30,6 +33,7 @@
     "start": "serve dist",
     "test": "jest",
     "test:watch": "jest --watchAll",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "img:index": "create-index ./src/img --recursive --extensions 'png' --outputFile 'index.ts' --ignoreUnsafe"
   }
 }

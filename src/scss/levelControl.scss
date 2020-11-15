@@ -5,87 +5,97 @@
     align-items: center;
     justify-content: space-between;
     flex-direction: column;
-    padding: 0 6px;
+    padding: 0 14%;
     width: 100%;
+}
 
-    .star-container {
-        display: flex;
-        flex-direction: row;
-        margin-bottom: 6px;
-        .star {
-            background-image: url($img-head-path + 'level/rank_star.png');
-            background-size: contain;
-            width: 24px * 0.75;
-            height: 22px * 0.75;
+.star-container {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 6px;
+    .star {
+        background-image: url($img-head-path + 'level/rank_star.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 17px;
+        height: 16.5px;
 
-            &.inactive {
-                filter: brightness(0.3);
-            }
+        &.inactive {
+            filter: brightness(0.3);
         }
     }
 
-    &.disabled .star-container .star {
+    &.disabled .star {
         filter: brightness(0.3);
     }
+}
 
-    .button-container {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
+@mixin button-color($color) {
+    $top-color: adjust-color($color, $lightness: 23, $saturation: 18);
 
-        .level-button {
-            font-family: $alegreya-sans-sc;
-            font-size: 1.5em;
-            color: white;
-            width: 40%;
-            background-image: linear-gradient(to bottom, #62584d, #464646);
-            padding: 0;
-            border-width: 1px;
-            border-style: solid;
-            border-color: #242424;
-            border-radius: 20%;
+    &:hover {
+        background-image: linear-gradient(to bottom, $top-color, $color);
+        filter: drop-shadow(0 0 0.75em $color);
+    }
 
-            $inside-border-radius: 5%;
+    &:focus {
+        outline: $top-color auto 1px;
+    }
+}
 
-            &:first-of-type {
-                border-top-right-radius: $inside-border-radius;
-                border-bottom-right-radius: $inside-border-radius;
-            }
+.button-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 
-            &:last-of-type {
-                border-top-left-radius: $inside-border-radius;
-                border-bottom-left-radius: $inside-border-radius;
-            }
+    .level-button {
+        @include alegreya-sans-sc-extra-bold;
+        font-size: 1.5em;
+        color: white;
+        width: 50%;
+        background-image: linear-gradient(to bottom, #62584d, #464646);
+        padding: 0;
+        border-width: 1px;
+        border-style: solid;
+        border-color: #242424;
+        border-radius: 20%;
 
-            $purple: #6545a1;
-            $light-purple: #a181dd;
+        $inside-border-radius: 5%;
+
+        &:first-of-type {
+            border-top-right-radius: $inside-border-radius;
+            border-bottom-right-radius: $inside-border-radius;
+        }
+
+        &:last-of-type {
+            border-top-left-radius: $inside-border-radius;
+            border-bottom-left-radius: $inside-border-radius;
+        }
+
+        $purple: #6545a1;
+        // $light-purple: #a181dd;
+        @include button-color($purple);
+
+        &.aspect {
+            @include button-color(#b2871a);
+        }
+
+        &:disabled, &.aspect:disabled {
+            $disabled-colour: #363636;
+
+            background-image: none;
+            background-color: #464646;
+            color: $disabled-colour;
+            border-color: $disabled-colour;
 
             &:hover {
-                background-image: linear-gradient(to bottom, $light-purple, $purple);
-                filter: drop-shadow(0 0 0.75em $purple);
-            }
-
-            &:focus {
-                outline: $light-purple auto 1px;
-            }
-
-            &:disabled {
-                $disabled-colour: #363636;
-
-                background-image: none;
-                background-color: #464646;
-                color: $disabled-colour;
-                border-color: $disabled-colour;
-
-                &:hover {
-                    filter: none;
-                }
+                filter: none;
             }
         }
     }
 
-    &.disabled .button-container {
+    &.disabled .level-button {
         pointer-events: none;
     }
 }

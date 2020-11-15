@@ -45,18 +45,18 @@ describe('Item and ItemList classes', () => {
 
         it('should return true for isUnlocked after unlock is called', () => {
             const item = new TestItem();
-            item.unlock();
-    
+
+            item.unlock();    
             expect(item.isUnlocked).toBe(true);
         });
 
         it('should return false for isUnlocked after lock is called', () => {
             const item = new TestItem();
-            item.unlock();
-    
+
+            item.unlock();    
             expect(item.isUnlocked).toBe(true);
-            item.lock();
-    
+
+            item.lock();    
             expect(item.isUnlocked).toBe(false);
         });
     });
@@ -232,5 +232,26 @@ describe('Level', () => {
         level.decrement();
 
         expect(level.value).toBe(3);
+    });
+
+    it('should call onChange with level value changed to', () => {
+        const onChangeSpy = jest.fn();
+
+        const level = new Level(1, 1, 4, onChangeSpy);
+
+        level.value = 2;
+
+        expect(onChangeSpy).toHaveBeenCalledTimes(1);
+        expect(onChangeSpy).toHaveBeenCalledWith(2);
+    });
+
+    it('should not call onChange if level value has not changed', () => {
+        const onChangeSpy = jest.fn();
+
+        const level = new Level(1, 1, 4, onChangeSpy);
+
+        level.value = 1;
+
+        expect(onChangeSpy).toHaveBeenCalledTimes(0);
     });
 });
