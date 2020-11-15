@@ -61,9 +61,10 @@ export class WeaponAspect extends Item {
     level: Level;
     canBeLocked: boolean = true;
 
-    constructor(public name: string, public icon: string, initialLevel: number = 1, public isHidden: boolean = false, public isUnlocked: boolean = false){
+    constructor(public name: string, public icon: string, public isHidden: boolean = false, public isUnlocked: boolean = false){
         super();
-        this.level = new Level(initialLevel, initialLevel === 0 ? 0 : 1, WeaponAspect.maxLevel);
+        const onLevelChange = this.onLevelChange.bind(this);
+        this.level = new Level(0, WeaponAspect.minLevel, WeaponAspect.maxLevel, onLevelChange);
         this.canBeLocked = !isUnlocked;
     }
 
@@ -73,5 +74,10 @@ export class WeaponAspect extends Item {
         }
     }
 
+    onLevelChange(level: number) {
+        this.isUnlocked = this.canBeLocked ? level > WeaponAspect.minLevel : true;
+    }
+
+    static minLevel = 0;
     static maxLevel = 5;
 }

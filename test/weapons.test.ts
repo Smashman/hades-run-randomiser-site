@@ -10,7 +10,7 @@ describe('WeaponAspect class', () => {
     });
 
     it('should create expected WeaponAspect class instance with more parameters', () => {
-        const weaponAspect = new WeaponAspect('Tarak', fakeIcon, 0, true, true);
+        const weaponAspect = new WeaponAspect('Tarak', fakeIcon, true, true);
 
         expect(weaponAspect).toMatchSnapshot();
     });
@@ -28,12 +28,64 @@ describe('WeaponAspect class', () => {
     });
 
     it('should return false for isUnlocked after lock is called and canBeLocked is false', () => {
-        const weaponAspect = new WeaponAspect('Tarak', fakeIcon, 1, false, true);
+        const weaponAspect = new WeaponAspect('Tarak', fakeIcon, false, true);
 
         expect(weaponAspect.canBeLocked).toBe(false);
         expect(weaponAspect.isUnlocked).toBe(true);
 
         weaponAspect.lock();
+        expect(weaponAspect.isUnlocked).toBe(true);
+    });
+
+    it('should set isUnlocked to true when changing level above 0 when canBeLocked is true', () => {
+        const weaponAspect = new WeaponAspect('Tarak', fakeIcon);
+
+        expect(weaponAspect.canBeLocked).toBe(true);
+        expect(weaponAspect.isUnlocked).toBe(false);
+
+        weaponAspect.level.value = 1;
+
+        expect(weaponAspect.isUnlocked).toBe(true);
+    });
+
+    it('should set isUnlocked to false when changing level to 0 when canBeLocked is true', () => {
+        const weaponAspect = new WeaponAspect('Tarak', fakeIcon);
+
+        expect(weaponAspect.canBeLocked).toBe(true);
+        expect(weaponAspect.isUnlocked).toBe(false);
+
+        weaponAspect.level.value = 1;
+
+        expect(weaponAspect.isUnlocked).toBe(true);
+
+        weaponAspect.level.value = 0;
+
+        expect(weaponAspect.isUnlocked).toBe(false);
+    });
+
+    it('should not change isUnlocked when changing level above 0 when canBeLocked is false', () => {
+        const weaponAspect = new WeaponAspect('Tarak', fakeIcon, false, true);
+
+        expect(weaponAspect.canBeLocked).toBe(false);
+        expect(weaponAspect.isUnlocked).toBe(true);
+
+        weaponAspect.level.value = 1;
+
+        expect(weaponAspect.isUnlocked).toBe(true);
+    });
+
+    it('should not change isUnlocked when changing level to 0 when canBeLocked is false', () => {
+        const weaponAspect = new WeaponAspect('Tarak', fakeIcon, false, true);
+
+        expect(weaponAspect.canBeLocked).toBe(false);
+        expect(weaponAspect.isUnlocked).toBe(true);
+
+        weaponAspect.level.value = 1;
+
+        expect(weaponAspect.isUnlocked).toBe(true);
+
+        weaponAspect.level.value = 0;
+
         expect(weaponAspect.isUnlocked).toBe(true);
     });
 });
@@ -222,11 +274,11 @@ describe('Weapons class', () => {
         const weapon2 = new Weapon('Lightsaber', 'Weapon of the Jedi', 'laser sword').addAspects([new WeaponAspect('Rey', fakeIcon), new WeaponAspect('Luke', fakeIcon), new WeaponAspect('Anakin', fakeIcon)]);
         const weapons = new Weapons().addItems([weapon1, weapon2]);
 
-        expect(weapon1.aspects[0].level.value).toBe(1);
-        expect(weapon1.aspects[1].level.value).toBe(1);
-        expect(weapon2.aspects[0].level.value).toBe(1);
-        expect(weapon2.aspects[1].level.value).toBe(1);
-        expect(weapon2.aspects[2].level.value).toBe(1);
+        expect(weapon1.aspects[0].level.value).toBe(0);
+        expect(weapon1.aspects[1].level.value).toBe(0);
+        expect(weapon2.aspects[0].level.value).toBe(0);
+        expect(weapon2.aspects[1].level.value).toBe(0);
+        expect(weapon2.aspects[2].level.value).toBe(0);
 
         weapons.maxLevelAll();
 

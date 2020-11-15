@@ -5,6 +5,7 @@ export const inactive: string
 export const disabled: string
 export const buttonContainer: string
 export const levelButton: string
+export const aspect: string
 interface Namespace {
 	"levelControl": string,
 	"level-control": string,
@@ -17,6 +18,7 @@ interface Namespace {
 	"button-container": string,
 	"levelButton": string,
 	"level-button": string,
+	"aspect": string,
 }
 declare const levelControlScss: Namespace
 export default levelControlScss

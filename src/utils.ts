@@ -44,9 +44,10 @@ export abstract class ItemList<T extends Item> {
 }
 
 export class Level {
-    constructor(protected _value: number, readonly min: number, readonly max: number) {}
+    constructor(protected _value: number, readonly min: number, readonly max: number, readonly onChange?: (level: number) => void) {}
 
     set value(setTo: number) {
+        const previousValue = this._value;
         if (setTo >= this.max) {
             this._value = this.max;
         }
@@ -55,6 +56,9 @@ export class Level {
         }
         else {
             this._value = setTo;
+        }
+        if (this.onChange && previousValue !== this._value) {
+            this.onChange(this._value);
         }
     }
 

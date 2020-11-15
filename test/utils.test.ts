@@ -233,4 +233,25 @@ describe('Level', () => {
 
         expect(level.value).toBe(3);
     });
+
+    it('should call onChange with level value changed to', () => {
+        const onChangeSpy = jest.fn();
+
+        const level = new Level(1, 1, 4, onChangeSpy);
+
+        level.value = 2;
+
+        expect(onChangeSpy).toHaveBeenCalledTimes(1);
+        expect(onChangeSpy).toHaveBeenCalledWith(2);
+    });
+
+    it('should not call onChange if level value has not changed', () => {
+        const onChangeSpy = jest.fn();
+
+        const level = new Level(1, 1, 4, onChangeSpy);
+
+        level.value = 1;
+
+        expect(onChangeSpy).toHaveBeenCalledTimes(0);
+    });
 });

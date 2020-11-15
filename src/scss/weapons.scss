@@ -29,9 +29,12 @@ $highlight-color: #3c4036;
         border-bottom: 2px solid #76784c;
         user-select: none;
     }
-    &.can-be-locked .weapon-name:hover {
+    &.can-be-locked .weapon-header:hover,
+    &.can-be-locked.is-locked:hover {
         cursor: pointer;
-        text-shadow: 0 0 0.3em white, $weapon-name-shadow;
+        .weapon-name {
+            text-shadow: 0 0 0.3em white, $weapon-name-shadow;
+        }
     }
     .weapon-title {
         font-family: $crimson-text;
@@ -40,7 +43,7 @@ $highlight-color: #3c4036;
         background-color: #222420;
         padding: 0.2em;
         margin-bottom: 1px;
-        cursor: default;
+        user-select: none;
     }
 }
 
@@ -78,21 +81,38 @@ $highlight-color: #3c4036;
         }
     }
 
-    .aspect-text {
+    .aspect-right {
         display: flex;
         height: 100%;
         flex-grow: 1;
-        align-content: flex-start;
-        padding-top: 10px;
-        padding-left: 2px;
+        align-items: center;
+        padding: 10px 14px 10px 2px;
+        flex-direction: row;
 
-        .aspect-name {
-            @include alegreya-sans-sc-bold;
-            color: white;
-            font-size: 1.2em;
-            white-space: pre;
+        .aspect-level-buttons {
+            width: 5.3em;
         }
     }
+    .aspect-level {
+        display: flex;
+        height: 100%;
+        flex-grow: 1;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+    .aspect-name, .aspect-level-text {
+        @include alegreya-sans-sc-bold;
+        color: white;
+        text-shadow: 0 0.05em 0 black;
+        font-size: 1.2em;
+        white-space: pre;
+    }
+
+    .aspect-level-text {
+        width: 2em;
+    }
+
     &.aspect-locked {
         .aspect-frame {
             .aspect-icon {
