@@ -59,6 +59,32 @@ describe('Item and ItemList classes', () => {
             item.lock();    
             expect(item.isUnlocked).toBe(false);
         });
+
+        describe('toStorableData', () => {
+            it('should return expected storable data', () => {
+                const item = new TestItem();
+        
+                expect(item.toStorableData()).toMatchSnapshot();
+            });
+
+            it('should return expected storable data when unlocked', () => {
+                const item = new TestItem();
+                item.unlock();
+        
+                expect(item.toStorableData()).toMatchSnapshot();
+            });
+        });
+
+        describe('fromStoredData', () => {
+            it('should return expected Item instance after loading from stored data', () => {
+                const item = new TestItem();
+                item.fromStoredData({
+                    isUnlocked: true,
+                });
+
+                expect(item).toMatchSnapshot();
+            });
+        });
     });
 
     describe('ItemList', () => {
@@ -142,6 +168,41 @@ describe('Item and ItemList classes', () => {
                 const randomItem = itemList.getRandom();
     
                 expect(randomItem).toBe(item2);
+            });
+        });
+
+        describe('toStorableData', () => {
+            it('should return expected storable data', () => {
+                const item1 = new TestItem();
+                const item2 = new TestItem();
+                const itemList = new TestItemList().addItems([item1, item2]);
+        
+                expect(itemList.toStorableData()).toMatchSnapshot();
+            });
+
+            it('should return expected storable data when unlocked', () => {
+                const item1 = new TestItem();
+                const item2 = new TestItem();
+                const itemList = new TestItemList().addItems([item1, item2]);
+                item1.unlock();
+        
+                expect(itemList.toStorableData()).toMatchSnapshot();
+            });
+        });
+
+        describe('fromStoredData', () => {
+            it('should return expected Item instance after loading from stored data', () => {
+                const item1 = new TestItem();
+                const item2 = new TestItem();
+                const itemList = new TestItemList().addItems([item1, item2]);
+                itemList.fromStoredData({
+                    items: [
+                        {isUnlocked: true},
+                        {isUnlocked: false},
+                    ],
+                });
+
+                expect(itemList).toMatchSnapshot();
             });
         });
     });

@@ -1,5 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Keepsake class fromStoredData should retun expected Keepsake instance after loading from data 1`] = `
+Keepsake {
+  "giver": "Jeff",
+  "icon": "base64:icon!",
+  "isHidden": false,
+  "isUnlocked": true,
+  "level": Level {
+    "_value": 2,
+    "max": 3,
+    "min": 1,
+    "onChange": undefined,
+  },
+  "name": "Shoe",
+}
+`;
+
 exports[`Keepsake class should create expected Keepsake class instance 1`] = `
 Keepsake {
   "giver": "Jeff",
@@ -13,5 +29,49 @@ Keepsake {
     "onChange": undefined,
   },
   "name": "Shoe",
+}
+`;
+
+exports[`Keepsake class toStorableData should return expected storable data 1`] = `
+Object {
+  "isUnlocked": false,
+  "level": 1,
+}
+`;
+
+exports[`Keepsake class toStorableData should return expected storable data with level 1`] = `
+Object {
+  "isUnlocked": false,
+  "level": 3,
+}
+`;
+
+exports[`Keepsakes class toStorableData should return expected storable data 1`] = `
+Object {
+  "items": Array [
+    Object {
+      "isUnlocked": false,
+      "level": 1,
+    },
+    Object {
+      "isUnlocked": false,
+      "level": 1,
+    },
+  ],
+}
+`;
+
+exports[`Keepsakes class toStorableData should return expected storable data with level 1`] = `
+Object {
+  "items": Array [
+    Object {
+      "isUnlocked": false,
+      "level": 3,
+    },
+    Object {
+      "isUnlocked": false,
+      "level": 1,
+    },
+  ],
 }
 `;

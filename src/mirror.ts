@@ -1,4 +1,4 @@
-import { getRandomItemFromArray, Item, Options } from './utils';
+import { getRandomItemFromArray, Item, Options, StorableItemData } from './utils';
 
 export interface MirrorOptions extends Options {
 
@@ -23,6 +23,12 @@ export class Mirror {
 
     getRandom(): MirrorConfiguration {
         return new MirrorConfiguration(this.unlockedGroups.map(group => group.getRandom()).reduce((acc, val) => [...acc, ...val], <MirrorTalent[]>[]));
+    }
+
+    toStorableData() {
+        return {
+            groups: this.groups.map(group => group.toStorableData())
+        }
     }
 }
 

@@ -8,4 +8,11 @@
 body {
     font-family: $alegreya-sans;
     margin: 0;
+    background: black;
+}
+
+.app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

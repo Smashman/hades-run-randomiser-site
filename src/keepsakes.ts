@@ -1,8 +1,12 @@
-import { getRandomItemFromArray, Options, ItemList, Item, Level } from './utils';
+import { getRandomItemFromArray, Options, ItemList, Item, Level, StorableItemListData, StorableItemData } from './utils';
 
 export interface KeepsakeOptions extends Options {
     ignoreMaxLevel?: boolean;
     changeBetweenBiomes?: boolean;
+}
+
+export interface StorableKeepsakesData extends StorableItemListData<StorableKeepsakeData> {
+
 }
 
 export class Keepsakes extends ItemList<Keepsake> {
@@ -37,6 +41,10 @@ export class Keepsakes extends ItemList<Keepsake> {
     }
 }
 
+interface StorableKeepsakeData extends StorableItemData {
+    level: number;
+}
+
 export class Keepsake extends Item {
     level: Level = new Level(1, Keepsake.minLevel, Keepsake.maxLevel);
     constructor(public name: string, public giver: string, public icon: string, public isHidden: boolean = false) {
@@ -48,6 +56,16 @@ export class Keepsake extends Item {
 
     get isMaxLevel(): boolean {
         return this.level.isMaxLevel();
+    }
+
+    toStorableData(): StorableKeepsakeData {
+        const itemData = super.toStorableData();
+        return {...itemData, level: this.level.value};
+    }
+
+    fromStoredData(storableData: StorableKeepsakeData) {
+        super.fromStoredData(storableData);
+        this.level.value = storableData.level;
     }
 }
 

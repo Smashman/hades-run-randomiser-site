@@ -1,14 +1,71 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Item and ItemList classes Item fromStoredData should return expected Item instance after loading from stored data 1`] = `
+TestItem {
+  "isUnlocked": true,
+}
+`;
+
 exports[`Item and ItemList classes Item should create the expected Item class 1`] = `
 TestItem {
   "isUnlocked": false,
 }
 `;
 
+exports[`Item and ItemList classes Item toStorableData should return expected storable data 1`] = `
+Object {
+  "isUnlocked": false,
+}
+`;
+
+exports[`Item and ItemList classes Item toStorableData should return expected storable data when unlocked 1`] = `
+Object {
+  "isUnlocked": true,
+}
+`;
+
+exports[`Item and ItemList classes ItemList fromStoredData should return expected Item instance after loading from stored data 1`] = `
+TestItemList {
+  "items": Array [
+    TestItem {
+      "isUnlocked": true,
+    },
+    TestItem {
+      "isUnlocked": false,
+    },
+  ],
+}
+`;
+
 exports[`Item and ItemList classes ItemList should create expected ItemList class instance 1`] = `
 TestItemList {
   "items": Array [],
+}
+`;
+
+exports[`Item and ItemList classes ItemList toStorableData should return expected storable data 1`] = `
+Object {
+  "items": Array [
+    Object {
+      "isUnlocked": false,
+    },
+    Object {
+      "isUnlocked": false,
+    },
+  ],
+}
+`;
+
+exports[`Item and ItemList classes ItemList toStorableData should return expected storable data when unlocked 1`] = `
+Object {
+  "items": Array [
+    Object {
+      "isUnlocked": true,
+    },
+    Object {
+      "isUnlocked": false,
+    },
+  ],
 }
 `;
 

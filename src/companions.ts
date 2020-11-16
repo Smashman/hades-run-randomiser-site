@@ -1,4 +1,4 @@
-import { getRandomItemFromArray, Item, Options } from './utils';
+import { getRandomItemFromArray, Item, Level, Options } from './utils';
 import { ItemList } from './utils';
 
 export interface CompanionOptions extends Options {
@@ -20,7 +20,7 @@ export class Companions extends ItemList<Companion> {
     }
 
     maxLevelAll() {
-        this.items.forEach(companion => companion.level = Companion.maxLevel);
+        this.items.forEach(companion => companion.level.setMaxLevel());
     }
 
     get isAllUnlockedMaxLevel() {
@@ -33,15 +33,25 @@ export class Companions extends ItemList<Companion> {
 }
 
 export class Companion extends Item {
-    level: number = 1;
+    level: Level = new Level(1, Companion.minLevel, Companion.maxLevel);
     isMaxCodex: boolean = false;
     constructor(public name: string, public giver: string) {
         super();
     }
 
+    static minLevel: number = 1;
     static maxLevel: number = 5;
 
     get isMaxLevel(): boolean {
-        return this.level === Companion.maxLevel;
+        return this.level.isMaxLevel();
+    }
+
+    toStorableData() {
+        const itemData = super.toStorableData();
+        return {
+            ...itemData,
+            level: this.level.value,
+            isMaxCodex: this.isMaxCodex,
+        }
     }
 }

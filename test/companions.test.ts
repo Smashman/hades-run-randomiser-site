@@ -11,14 +11,14 @@ describe('Companion class', () => {
 
     it('should return false for isMaxLevel when level is less than 5', () => {
         const companion = new Companion('Fluff', 'Jeff');
-        companion.level = 4;
+        companion.level.value = 4;
 
         expect(companion.isMaxLevel).toBe(false);
     });
 
     it('should return true for isMaxLevel when level is 5', () => {
         const companion = new Companion('Fluff', 'Jeff');
-        companion.level = 5;
+        companion.level.value = 5;
 
         expect(companion.isMaxLevel).toBe(true);
     });
@@ -30,7 +30,7 @@ describe('Companions class', () => {
         const companion2 = new Companion('Rex', 'Delilah');
         const companions = new Companions().addItems([companion1, companion2]);
 
-        companion1.level = 5;
+        companion1.level.value = 5;
 
         expect(companions.isAllMaxLevel).toBe(false);
     });
@@ -40,8 +40,8 @@ describe('Companions class', () => {
         const companion2 = new Companion('Rex', 'Delilah');
         const companions = new Companions().addItems([companion1, companion2]);
 
-        companion1.level = 5;
-        companion2.level = 5;
+        companion1.level.value = 5;
+        companion2.level.value = 5;
 
         expect(companions.isAllMaxLevel).toBe(true);
     });
@@ -53,8 +53,8 @@ describe('Companions class', () => {
 
         companions.maxLevelAll();
 
-        expect(companion1.level).toBe(5);
-        expect(companion2.level).toBe(5);
+        expect(companion1.level.value).toBe(5);
+        expect(companion2.level.value).toBe(5);
 
         expect(companions.isAllMaxLevel).toBe(true);
     });

@@ -1,8 +1,10 @@
-import { Item, ItemList, Options, getRandomItemFromArray, Level } from './utils';
+import { Item, ItemList, Options, getRandomItemFromArray, Level, StorableItemListData, StorableItemData } from './utils';
 
 export interface WeaponOptions extends Options {
     randomAspect?: boolean;
 }
+
+export type StorableWeaponsData = StorableItemListData<StorableWeaponData>;
 
 export class Weapons extends ItemList<Weapon> {
     unlockAll() {
@@ -13,6 +15,10 @@ export class Weapons extends ItemList<Weapon> {
     maxLevelAll() {
         this.items.forEach(weapon => weapon.maxLevelAllAspects());
     }
+}
+
+interface StorableWeaponData extends StorableItemData {
+    aspects: StorableWeaponAspectData[];
 }
 
 export class Weapon extends Item {
@@ -55,6 +61,35 @@ export class Weapon extends Item {
     getRandomAspect(): WeaponAspect {
         return getRandomItemFromArray(this.unlockedAspects) ?? null;
     }
+
+    toStorableData(): StorableWeaponData {
+        const itemData = super.toStorableData();
+        return {
+            ...itemData,
+            aspects: this.aspects.map(aspect => aspect.toStorableData()),
+        }
+    }
+
+    // fromStoredData(storedData: StorableItemListData<StorableItemData>) {
+    //     if (storedData) {
+    //         storedData.items.map((data, index) => {
+    //             this.items[index].fromStoredData(data);
+    //         });
+    //     }
+    // }
+
+    fromStoredData(storedData: StorableWeaponData) {
+        super.fromStoredData(storedData);
+        if (storedData) {
+            storedData.aspects.map((data, index) => {
+                this.aspects[index].fromStoredData(data);
+            })
+        }
+    }
+}
+
+interface StorableWeaponAspectData extends StorableItemData {
+    level: number;
 }
 
 export class WeaponAspect extends Item {
@@ -68,6 +103,9 @@ export class WeaponAspect extends Item {
         this.canBeLocked = !isUnlocked;
     }
 
+    static minLevel = 0;
+    static maxLevel = 5;
+
     lock() {
         if (this.canBeLocked) {
             super.lock();
@@ -78,6 +116,16 @@ export class WeaponAspect extends Item {
         this.isUnlocked = this.canBeLocked ? level > WeaponAspect.minLevel : true;
     }
 
-    static minLevel = 0;
-    static maxLevel = 5;
+    toStorableData(): StorableWeaponAspectData {
+        const itemData = super.toStorableData();
+        return {
+            ...itemData,
+            level: this.level.value,
+        }
+    }
+
+    fromStoredData(storableData: StorableWeaponAspectData) {
+        super.fromStoredData(storableData);
+        this.level.value = storableData.level;
+    }
 }

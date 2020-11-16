@@ -5,6 +5,10 @@ export interface Options {
     enabled?: boolean;
 }
 
+export interface StorableItemData {
+    isUnlocked: boolean;
+}
+
 export abstract class Item {
     isUnlocked: boolean = false;
 
@@ -15,6 +19,20 @@ export abstract class Item {
     lock() {
         this.isUnlocked = false;
     }
+
+    toStorableData(): StorableItemData {
+        return {
+            isUnlocked: this.isUnlocked
+        };
+    }
+
+    fromStoredData(storedData: StorableItemData) {
+        this.isUnlocked = storedData.isUnlocked;
+    }
+}
+
+export interface StorableItemListData<T extends StorableItemData> {
+    items: T[];
 }
 
 export abstract class ItemList<T extends Item> {
@@ -33,13 +51,25 @@ export abstract class ItemList<T extends Item> {
     get unlocked() {
         return this.items.filter(item => item.isUnlocked);
     }
-
+ 
     unlockAll() {
         this.items.forEach(item => item.unlock());
     }
 
     getRandom(): T {
         return getRandomItemFromArray(this.unlocked) ?? null;
+    }
+
+    toStorableData(): StorableItemListData<StorableItemData> {
+        return { items: this.items.map(item => item.toStorableData()) };
+    }
+
+    fromStoredData(storedData: StorableItemListData<StorableItemData>) {
+        if (storedData) {
+            storedData.items.map((data, index) => {
+                this.items[index].fromStoredData(data);
+            });
+        }
     }
 }
 
