@@ -1,5 +1,43 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Weapon class fromStoredData should retun expected Weapons instance after loading from data 1`] = `
+Weapon {
+  "aspects": Array [
+    WeaponAspect {
+      "canBeLocked": true,
+      "icon": "base64:icon!",
+      "isHidden": false,
+      "isUnlocked": true,
+      "level": Level {
+        "_value": 3,
+        "max": 5,
+        "min": 0,
+        "onChange": [Function],
+      },
+      "name": "Tarak",
+    },
+    WeaponAspect {
+      "canBeLocked": true,
+      "icon": "base64:icon!",
+      "isHidden": false,
+      "isUnlocked": false,
+      "level": Level {
+        "_value": 0,
+        "max": 5,
+        "min": 0,
+        "onChange": [Function],
+      },
+      "name": "Shokrug",
+    },
+  ],
+  "canBeLocked": true,
+  "isUnlocked": true,
+  "name": "Skybreaker",
+  "shortName": "sword",
+  "title": "Mistblade",
+}
+`;
+
 exports[`Weapon class should create expected Weapon class instance 1`] = `
 Weapon {
   "aspects": Array [],
@@ -8,6 +46,54 @@ Weapon {
   "name": "Skybreaker",
   "shortName": "sword",
   "title": "Mistblade",
+}
+`;
+
+exports[`Weapon class toStorableData should return expected storable data 1`] = `
+Object {
+  "aspects": Array [
+    Object {
+      "isUnlocked": false,
+      "level": 0,
+    },
+    Object {
+      "isUnlocked": false,
+      "level": 0,
+    },
+  ],
+  "isUnlocked": false,
+}
+`;
+
+exports[`Weapon class toStorableData should return expected storable data with aspects with level 1`] = `
+Object {
+  "aspects": Array [
+    Object {
+      "isUnlocked": true,
+      "level": 2,
+    },
+    Object {
+      "isUnlocked": true,
+      "level": 4,
+    },
+  ],
+  "isUnlocked": true,
+}
+`;
+
+exports[`WeaponAspect class fromStoredData should retun expected Weapon instance after loading from data 1`] = `
+WeaponAspect {
+  "canBeLocked": true,
+  "icon": "base64:icon!",
+  "isHidden": false,
+  "isUnlocked": true,
+  "level": Level {
+    "_value": 2,
+    "max": 5,
+    "min": 0,
+    "onChange": [Function],
+  },
+  "name": "Tarak",
 }
 `;
 
@@ -40,5 +126,19 @@ WeaponAspect {
     "onChange": [Function],
   },
   "name": "Tarak",
+}
+`;
+
+exports[`WeaponAspect class toStorableData should return expected storable data 1`] = `
+Object {
+  "isUnlocked": false,
+  "level": 0,
+}
+`;
+
+exports[`WeaponAspect class toStorableData should return expected storable data with level 1`] = `
+Object {
+  "isUnlocked": true,
+  "level": 5,
 }
 `;

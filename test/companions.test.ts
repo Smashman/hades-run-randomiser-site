@@ -163,4 +163,26 @@ describe('Companions class', () => {
             expect(randomCompanion).toBe(companion2);
         });
     });
+
+    describe('toStorableData', () => {
+        it('should return expected storable data', () => {
+            const companion = new Companion('Fluff', 'Jeff');
+    
+            expect(companion.toStorableData()).toMatchSnapshot();
+        });
+
+        it('should return expected storable data with level', () => {
+            const companion = new Companion('Fluff', 'Jeff');
+            companion.level.value = 3;
+    
+            expect(companion.toStorableData()).toMatchSnapshot();
+        });
+
+        it('should return expected storable data with isMaxCodex', () => {
+            const companion = new Companion('Fluff', 'Jeff');
+            companion.isMaxCodex = true;
+    
+            expect(companion.toStorableData()).toMatchSnapshot();
+        });
+    });
 });

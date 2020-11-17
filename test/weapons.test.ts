@@ -88,6 +88,33 @@ describe('WeaponAspect class', () => {
 
         expect(weaponAspect.isUnlocked).toBe(true);
     });
+
+    describe('toStorableData', () => {
+        it('should return expected storable data', () => {
+            const weaponAspect = new WeaponAspect('Tarak', fakeIcon);
+    
+            expect(weaponAspect.toStorableData()).toMatchSnapshot();
+        });
+
+        it('should return expected storable data with level', () => {
+            const weaponAspect = new WeaponAspect('Tarak', fakeIcon);
+            weaponAspect.level.value = 5;
+    
+            expect(weaponAspect.toStorableData()).toMatchSnapshot();
+        });
+    });
+
+    describe('fromStoredData', () => {
+        it('should retun expected Weapon instance after loading from data', () => {
+            const weaponAspect = new WeaponAspect('Tarak', fakeIcon);
+            weaponAspect.fromStoredData({
+                isUnlocked: true,
+                level: 2,
+            });
+
+            expect(weaponAspect).toMatchSnapshot();
+        });
+    });
 });
 
 // Skybreaker is a legendary weapon, a 'Mistblade', in my D&D campaign.
@@ -244,6 +271,50 @@ describe('Weapon class', () => {
 
             expect(getRandomItemFromArraySpy).toBeCalledWith([weaponAspect1]);
             expect(randomCompanion).toBe(weaponAspect1);
+        });
+    });
+
+    describe('toStorableData', () => {
+        it('should return expected storable data', () => {
+            const weaponAspect1 = new WeaponAspect('Tarak', fakeIcon);
+            const weaponAspect2 = new WeaponAspect('Shokrug', fakeIcon);
+            const weapon = new Weapon('Skybreaker', 'Mistblade', 'sword').addAspects([weaponAspect1, weaponAspect2]);
+    
+            expect(weapon.toStorableData()).toMatchSnapshot();
+        });
+
+        it('should return expected storable data with aspects with level', () => {
+            const weaponAspect1 = new WeaponAspect('Tarak', fakeIcon);
+            const weaponAspect2 = new WeaponAspect('Shokrug', fakeIcon);
+            const weapon = new Weapon('Skybreaker', 'Mistblade', 'sword').addAspects([weaponAspect1, weaponAspect2]);
+            weapon.unlock();
+            weaponAspect1.level.value = 2;
+            weaponAspect2.level.value = 4;
+    
+            expect(weapon.toStorableData()).toMatchSnapshot();
+        });
+    });
+
+    describe('fromStoredData', () => {
+        it('should retun expected Weapons instance after loading from data', () => {
+            const weaponAspect1 = new WeaponAspect('Tarak', fakeIcon);
+            const weaponAspect2 = new WeaponAspect('Shokrug', fakeIcon);
+            const weapon = new Weapon('Skybreaker', 'Mistblade', 'sword').addAspects([weaponAspect1, weaponAspect2]);
+            weapon.fromStoredData({
+                isUnlocked: true,
+                aspects: [
+                    {
+                        isUnlocked: true,
+                        level: 3,
+                    },
+                    {
+                        isUnlocked: false,
+                        level: 0,
+                    }
+                ]
+            });
+
+            expect(weapon).toMatchSnapshot();
         });
     });
 });

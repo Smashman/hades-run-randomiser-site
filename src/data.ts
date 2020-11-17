@@ -170,11 +170,15 @@ class Data {
     .addCondition(new PactCondition('Tight Deadline', [1, 2, 3]));
 
     async loadData() {
-        const keepsakeData = await localForage.getItem<StorableKeepsakesData>('keepsakes');
-        const weaponsData = await localForage.getItem<StorableWeaponsData>('weapons');
-
-        this.keepsakes.fromStoredData(keepsakeData);
-        this.weapons.fromStoredData(weaponsData);
+        const weaponsData = await localForage.getItem<StorableWeaponsData | null>('weapons');
+        if (weaponsData) {
+            this.weapons.fromStoredData(weaponsData);
+        }
+        
+        const keepsakeData = await localForage.getItem<StorableKeepsakesData | null>('keepsakes');
+        if (keepsakeData) {
+            this.keepsakes.fromStoredData(keepsakeData);
+        }
 
         this.weapons.unlockAll();
         this.keepsakes.unlockAll();

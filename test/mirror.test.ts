@@ -88,6 +88,12 @@ describe('MirrorGroup class', () => {
 
         getRandomItemFromArraySpy.mockRestore();
     });
+
+    it('should return expected storable data', () => {
+        const mirrorTalentGroup = new MirrorGroup([mirrorTalentSet1, mirrorTalentSet2]);
+
+        expect(mirrorTalentGroup.toStorableData()).toMatchSnapshot();
+    });
 });
 
 describe('MirrorConfiguration class', () => {
@@ -207,5 +213,17 @@ describe('Mirror class', () => {
         expect(randomMirrorConfiguration.talents).toStrictEqual([mirrorTalent2, mirrorTalent4, mirrorTalent6, mirrorTalent8]);
 
         getRandomItemFromArraySpy.mockRestore();
+    });
+
+    it('should return expected storable data', () => {
+        const mirror = new Mirror().addGroup([
+            [mirrorTalent1, mirrorTalent2],
+            [mirrorTalent3, mirrorTalent4],
+        ]).addGroup([
+            [mirrorTalent5, mirrorTalent6],
+            [mirrorTalent7, mirrorTalent8],
+        ]);
+
+        expect(mirror.toStorableData()).toMatchSnapshot();
     });
 });

@@ -39,6 +39,10 @@ export class Keepsakes extends ItemList<Keepsake> {
     get isAllMaxLevel() {
         return this.items.every(keepsake => keepsake.isMaxLevel);
     }
+
+    fromStoredData(storedData: StorableKeepsakesData) {
+        super.fromStoredData(storedData);
+    }
 }
 
 interface StorableKeepsakeData extends StorableItemData {
@@ -69,4 +73,4 @@ export class Keepsake extends Item {
     }
 }
 
-export type KeepsakeConfiguration = [Keepsake] | [Keepsake, Keepsake, Keepsake, Keepsake] | null;
+export type KeepsakeConfiguration = [Keepsake] | [Keepsake, Keepsake | null, Keepsake | null, Keepsake | null] | null;

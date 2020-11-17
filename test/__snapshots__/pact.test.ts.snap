@@ -26,6 +26,19 @@ Pact {
 }
 `;
 
+exports[`Pact class toStorableData should return expected storable data 1`] = `
+Object {
+  "conditions": Array [
+    Object {
+      "initialRank": 0,
+    },
+    Object {
+      "initialRank": 0,
+    },
+  ],
+}
+`;
+
 exports[`PactCondition class should create expected PactCondition class instance 1`] = `
 PactCondition {
   "_initialRank": 0,
@@ -55,6 +68,18 @@ PactCondition {
     3,
   ],
   "rankLimit": 4,
+}
+`;
+
+exports[`PactCondition class toStorableData should return expected storable data 1`] = `
+Object {
+  "initialRank": 0,
+}
+`;
+
+exports[`PactCondition class toStorableData should return expected storable data with initalRank 1`] = `
+Object {
+  "initialRank": 2,
 }
 `;
 

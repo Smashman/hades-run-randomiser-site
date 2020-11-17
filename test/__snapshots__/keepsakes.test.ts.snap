@@ -46,6 +46,39 @@ Object {
 }
 `;
 
+exports[`Keepsakes class fromStoredData should retun expected Keepsake instance after loading from data 1`] = `
+Keepsakes {
+  "items": Array [
+    Keepsake {
+      "giver": "Jeff",
+      "icon": "base64:icon!",
+      "isHidden": false,
+      "isUnlocked": true,
+      "level": Level {
+        "_value": 2,
+        "max": 3,
+        "min": 1,
+        "onChange": undefined,
+      },
+      "name": "Shoe",
+    },
+    Keepsake {
+      "giver": "Delilah",
+      "icon": "base64:icon!",
+      "isHidden": false,
+      "isUnlocked": false,
+      "level": Level {
+        "_value": 3,
+        "max": 3,
+        "min": 1,
+        "onChange": undefined,
+      },
+      "name": "Coat",
+    },
+  ],
+}
+`;
+
 exports[`Keepsakes class toStorableData should return expected storable data 1`] = `
 Object {
   "items": Array [

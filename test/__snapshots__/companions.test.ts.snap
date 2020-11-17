@@ -14,3 +14,27 @@ Companion {
   "name": "Fluff",
 }
 `;
+
+exports[`Companions class toStorableData should return expected storable data 1`] = `
+Object {
+  "isMaxCodex": false,
+  "isUnlocked": false,
+  "level": 1,
+}
+`;
+
+exports[`Companions class toStorableData should return expected storable data with isMaxCodex 1`] = `
+Object {
+  "isMaxCodex": true,
+  "isUnlocked": false,
+  "level": 1,
+}
+`;
+
+exports[`Companions class toStorableData should return expected storable data with level 1`] = `
+Object {
+  "isMaxCodex": false,
+  "isUnlocked": false,
+  "level": 3,
+}
+`;

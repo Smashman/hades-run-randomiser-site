@@ -65,11 +65,9 @@ export abstract class ItemList<T extends Item> {
     }
 
     fromStoredData(storedData: StorableItemListData<StorableItemData>) {
-        if (storedData) {
-            storedData.items.map((data, index) => {
-                this.items[index].fromStoredData(data);
-            });
-        }
+        storedData.items.map((data, index) => {
+            this.items[index].fromStoredData(data);
+        });
     }
 }
 

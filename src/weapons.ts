@@ -70,21 +70,11 @@ export class Weapon extends Item {
         }
     }
 
-    // fromStoredData(storedData: StorableItemListData<StorableItemData>) {
-    //     if (storedData) {
-    //         storedData.items.map((data, index) => {
-    //             this.items[index].fromStoredData(data);
-    //         });
-    //     }
-    // }
-
     fromStoredData(storedData: StorableWeaponData) {
         super.fromStoredData(storedData);
-        if (storedData) {
-            storedData.aspects.map((data, index) => {
-                this.aspects[index].fromStoredData(data);
-            })
-        }
+        storedData.aspects.map((data, index) => {
+            this.aspects[index].fromStoredData(data);
+        });
     }
 }
 

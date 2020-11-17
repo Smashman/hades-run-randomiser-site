@@ -243,19 +243,23 @@ describe('Keepsakes class', () => {
         });
     });
 
-    // describe('fromStoredData', () => {
-    //     it('should retun expected Keepsake instance after loading from data', () => {
-    //         const keepsake1 = new Keepsake('Shoe', 'Jeff', fakeIcon);
-    //         const keepsake2 = new Keepsake('Coat', 'Delilah', fakeIcon);
-    //         const keepsakes = new Keepsakes().addItems([keepsake1, keepsake2]);
-    //         keepsakes.fromStoredData({
-    //             items: [{
-    //                 isUnlocked: true,
-    //                 level: 2,
-    //             }]
-    //         });
+    describe('fromStoredData', () => {
+        it('should retun expected Keepsake instance after loading from data', () => {
+            const keepsake1 = new Keepsake('Shoe', 'Jeff', fakeIcon);
+            const keepsake2 = new Keepsake('Coat', 'Delilah', fakeIcon);
+            const keepsakes = new Keepsakes().addItems([keepsake1, keepsake2]);
+            keepsakes.fromStoredData({
+                items: [{
+                    isUnlocked: true,
+                    level: 2,
+                },
+                {
+                    isUnlocked: false,
+                    level: 3,
+                }]
+            });
 
-    //         expect(keepsake).toMatchSnapshot();
-    //     });
-    // });
+            expect(keepsakes).toMatchSnapshot();
+        });
+    });
 });
