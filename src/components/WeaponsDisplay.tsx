@@ -1,18 +1,22 @@
 import * as React from 'react';
 import { Weapon, WeaponAspect } from '../weapons';
-import { DataContext } from '../data';
+import { WeaponsContext } from './Data';
 import style from '../scss/weapons.scss';
 import { aspect as aspectButton } from '../scss/levelControl.scss';
 import { LevelControlButtons } from './LevelControl';
 import classnames from 'classnames';
 import { unknownIcon } from '../img/misc';
+import * as localForage from 'localforage';
 
 const WeaponsDisplay: React.FC = () => {
-    const [data, setData] = React.useContext(DataContext);
+    const [data, setData] = React.useContext(WeaponsContext);
     const {weapons} = data;
     React.useEffect(() => {console.log('weapons')});
 
-    const updateWeapons = () => setData((state) => ({...state, weapons}));
+    const updateWeapons = () => setData(() => {
+        localForage.setItem('weapons', weapons.toStorableData());
+        return {weapons}
+    });
 
     return (
         <div className={style.weapons}>

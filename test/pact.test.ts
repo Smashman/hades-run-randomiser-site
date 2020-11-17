@@ -37,6 +37,21 @@ describe('PactCondition class', () => {
         expect(pactCondition.initialRank).toBe(5);
         expect(pactCondition.initialHeat).toBe(8);
     });
+
+    describe('toStorableData', () => {
+        it('should return expected storable data', () => {
+            const pactCondition = new PactCondition('Extra Angry', [1, 1, 1, 2, 3]);
+    
+            expect(pactCondition.toStorableData()).toMatchSnapshot();
+        });
+
+        it('should return expected storable data with initalRank', () => {
+            const pactCondition = new PactCondition('Extra Angry', [1, 1, 1, 2, 3]);
+            pactCondition.initialRank = 2;
+    
+            expect(pactCondition.toStorableData()).toMatchSnapshot();
+        });
+    });
 });
 
 describe('PactConditionConfiguration class', () => {
@@ -201,6 +216,14 @@ describe('Pact class', () => {
         expect(generateFromHeatRangeSpy).toBeCalledWith(pact, heatRange);
 
         generateFromHeatRangeSpy.mockRestore();
+    });
+
+    describe('toStorableData', () => {
+        it('should return expected storable data', () => {
+            const pact = new Pact().addCondition(new PactCondition('Extra Angry', [1, 1, 1, 2, 3])).addCondition(new PactCondition('Bigger Slam', [2, 2]));
+    
+            expect(pact.toStorableData()).toMatchSnapshot();
+        });
     });
 });
 

@@ -9,6 +9,10 @@ export interface PactOptions extends Options {
     heatRange?: HeatRange
 }
 
+interface StorablePactData {
+    conditions: StorablePactConditionData[];
+}
+
 export class Pact {
     conditions: PactCondition[] = [];
 
@@ -32,6 +36,16 @@ export class Pact {
     get initialHeat(): number {
         return this.conditions.reduce((total, condition) => total + condition.initialHeat, 0);
     }
+
+    toStorableData(): StorablePactData {
+        return {
+            conditions: this.conditions.map(condition => condition.toStorableData()),
+        }
+    }
+}
+
+interface StorablePactConditionData {
+    initialRank: number;
 }
 
 export class PactCondition {
@@ -59,6 +73,12 @@ export class PactCondition {
 
     get initialHeat(): number {
         return this.rankCosts.slice(0, this.initialRank).reduce((total, value) => total + value, 0);
+    }
+
+    toStorableData(): StorablePactConditionData {
+        return {
+            initialRank: this.initialRank,
+        };
     }
 }
 

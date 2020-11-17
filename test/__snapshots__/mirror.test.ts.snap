@@ -116,6 +116,19 @@ MirrorConfiguration {
 }
 `;
 
+exports[`Mirror class should return expected storable data 1`] = `
+Object {
+  "groups": Array [
+    Object {
+      "isUnlocked": false,
+    },
+    Object {
+      "isUnlocked": false,
+    },
+  ],
+}
+`;
+
 exports[`MirrorConfiguration class should create expected MirrorConfiguration class instance 1`] = `
 MirrorConfiguration {
   "talents": Array [
@@ -201,6 +214,12 @@ MirrorGroup {
       ],
     },
   ],
+}
+`;
+
+exports[`MirrorGroup class should return expected storable data 1`] = `
+Object {
+  "isUnlocked": false,
 }
 `;
 

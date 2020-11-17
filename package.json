@@ -1,7 +1,18 @@
 {
-  "name": "hades-run-randomiser-poc",
+  "name": "hades-run-randomiser",
+  "author": "Ben Williams",
+  "version": "0.0.1",
+  "keywords": [
+    "hades"
+  ],
+  "license": "GPL-3",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Smashman/hades-run-randomiser-site"
+  },
   "dependencies": {
     "classnames": "^2.2.6",
+    "localforage": "^1.9.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   },

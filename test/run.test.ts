@@ -1,5 +1,5 @@
-import { Run, RunOptions } from '../src/run';
-import * as data from '../src/data';
+import { Data, Run, RunOptions } from '../src/run';
+import { data } from '../src/data';
 import { Weapon, WeaponAspect } from '../src/weapons';
 import { Keepsake, KeepsakeOptions } from '../src/keepsakes';
 import { Companion, CompanionOptions } from '../src/companions';
@@ -20,16 +20,24 @@ describe('Run class', () => {
             jest.resetAllMocks();
         });
 
+        const runData: Data = {
+            weapons: data.weapons,
+            keepsakes: data.keepsakes,
+            companions: data.companions,
+            mirror: data.mirror,
+            pact: data.pact,
+        };
+
         it('should generate empty random run with no options', () => {
             const runOptions: RunOptions = {};
-            const randomRun = Run.generateRandomRun(runOptions);
+            const randomRun = Run.generateRandomRun(runOptions, runData);
 
             expect(randomRun).toMatchSnapshot();
-            expect(data.weapons.getRandom).not.toHaveBeenCalled();
-            expect(data.keepsakes.getRandomKeepsakes).not.toHaveBeenCalled();
-            expect(data.companions.getRandomCompanion).not.toHaveBeenCalled();
-            expect(data.mirror.getRandom).not.toHaveBeenCalled();
-            expect(data.pact.getRandomWithRange).not.toHaveBeenCalled();
+            expect(runData.weapons.getRandom).not.toHaveBeenCalled();
+            expect(runData.keepsakes.getRandomKeepsakes).not.toHaveBeenCalled();
+            expect(runData.companions.getRandomCompanion).not.toHaveBeenCalled();
+            expect(runData.mirror.getRandom).not.toHaveBeenCalled();
+            expect(runData.pact.getRandomWithRange).not.toHaveBeenCalled();
         });
 
         it('should generate empty random run with enabled false in all options', () => {
@@ -50,14 +58,14 @@ describe('Run class', () => {
                     enabled: false,
                 },
             };
-            const randomRun = Run.generateRandomRun(runOptions);
+            const randomRun = Run.generateRandomRun(runOptions, runData);
 
             expect(randomRun).toMatchSnapshot();
-            expect(data.weapons.getRandom).not.toHaveBeenCalled();
-            expect(data.keepsakes.getRandomKeepsakes).not.toHaveBeenCalled();
-            expect(data.companions.getRandomCompanion).not.toHaveBeenCalled();
-            expect(data.mirror.getRandom).not.toHaveBeenCalled();
-            expect(data.pact.getRandomWithRange).not.toHaveBeenCalled();
+            expect(runData.weapons.getRandom).not.toHaveBeenCalled();
+            expect(runData.keepsakes.getRandomKeepsakes).not.toHaveBeenCalled();
+            expect(runData.companions.getRandomCompanion).not.toHaveBeenCalled();
+            expect(runData.mirror.getRandom).not.toHaveBeenCalled();
+            expect(runData.pact.getRandomWithRange).not.toHaveBeenCalled();
         });
 
         it('should generate random run with weapon enabled', () => {
@@ -68,17 +76,17 @@ describe('Run class', () => {
             };
             const weapon = new Weapon('Skybreaker', 'Mistblade', 'sword');
 
-            (data.weapons.getRandom as jest.MockedFunction<typeof data.weapons.getRandom>).mockReturnValue(weapon);
+            (runData.weapons.getRandom as jest.MockedFunction<typeof runData.weapons.getRandom>).mockReturnValue(weapon);
 
-            const randomRun = Run.generateRandomRun(runOptions);
+            const randomRun = Run.generateRandomRun(runOptions, runData);
 
             expect(randomRun.weapon).toBe(weapon);
 
-            expect(data.weapons.getRandom).toHaveBeenCalledTimes(1);
-            expect(data.keepsakes.getRandomKeepsakes).not.toHaveBeenCalled();
-            expect(data.companions.getRandomCompanion).not.toHaveBeenCalled();
-            expect(data.mirror.getRandom).not.toHaveBeenCalled();
-            expect(data.pact.getRandomWithRange).not.toHaveBeenCalled();
+            expect(runData.weapons.getRandom).toHaveBeenCalledTimes(1);
+            expect(runData.keepsakes.getRandomKeepsakes).not.toHaveBeenCalled();
+            expect(runData.companions.getRandomCompanion).not.toHaveBeenCalled();
+            expect(runData.mirror.getRandom).not.toHaveBeenCalled();
+            expect(runData.pact.getRandomWithRange).not.toHaveBeenCalled();
         });
 
         it('should generate random run with weapon enabled and randomAspect', () => {
@@ -91,21 +99,21 @@ describe('Run class', () => {
             const weaponAspect = new WeaponAspect('Tarak', fakeIcon);
             const weapon = new Weapon('Skybreaker', 'Mistblade', 'sword').addAspect(weaponAspect);
 
-            (data.weapons.getRandom as jest.MockedFunction<typeof data.weapons.getRandom>).mockReturnValue(weapon);
+            (runData.weapons.getRandom as jest.MockedFunction<typeof runData.weapons.getRandom>).mockReturnValue(weapon);
 
             const getRandomAspectMock = jest.spyOn(weapon, 'getRandomAspect').mockReturnValue(weaponAspect);
 
-            const randomRun = Run.generateRandomRun(runOptions);
+            const randomRun = Run.generateRandomRun(runOptions, runData);
 
             expect(randomRun.weapon).toBe(weapon);
             expect(randomRun.weaponAspect).toBe(weaponAspect);
 
-            expect(data.weapons.getRandom).toHaveBeenCalledTimes(1);
+            expect(runData.weapons.getRandom).toHaveBeenCalledTimes(1);
             expect(getRandomAspectMock).toHaveBeenCalledTimes(1);
-            expect(data.keepsakes.getRandomKeepsakes).not.toHaveBeenCalled();
-            expect(data.companions.getRandomCompanion).not.toHaveBeenCalled();
-            expect(data.mirror.getRandom).not.toHaveBeenCalled();
-            expect(data.pact.getRandomWithRange).not.toHaveBeenCalled();
+            expect(runData.keepsakes.getRandomKeepsakes).not.toHaveBeenCalled();
+            expect(runData.companions.getRandomCompanion).not.toHaveBeenCalled();
+            expect(runData.mirror.getRandom).not.toHaveBeenCalled();
+            expect(runData.pact.getRandomWithRange).not.toHaveBeenCalled();
         });
 
         it('should generate random run with keepsake enabled', () => {
@@ -117,19 +125,19 @@ describe('Run class', () => {
             };
             const keepsake = new Keepsake('Shoe', 'Jeff', fakeIcon);
 
-            (data.keepsakes.getRandomKeepsakes as jest.MockedFunction<typeof data.keepsakes.getRandomKeepsakes>).mockReturnValue([keepsake]);
+            (runData.keepsakes.getRandomKeepsakes as jest.MockedFunction<typeof runData.keepsakes.getRandomKeepsakes>).mockReturnValue([keepsake]);
 
-            const randomRun = Run.generateRandomRun(runOptions);
+            const randomRun = Run.generateRandomRun(runOptions, runData);
 
             expect(randomRun.keepsake).toStrictEqual([keepsake]);
 
-            expect(data.weapons.getRandom).not.toHaveBeenCalled();
-            expect(data.keepsakes.getRandom).not.toHaveBeenCalled();
-            expect(data.keepsakes.getRandomKeepsakes).toHaveBeenCalledTimes(1);
-            expect(data.keepsakes.getRandomKeepsakes).toHaveBeenCalledWith(keepsakeOptions);
-            expect(data.companions.getRandomCompanion).not.toHaveBeenCalled();
-            expect(data.mirror.getRandom).not.toHaveBeenCalled();
-            expect(data.pact.getRandomWithRange).not.toHaveBeenCalled();
+            expect(runData.weapons.getRandom).not.toHaveBeenCalled();
+            expect(runData.keepsakes.getRandom).not.toHaveBeenCalled();
+            expect(runData.keepsakes.getRandomKeepsakes).toHaveBeenCalledTimes(1);
+            expect(runData.keepsakes.getRandomKeepsakes).toHaveBeenCalledWith(keepsakeOptions);
+            expect(runData.companions.getRandomCompanion).not.toHaveBeenCalled();
+            expect(runData.mirror.getRandom).not.toHaveBeenCalled();
+            expect(runData.pact.getRandomWithRange).not.toHaveBeenCalled();
         });
 
         it('should generate random run with companion enabled', () => {
@@ -141,19 +149,19 @@ describe('Run class', () => {
             };
             const companion = new Companion('Fluff', 'Jeff');
 
-            (data.companions.getRandomCompanion as jest.MockedFunction<typeof data.companions.getRandomCompanion>).mockReturnValue(companion);
+            (runData.companions.getRandomCompanion as jest.MockedFunction<typeof runData.companions.getRandomCompanion>).mockReturnValue(companion);
 
-            const randomRun = Run.generateRandomRun(runOptions);
+            const randomRun = Run.generateRandomRun(runOptions, runData);
 
             expect(randomRun.companion).toBe(companion);
 
-            expect(data.weapons.getRandom).not.toHaveBeenCalled();
-            expect(data.keepsakes.getRandomKeepsakes).not.toHaveBeenCalled();
-            expect(data.companions.getRandom).not.toHaveBeenCalled();
-            expect(data.companions.getRandomCompanion).toHaveBeenCalledTimes(1);
-            expect(data.companions.getRandomCompanion).toHaveBeenCalledWith(companionOptions);
-            expect(data.mirror.getRandom).not.toHaveBeenCalled();
-            expect(data.pact.getRandomWithRange).not.toHaveBeenCalled();
+            expect(runData.weapons.getRandom).not.toHaveBeenCalled();
+            expect(runData.keepsakes.getRandomKeepsakes).not.toHaveBeenCalled();
+            expect(runData.companions.getRandom).not.toHaveBeenCalled();
+            expect(runData.companions.getRandomCompanion).toHaveBeenCalledTimes(1);
+            expect(runData.companions.getRandomCompanion).toHaveBeenCalledWith(companionOptions);
+            expect(runData.mirror.getRandom).not.toHaveBeenCalled();
+            expect(runData.pact.getRandomWithRange).not.toHaveBeenCalled();
         });
 
         it('should generate random run with mirror enabled', () => {
@@ -164,17 +172,17 @@ describe('Run class', () => {
             };
             const mirrorConfiguration = new MirrorConfiguration([new MirrorTalent('Run Fast', [1, 2, 3]), new MirrorTalent('Talk Good', [5, 5, 5, 5])]);
 
-            (data.mirror.getRandom as jest.MockedFunction<typeof data.mirror.getRandom>).mockReturnValue(mirrorConfiguration);
+            (runData.mirror.getRandom as jest.MockedFunction<typeof runData.mirror.getRandom>).mockReturnValue(mirrorConfiguration);
 
-            const randomRun = Run.generateRandomRun(runOptions);
+            const randomRun = Run.generateRandomRun(runOptions, runData);
 
             expect(randomRun.mirror).toStrictEqual(mirrorConfiguration);
 
-            expect(data.weapons.getRandom).not.toHaveBeenCalled();
-            expect(data.keepsakes.getRandomKeepsakes).not.toHaveBeenCalled();
-            expect(data.companions.getRandomCompanion).not.toHaveBeenCalled();
-            expect(data.mirror.getRandom).toHaveBeenCalledTimes(1);
-            expect(data.pact.getRandomWithRange).not.toHaveBeenCalled();
+            expect(runData.weapons.getRandom).not.toHaveBeenCalled();
+            expect(runData.keepsakes.getRandomKeepsakes).not.toHaveBeenCalled();
+            expect(runData.companions.getRandomCompanion).not.toHaveBeenCalled();
+            expect(runData.mirror.getRandom).toHaveBeenCalledTimes(1);
+            expect(runData.pact.getRandomWithRange).not.toHaveBeenCalled();
         });
 
         it('should generate random run with pact enabled', () => {
@@ -187,18 +195,18 @@ describe('Run class', () => {
             const pact = new Pact().addCondition(new PactCondition('Extra Angry', [1, 1, 1, 2, 3])).addCondition(new PactCondition('Bigger Slam', [2, 2]));
             const pactConfig = new PactConfiguration(pact);
 
-            (data.pact.getRandomWithRange as jest.MockedFunction<typeof data.pact.getRandomWithRange>).mockReturnValue(pactConfig);
+            (runData.pact.getRandomWithRange as jest.MockedFunction<typeof runData.pact.getRandomWithRange>).mockReturnValue(pactConfig);
 
-            const randomRun = Run.generateRandomRun(runOptions);
+            const randomRun = Run.generateRandomRun(runOptions, runData);
 
             expect(randomRun.pact).toStrictEqual(pactConfig);
 
-            expect(data.weapons.getRandom).not.toHaveBeenCalled();
-            expect(data.keepsakes.getRandomKeepsakes).not.toHaveBeenCalled();
-            expect(data.companions.getRandomCompanion).not.toHaveBeenCalled();
-            expect(data.mirror.getRandom).not.toHaveBeenCalled();
-            expect(data.pact.getRandomWithRange).toHaveBeenCalledTimes(1);
-            expect(data.pact.getRandomWithRange).toHaveBeenCalledWith(undefined);
+            expect(runData.weapons.getRandom).not.toHaveBeenCalled();
+            expect(runData.keepsakes.getRandomKeepsakes).not.toHaveBeenCalled();
+            expect(runData.companions.getRandomCompanion).not.toHaveBeenCalled();
+            expect(runData.mirror.getRandom).not.toHaveBeenCalled();
+            expect(runData.pact.getRandomWithRange).toHaveBeenCalledTimes(1);
+            expect(runData.pact.getRandomWithRange).toHaveBeenCalledWith(undefined);
         });
 
         it('should generate random run with pact enabled and a heatRange', () => {
@@ -216,18 +224,18 @@ describe('Run class', () => {
             const pact = new Pact().addCondition(new PactCondition('Extra Angry', [1, 1, 1, 2, 3])).addCondition(new PactCondition('Bigger Slam', [2, 2]));
             const pactConfig = new PactConfiguration(pact);
 
-            (data.pact.getRandomWithRange as jest.MockedFunction<typeof data.pact.getRandomWithRange>).mockReturnValue(pactConfig);
+            (runData.pact.getRandomWithRange as jest.MockedFunction<typeof runData.pact.getRandomWithRange>).mockReturnValue(pactConfig);
 
-            const randomRun = Run.generateRandomRun(runOptions);
+            const randomRun = Run.generateRandomRun(runOptions, runData);
 
             expect(randomRun.pact).toStrictEqual(pactConfig);
 
-            expect(data.weapons.getRandom).not.toHaveBeenCalled();
-            expect(data.keepsakes.getRandomKeepsakes).not.toHaveBeenCalled();
-            expect(data.companions.getRandomCompanion).not.toHaveBeenCalled();
-            expect(data.mirror.getRandom).not.toHaveBeenCalled();
-            expect(data.pact.getRandomWithRange).toHaveBeenCalledTimes(1);
-            expect(data.pact.getRandomWithRange).toHaveBeenCalledWith(heatRange);
+            expect(runData.weapons.getRandom).not.toHaveBeenCalled();
+            expect(runData.keepsakes.getRandomKeepsakes).not.toHaveBeenCalled();
+            expect(runData.companions.getRandomCompanion).not.toHaveBeenCalled();
+            expect(runData.mirror.getRandom).not.toHaveBeenCalled();
+            expect(runData.pact.getRandomWithRange).toHaveBeenCalledTimes(1);
+            expect(runData.pact.getRandomWithRange).toHaveBeenCalledWith(heatRange);
         });
     });
 });
