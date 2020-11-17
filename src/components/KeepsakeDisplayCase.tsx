@@ -12,26 +12,6 @@ const KeepsakeDisplayCase: React.FC = () => {
 
     const updateKeepsakes = () => setData({keepsakes});
     
-    const unlockKeepsake = (keepsake: Keepsake) => {
-        return () => {
-            keepsake.unlock();
-            updateKeepsakes()
-        }
-    }
-    
-    const lockKeepsake = (keepsake: Keepsake) => {
-        return () => {
-            keepsake.lock();
-            updateKeepsakes()
-        }
-    }
-
-    const levelChange = () => {
-        return () => {
-            updateKeepsakes();
-        }
-    }
-    
     function* createRows<T>(arr: Array<T>, n: number) {
         for (let i = 0; i < arr.length; i += n) {
             const slice = arr.slice(i, i + n);
@@ -49,7 +29,7 @@ const KeepsakeDisplayCase: React.FC = () => {
                     {
                         row.map((keepsake, itemIndex) => {
                             const key = `cubby${rowIndex}${itemIndex}`;
-                            return keepsake ? <KeepsakeCubby keepsake={keepsake} unlock={unlockKeepsake(keepsake)} lock={lockKeepsake(keepsake)} onLevelChange={levelChange()} key={key}></KeepsakeCubby> : <td key={key}><div className={style.keepsakeCubby}></div></td>;
+                            return keepsake ? <KeepsakeCubby keepsake={keepsake} update={updateKeepsakes} key={key}></KeepsakeCubby> : <td key={key}><div className={style.keepsakeCubby}></div></td>;
                         })
                     }
                 </tr>);
@@ -61,12 +41,18 @@ const KeepsakeDisplayCase: React.FC = () => {
 
 interface KeepsakeProps {
     keepsake: Keepsake;
-    unlock: () => void;
-    lock: () => void;
-    onLevelChange: () => void;
+    update: () => void;
 }
 
-const KeepsakeCubby: React.FC<KeepsakeProps> = ({keepsake, unlock, lock, onLevelChange}) => {
+const KeepsakeCubby: React.FC<KeepsakeProps> = ({keepsake, update}) => {
+    const unlock = () => {
+        keepsake.unlock();
+        update();
+    }
+    const lock = () => {
+        keepsake.lock();
+        update();
+    }
     const nameWithBreak = (name: string): JSX.Element | string => {
         const splitName = name.split(' ');
         return splitName.length === 2 ? <React.Fragment>{splitName[0]}<br/>{splitName[1]}</React.Fragment> : name;
@@ -78,7 +64,7 @@ const KeepsakeCubby: React.FC<KeepsakeProps> = ({keepsake, unlock, lock, onLevel
                 <div className={style.keepsakeBacking} onClick={keepsake.isUnlocked ? lock : () => {}}>
                     <img className={style.keepsakeIcon} src={keepsake.isUnlocked ? keepsake.icon : unknownIcon}/>
                 </div>
-                <LevelControl level={keepsake.level} onLevelChange={onLevelChange} disabled={!keepsake.isUnlocked}/>
+                <LevelControl level={keepsake.level} onLevelChange={update} disabled={!keepsake.isUnlocked}/>
             </div>
         </td>
     );
