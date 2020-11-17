@@ -5,17 +5,12 @@ import { KeepsakesContext } from './Data';
 import LevelControl from './LevelControl';
 import classnames from 'classnames';
 import { unknownIcon } from '../img/misc';
-import * as localForage from 'localforage';
 
 const KeepsakeDisplayCase: React.FC = () => {
-    const [data, setData] = React.useContext(KeepsakesContext);
-    const {keepsakes} = data;
+    const [{keepsakes}, setData] = React.useContext(KeepsakesContext);
     React.useEffect(() => console.log('keepsake'));
 
-    const updateKeepsakes = () => setData(() => {
-        localForage.setItem('keepsakes', keepsakes.toStorableData());
-        return {keepsakes};
-    });
+    const updateKeepsakes = () => setData({keepsakes});
     
     const unlockKeepsake = (keepsake: Keepsake) => {
         return () => {

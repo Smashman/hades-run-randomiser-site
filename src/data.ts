@@ -180,16 +180,16 @@ class Data {
             this.keepsakes.fromStoredData(keepsakeData);
         }
 
-        this.weapons.unlockAll();
-        this.keepsakes.unlockAll();
-        this.companions.unlockAll();
-        this.mirror.unlockAll();
-        this.pact.unlockAll();
+        // this.weapons.unlockAll();
+        // this.keepsakes.unlockAll();
+        // this.companions.unlockAll();
+        // this.mirror.unlockAll();
+        // this.pact.unlockAll();
         
-        this.weapons.maxLevelAll();
-        this.keepsakes.maxLevelAll();
-        this.companions.maxLevelAll();
-        this.companions.maxCodexAll();
+        // this.weapons.maxLevelAll();
+        // this.keepsakes.maxLevelAll();
+        // this.companions.maxLevelAll();
+        // this.companions.maxCodexAll();
     }
 }
 
