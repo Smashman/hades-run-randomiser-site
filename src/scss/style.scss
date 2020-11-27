@@ -5,14 +5,62 @@
     box-sizing: border-box;
 }
 
+:global html, :global body, :global #root {
+    height: 100%;
+}
+
 body {
     font-family: $alegreya-sans;
     margin: 0;
     background: black;
+    color: white;
 }
 
 .app {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.loading {
+    @include alegreya-sans-sc-extra-bold;
+    font-size: 3em;
+    justify-content: center;
+    height: 100%;
+
+    .spinner {
+        background-image: url($img-head-path + 'misc/skelly.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 120px;
+        height: 120px;
+        margin-bottom: 0.4em;
+        animation: spinner ease-in-out 1s infinite;
+
+        @keyframes spinner {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    }
+
+    span {
+        display: flex;
+        &:after {
+            content: '...';
+            width: 0.7em;
+            animation: dotty steps(1,end) 1s infinite;
+
+            @keyframes dotty {
+                0%   { content: '...'; }
+                25%  { content: ''; }
+                50%  { content: '.'; }
+                75%  { content: '..'; }
+                100% { content: '...'; }
+            }
+        }
+    }
 }

@@ -3,6 +3,7 @@ import { Keepsake, Keepsakes, StorableKeepsakesData } from './keepsakes';
 import { Companion, Companions } from './companions';
 import { Mirror, MirrorTalent } from './mirror';
 import { Pact, PactCondition } from './pact';
+import { defaultRunOptions, RunOptions } from './run';
 import { fillArray } from './utils';
 import * as keepsakeIcons from './img/keepsake';
 import * as weaponIcons from './img/weapon';
@@ -153,21 +154,23 @@ class Data {
     ]);
     
     pact = new Pact()
-    .addCondition(new PactCondition('Hard Labor', [1, 1, 1, 1, 1]))
-    .addCondition(new PactCondition('Lasting Consequences', [1, 1, 1, 1]))
-    .addCondition(new PactCondition('Convenience Fee', [1, 1]))
-    .addCondition(new PactCondition('Jury Summons', [1, 1, 1]))
-    .addCondition(new PactCondition('Extreme Measures', [1, 2, 3, 4], 3))
-    .addCondition(new PactCondition('Calisthenics Program', [1, 1]))
-    .addCondition(new PactCondition('Benefits Package', [2, 3]))
-    .addCondition(new PactCondition('Middle Management', [2]))
-    .addCondition(new PactCondition('Underworld Customs', [2]))
-    .addCondition(new PactCondition('Forced Overtime', [3, 3]))
-    .addCondition(new PactCondition('Heightened Security', [1]))
-    .addCondition(new PactCondition('Routine Inspection', [2, 2, 2, 2]))
-    .addCondition(new PactCondition('Damage Control', [1, 1]))
-    .addCondition(new PactCondition('Approval Process', [2, 3]))
-    .addCondition(new PactCondition('Tight Deadline', [1, 2, 3]));
+        .addCondition(new PactCondition('Hard Labor', [1, 1, 1, 1, 1]))
+        .addCondition(new PactCondition('Lasting Consequences', [1, 1, 1, 1]))
+        .addCondition(new PactCondition('Convenience Fee', [1, 1]))
+        .addCondition(new PactCondition('Jury Summons', [1, 1, 1]))
+        .addCondition(new PactCondition('Extreme Measures', [1, 2, 3, 4], 3))
+        .addCondition(new PactCondition('Calisthenics Program', [1, 1]))
+        .addCondition(new PactCondition('Benefits Package', [2, 3]))
+        .addCondition(new PactCondition('Middle Management', [2]))
+        .addCondition(new PactCondition('Underworld Customs', [2]))
+        .addCondition(new PactCondition('Forced Overtime', [3, 3]))
+        .addCondition(new PactCondition('Heightened Security', [1]))
+        .addCondition(new PactCondition('Routine Inspection', [2, 2, 2, 2]))
+        .addCondition(new PactCondition('Damage Control', [1, 1]))
+        .addCondition(new PactCondition('Approval Process', [2, 3]))
+        .addCondition(new PactCondition('Tight Deadline', [1, 2, 3]));
+
+    runOptions: RunOptions = defaultRunOptions;
 
     async loadData() {
         const weaponsData = await localForage.getItem<StorableWeaponsData | null>('weapons');
@@ -178,6 +181,11 @@ class Data {
         const keepsakeData = await localForage.getItem<StorableKeepsakesData | null>('keepsakes');
         if (keepsakeData) {
             this.keepsakes.fromStoredData(keepsakeData);
+        }
+
+        const runOptions = await localForage.getItem<RunOptions | null>('runOptions');
+        if (runOptions) {
+            this.runOptions = runOptions;
         }
 
         // this.weapons.unlockAll();

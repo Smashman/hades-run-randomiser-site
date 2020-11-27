@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { data } from '../data';
-import { Weapon, Weapons } from '../weapons';
+import { Weapons } from '../weapons';
 import { Keepsakes } from '../keepsakes';
 import { Companions } from '../companions';
 import { Mirror } from '../mirror';
 import { Pact } from '../pact';
 import * as localForage from 'localforage';
+import { RunOptions } from '../run';
 
 interface DataContainer {
     [k: string]: Weapons | Keepsakes | Companions | Mirror | Pact;
@@ -13,9 +14,9 @@ interface DataContainer {
 function createContext<T>() {
     return React.createContext<[T, (data:T) => void]>([{} as T, {} as (data:T) => void]);
 };
-function createDataProvider<T extends DataContainer>(category: string, context: React.Context<[T, (data:T) => void]>) {
+function createDataProvider<T extends DataContainer>(categoryName: string, context: React.Context<[T, (data:T) => void]>) {
     const defaultValue: T = {
-        [category]: data[category],
+        [categoryName]: data[categoryName],
     } as T;
 
     const DataProvider: React.FC = (props) => {    
@@ -23,7 +24,7 @@ function createDataProvider<T extends DataContainer>(category: string, context: 
 
         const updateData = (data: T) => {
             try {
-                localForage.setItem(category, data[category].toStorableData());
+                localForage.setItem(categoryName, data[categoryName].toStorableData());
             } catch (e) {
                 console.error(e);
             }
@@ -65,13 +66,34 @@ interface PactData extends DataContainer {
 export const PactContext = createContext<PactData>();
 export const PactDataProvider = createDataProvider<PactData>('pact', PactContext);
 
+interface RunOptionsData {
+    runOptions: RunOptions;
+}
+export const RunOptionsContext = createContext<RunOptionsData>();
+export const RunOptionsDataProvider: React.FC = (props) => {    
+    const [state, setState] = React.useState({runOptions: data.runOptions});
+
+    const updateData = (data: RunOptionsData) => {
+        try {
+            localForage.setItem('runOptions', data.runOptions);
+        } catch (e) {
+            console.error(e);
+        }
+        setState(data);
+    };
+
+    return <RunOptionsContext.Provider value={[state, updateData]} {...props} />
+}
+
 export const DataProvider: React.FC = (props) => {
     return (
         <KeepsakesDataProvider>
             <WeaponsDataProvider>
                 <CompanionsDataProvider>
                     <MirrorDataProvider>
-                        <PactDataProvider {...props}>
+                        <PactDataProvider>
+                            <RunOptionsDataProvider {...props}>
+                            </RunOptionsDataProvider>
                         </PactDataProvider>
                     </MirrorDataProvider>
                 </CompanionsDataProvider>

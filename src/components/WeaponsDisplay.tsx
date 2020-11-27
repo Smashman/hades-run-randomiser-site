@@ -9,7 +9,6 @@ import { unknownIcon } from '../img/misc';
 
 const WeaponsDisplay: React.FC = () => {
     const [{weapons}, setData] = React.useContext(WeaponsContext);
-    // const {weapons} = data;
     React.useEffect(() => {console.log('weapons')});
 
     const updateWeapons = () => setData({weapons});
