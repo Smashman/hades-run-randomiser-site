@@ -22,6 +22,20 @@ describe('Companion class', () => {
 
         expect(companion.isMaxLevel).toBe(true);
     });
+
+    it('should change resource values when level is updated', () => {
+        const companion = new Companion('Fluff', 'Jeff');
+
+        expect(companion.resource.total).toBe(10);
+        expect(companion.resource.spent).toBe(0);
+        expect(companion.resource.required).toBe(10);
+
+        companion.level.value = 4;
+
+        expect(companion.resource.total).toBe(10);
+        expect(companion.resource.spent).toBe(6);
+        expect(companion.resource.required).toBe(4);
+    });
 });
 
 describe('Companions class', () => {
@@ -92,6 +106,29 @@ describe('Companions class', () => {
 
         expect(companions.isAllMaxCodex).toBe(true);
     });
+
+    it('should calculate resource values from all companions', () => {
+        const companion1 = new Companion('Fluff', 'Jeff');
+        const companion2 = new Companion('Rex', 'Delilah');
+        const companions = new Companions().addItems([companion1, companion2]);
+
+        expect(companions.resourceTotal).toBe(20);
+        expect(companions.resourceSpent).toBe(0);
+        expect(companions.resourceRequired).toBe(20);
+    });
+
+    it('should calculate resource values from all companions when aspects are leveled', () => {
+        const companion1 = new Companion('Fluff', 'Jeff');
+        const companion2 = new Companion('Rex', 'Delilah');
+        const companions = new Companions().addItems([companion1, companion2]);
+
+        companion1.level.value = 2;
+        companion2.level.value = 3;
+
+        expect(companions.resourceTotal).toBe(20);
+        expect(companions.resourceSpent).toBe(4);
+        expect(companions.resourceRequired).toBe(16);
+    });
     
     describe('getRandomCompanion', () => {
         let getRandomItemFromArraySpy: jest.SpyInstance;
@@ -104,9 +141,9 @@ describe('Companions class', () => {
         let companion4: Companion;
 
         beforeEach(() => {
-            companion1 = new Companion('Fluff', 'Jeff'),
-            companion2 = new Companion('Rex', 'Delilah'),
-            companion3 = new Companion('Trunky', 'Bob'),
+            companion1 = new Companion('Fluff', 'Jeff');
+            companion2 = new Companion('Rex', 'Delilah');
+            companion3 = new Companion('Trunky', 'Bob');
             companion4 = new Companion('Mr. Bilbadopulous', 'Trevor');
             companions = new Companions().addItems([companion1, companion2, companion3, companion4]);
 

@@ -1,12 +1,18 @@
 import { Data, Run, RunOptions } from '../src/run';
-import { data } from '../src/data';
 import { Weapon, WeaponAspect } from '../src/weapons';
 import { Keepsake, KeepsakeOptions } from '../src/keepsakes';
 import { Companion, CompanionOptions } from '../src/companions';
 import { MirrorConfiguration, MirrorTalent } from '../src/mirror';
 import { HeatRange, Pact, PactCondition, PactConfiguration, PactOptions} from '../src/pact';
 import { fakeIcon } from './helpers';
-jest.mock('../src/data');
+import {
+    weapons as weaponsFixture,
+    keepsakes as keepsakesFixture,
+    companions as companionsFixture,
+    mirror as mirrorFixture,
+    pact as pactFixture,
+} from './fixtures/data';
+jest.mock('./fixtures/data');
 
 describe('Run class', () => {
     it('should create expected Run class instance', () => {
@@ -21,11 +27,11 @@ describe('Run class', () => {
         });
 
         const runData: Data = {
-            weapons: data.weapons,
-            keepsakes: data.keepsakes,
-            companions: data.companions,
-            mirror: data.mirror,
-            pact: data.pact,
+            weapons: weaponsFixture,
+            keepsakes: keepsakesFixture,
+            companions: companionsFixture,
+            mirror: mirrorFixture,
+            pact: pactFixture,
         };
 
         it('should generate empty random run with no options', () => {
@@ -96,7 +102,7 @@ describe('Run class', () => {
                     randomAspect: true,
                 },
             };
-            const weaponAspect = new WeaponAspect('Tarak', fakeIcon);
+            const weaponAspect = new WeaponAspect('Tarak', fakeIcon, [1, 1, 1, 1, 1]);
             const weapon = new Weapon('Skybreaker', 'Mistblade', 'sword').addAspect(weaponAspect);
 
             (runData.weapons.getRandom as jest.MockedFunction<typeof runData.weapons.getRandom>).mockReturnValue(weapon);

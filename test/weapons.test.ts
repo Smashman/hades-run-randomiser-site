@@ -4,19 +4,19 @@ import { getRandomItemFromArrayMock, fakeIcon } from './helpers';
 
 describe('WeaponAspect class', () => {
     it('should create expected WeaponAspect class instance', () => {
-        const weaponAspect = new WeaponAspect('Tarak', fakeIcon);
+        const weaponAspect = new WeaponAspect('Tarak', fakeIcon, [1, 1, 1, 1, 1]);
 
         expect(weaponAspect).toMatchSnapshot();
     });
 
     it('should create expected WeaponAspect class instance with more parameters', () => {
-        const weaponAspect = new WeaponAspect('Tarak', fakeIcon, true, true);
+        const weaponAspect = new WeaponAspect('Tarak', fakeIcon, [1, 1, 1, 1, 1], true, true);
 
         expect(weaponAspect).toMatchSnapshot();
     });
 
     it('should return false for isUnlocked after lock is called and canBeLocked is true', () => {
-        const weaponAspect = new WeaponAspect('Tarak', fakeIcon);
+        const weaponAspect = new WeaponAspect('Tarak', fakeIcon, [1, 1, 1, 1, 1]);
 
         expect(weaponAspect.canBeLocked).toBe(true);
 
@@ -28,7 +28,7 @@ describe('WeaponAspect class', () => {
     });
 
     it('should return false for isUnlocked after lock is called and canBeLocked is false', () => {
-        const weaponAspect = new WeaponAspect('Tarak', fakeIcon, false, true);
+        const weaponAspect = new WeaponAspect('Tarak', fakeIcon, [1, 1, 1, 1, 1], false, true);
 
         expect(weaponAspect.canBeLocked).toBe(false);
         expect(weaponAspect.isUnlocked).toBe(true);
@@ -38,7 +38,7 @@ describe('WeaponAspect class', () => {
     });
 
     it('should set isUnlocked to true when changing level above 0 when canBeLocked is true', () => {
-        const weaponAspect = new WeaponAspect('Tarak', fakeIcon);
+        const weaponAspect = new WeaponAspect('Tarak', fakeIcon, [1, 1, 1, 1, 1]);
 
         expect(weaponAspect.canBeLocked).toBe(true);
         expect(weaponAspect.isUnlocked).toBe(false);
@@ -49,7 +49,7 @@ describe('WeaponAspect class', () => {
     });
 
     it('should set isUnlocked to false when changing level to 0 when canBeLocked is true', () => {
-        const weaponAspect = new WeaponAspect('Tarak', fakeIcon);
+        const weaponAspect = new WeaponAspect('Tarak', fakeIcon, [1, 1, 1, 1, 1]);
 
         expect(weaponAspect.canBeLocked).toBe(true);
         expect(weaponAspect.isUnlocked).toBe(false);
@@ -64,7 +64,7 @@ describe('WeaponAspect class', () => {
     });
 
     it('should not change isUnlocked when changing level above 0 when canBeLocked is false', () => {
-        const weaponAspect = new WeaponAspect('Tarak', fakeIcon, false, true);
+        const weaponAspect = new WeaponAspect('Tarak', fakeIcon, [1, 1, 1, 1, 1], false, true);
 
         expect(weaponAspect.canBeLocked).toBe(false);
         expect(weaponAspect.isUnlocked).toBe(true);
@@ -75,7 +75,7 @@ describe('WeaponAspect class', () => {
     });
 
     it('should not change isUnlocked when changing level to 0 when canBeLocked is false', () => {
-        const weaponAspect = new WeaponAspect('Tarak', fakeIcon, false, true);
+        const weaponAspect = new WeaponAspect('Tarak', fakeIcon, [1, 1, 1, 1, 1], false, true);
 
         expect(weaponAspect.canBeLocked).toBe(false);
         expect(weaponAspect.isUnlocked).toBe(true);
@@ -89,15 +89,29 @@ describe('WeaponAspect class', () => {
         expect(weaponAspect.isUnlocked).toBe(true);
     });
 
+    it('should change resource values when level is updated', () => {
+        const weaponAspect = new WeaponAspect('Tarak', fakeIcon, [1, 1, 1, 1, 1]);
+
+        expect(weaponAspect.resource.total).toBe(5);
+        expect(weaponAspect.resource.spent).toBe(0);
+        expect(weaponAspect.resource.required).toBe(5);
+
+        weaponAspect.level.value = 4;
+
+        expect(weaponAspect.resource.total).toBe(5);
+        expect(weaponAspect.resource.spent).toBe(4);
+        expect(weaponAspect.resource.required).toBe(1);
+    });
+
     describe('toStorableData', () => {
         it('should return expected storable data', () => {
-            const weaponAspect = new WeaponAspect('Tarak', fakeIcon);
+            const weaponAspect = new WeaponAspect('Tarak', fakeIcon, [1, 1, 1, 1, 1]);
     
             expect(weaponAspect.toStorableData()).toMatchSnapshot();
         });
 
         it('should return expected storable data with level', () => {
-            const weaponAspect = new WeaponAspect('Tarak', fakeIcon);
+            const weaponAspect = new WeaponAspect('Tarak', fakeIcon, [1, 1, 1, 1, 1]);
             weaponAspect.level.value = 5;
     
             expect(weaponAspect.toStorableData()).toMatchSnapshot();
@@ -106,7 +120,7 @@ describe('WeaponAspect class', () => {
 
     describe('fromStoredData', () => {
         it('should retun expected Weapon instance after loading from data', () => {
-            const weaponAspect = new WeaponAspect('Tarak', fakeIcon);
+            const weaponAspect = new WeaponAspect('Tarak', fakeIcon, [1, 1, 1, 1, 1]);
             weaponAspect.fromStoredData({
                 isUnlocked: true,
                 level: 2,
@@ -130,7 +144,7 @@ describe('Weapon class', () => {
     });
 
     it('should add aspect to Weapon', () => {
-        const weaponAspect = new WeaponAspect('Tarak', fakeIcon);
+        const weaponAspect = new WeaponAspect('Tarak', fakeIcon, [1, 1, 1, 1, 1]);
         const weapon = new Weapon('Skybreaker', 'Mistblade', 'sword').addAspect(weaponAspect);
 
         expect(weapon.aspects).toHaveLength(1);
@@ -138,8 +152,8 @@ describe('Weapon class', () => {
     });
 
     it('should add aspects to Weapon', () => {
-        const weaponAspect1 = new WeaponAspect('Tarak', fakeIcon);
-        const weaponAspect2 = new WeaponAspect('Shokrug', fakeIcon);
+        const weaponAspect1 = new WeaponAspect('Tarak', fakeIcon, [1, 1, 1, 1, 1]);
+        const weaponAspect2 = new WeaponAspect('Shokrug', fakeIcon, [1, 2, 3, 4, 5]);
         const weapon = new Weapon('Skybreaker', 'Mistblade', 'sword').addAspects([weaponAspect1, weaponAspect2]);
 
         expect(weapon.aspects).toHaveLength(2);
@@ -148,18 +162,18 @@ describe('Weapon class', () => {
     });
 
     it('should return no items for unlockedAspects if no aspects are unlocked', () => {
-        const weaponAspect1 = new WeaponAspect('Tarak', fakeIcon);
-        const weaponAspect2 = new WeaponAspect('Shokrug', fakeIcon);
+        const weaponAspect1 = new WeaponAspect('Tarak', fakeIcon, [1, 1, 1, 1, 1]);
+        const weaponAspect2 = new WeaponAspect('Shokrug', fakeIcon, [1, 2, 3, 4, 5]);
         const weapon = new Weapon('Skybreaker', 'Mistblade', 'sword').addAspects([weaponAspect1, weaponAspect2]);
 
         expect(weapon.unlockedAspects).toHaveLength(0);
     });
 
     it('should return expected items for unlockedAspects when a subset of aspects is unlocked', () => {
-        const weaponAspect1 = new WeaponAspect('Tarak', fakeIcon);
+        const weaponAspect1 = new WeaponAspect('Tarak', fakeIcon, [1, 1, 1, 1, 1]);
         weaponAspect1.unlock();
 
-        const weaponAspect2 = new WeaponAspect('Shokrug', fakeIcon);
+        const weaponAspect2 = new WeaponAspect('Shokrug', fakeIcon, [1, 2, 3, 4, 5]);
 
         const weapon = new Weapon('Skybreaker', 'Mistblade', 'sword').addAspects([weaponAspect1, weaponAspect2]);
 
@@ -169,10 +183,10 @@ describe('Weapon class', () => {
     });
 
     it('should return all items for unlockedAspects when all aspects are unlocked', () => {
-        const weaponAspect1 = new WeaponAspect('Tarak', fakeIcon);
+        const weaponAspect1 = new WeaponAspect('Tarak', fakeIcon, [1, 1, 1, 1, 1]);
         weaponAspect1.unlock();
 
-        const weaponAspect2 = new WeaponAspect('Shokrug', fakeIcon);
+        const weaponAspect2 = new WeaponAspect('Shokrug', fakeIcon, [1, 2, 3, 4, 5]);
         weaponAspect2.unlock();
 
         const weapon = new Weapon('Skybreaker', 'Mistblade', 'sword').addAspects([weaponAspect1, weaponAspect2]);
@@ -183,8 +197,8 @@ describe('Weapon class', () => {
     });
 
     it('should set all aspects to unlocked when calling unlockAllAspects', () => {
-        const weaponAspect1 = new WeaponAspect('Tarak', fakeIcon);
-        const weaponAspect2 = new WeaponAspect('Shokrug', fakeIcon);
+        const weaponAspect1 = new WeaponAspect('Tarak', fakeIcon, [1, 1, 1, 1, 1]);
+        const weaponAspect2 = new WeaponAspect('Shokrug', fakeIcon, [1, 2, 3, 4, 5]);
         const weapon = new Weapon('Skybreaker', 'Mistblade', 'sword').addAspects([weaponAspect1, weaponAspect2]);
 
         weapon.unlockAllAspects();
@@ -195,8 +209,8 @@ describe('Weapon class', () => {
     });
 
     it('should set all aspects to max level when calling maxLevelAllAspects', () => {
-        const weaponAspect1 = new WeaponAspect('Tarak', fakeIcon);
-        const weaponAspect2 = new WeaponAspect('Shokrug', fakeIcon);
+        const weaponAspect1 = new WeaponAspect('Tarak', fakeIcon, [1, 1, 1, 1, 1]);
+        const weaponAspect2 = new WeaponAspect('Shokrug', fakeIcon, [1, 2, 3, 4, 5]);
         const weapon = new Weapon('Skybreaker', 'Mistblade', 'sword').addAspects([weaponAspect1, weaponAspect2]);
 
         weapon.maxLevelAllAspects();
@@ -206,7 +220,7 @@ describe('Weapon class', () => {
     });
 
     it('should return false for isUnlocked after lock is called and canBeLocked is true', () => {
-        const weaponAspect = new WeaponAspect('Tarak', fakeIcon);
+        const weaponAspect = new WeaponAspect('Tarak', fakeIcon, [1, 1, 1, 1, 1]);
         const weapon = new Weapon('Skybreaker', 'Mistblade', 'sword').addAspect(weaponAspect);
 
         expect(weapon.canBeLocked).toBe(true);
@@ -219,7 +233,7 @@ describe('Weapon class', () => {
     });
 
     it('should return false for isUnlocked after lock is called and canBeLocked is false', () => {
-        const weaponAspect = new WeaponAspect('Tarak', fakeIcon);
+        const weaponAspect = new WeaponAspect('Tarak', fakeIcon, [1, 1, 1, 1, 1]);
         const weapon = new Weapon('Skybreaker', 'Mistblade', 'sword', true).addAspect(weaponAspect);
 
         expect(weapon.canBeLocked).toBe(false);
@@ -238,8 +252,8 @@ describe('Weapon class', () => {
         let weapon: Weapon;
 
         beforeEach(() => {
-            weaponAspect1 = new WeaponAspect('Tarak', fakeIcon);
-            weaponAspect2 = new WeaponAspect('Shokrug', fakeIcon);
+            weaponAspect1 = new WeaponAspect('Tarak', fakeIcon, [1, 1, 1, 1, 1]);
+            weaponAspect2 = new WeaponAspect('Shokrug', fakeIcon, [1, 2, 3, 4, 5]);
             weapon = new Weapon('Skybreaker', 'Mistblade', 'sword').addAspects([weaponAspect1, weaponAspect2]);
 
             getRandomItemFromArraySpy = jest.spyOn(utils, 'getRandomItemFromArray').mockImplementation(getRandomItemFromArrayMock);
@@ -274,18 +288,46 @@ describe('Weapon class', () => {
         });
     });
 
+    describe('Resources', () => {
+        let weaponAspect1: WeaponAspect;
+        let weaponAspect2: WeaponAspect;
+
+        let weapon: Weapon;
+
+        beforeEach(() => {
+            weaponAspect1 = new WeaponAspect('Tarak', fakeIcon, [1, 1, 1, 1, 1]);
+            weaponAspect2 = new WeaponAspect('Shokrug', fakeIcon, [1, 2, 3, 4, 5]);
+            weapon = new Weapon('Skybreaker', 'Mistblade', 'sword').addAspects([weaponAspect1, weaponAspect2]);
+        });
+
+        it('should calculate resource values from all aspects', () => {
+            expect(weapon.resourceTotal).toBe(20);
+            expect(weapon.resourceSpent).toBe(0);
+            expect(weapon.resourceRequired).toBe(20);
+        });
+
+        it('should calculate resource values from all aspects when aspects are leveled', () => {
+            weaponAspect1.level.value = 2;
+            weaponAspect2.level.value = 3;
+
+            expect(weapon.resourceTotal).toBe(20);
+            expect(weapon.resourceSpent).toBe(8);
+            expect(weapon.resourceRequired).toBe(12);
+        });
+    });
+
     describe('toStorableData', () => {
         it('should return expected storable data', () => {
-            const weaponAspect1 = new WeaponAspect('Tarak', fakeIcon);
-            const weaponAspect2 = new WeaponAspect('Shokrug', fakeIcon);
+            const weaponAspect1 = new WeaponAspect('Tarak', fakeIcon, [1, 1, 1, 1, 1]);
+            const weaponAspect2 = new WeaponAspect('Shokrug', fakeIcon, [1, 2, 3, 4, 5]);
             const weapon = new Weapon('Skybreaker', 'Mistblade', 'sword').addAspects([weaponAspect1, weaponAspect2]);
     
             expect(weapon.toStorableData()).toMatchSnapshot();
         });
 
         it('should return expected storable data with aspects with level', () => {
-            const weaponAspect1 = new WeaponAspect('Tarak', fakeIcon);
-            const weaponAspect2 = new WeaponAspect('Shokrug', fakeIcon);
+            const weaponAspect1 = new WeaponAspect('Tarak', fakeIcon, [1, 1, 1, 1, 1]);
+            const weaponAspect2 = new WeaponAspect('Shokrug', fakeIcon, [1, 2, 3, 4, 5]);
             const weapon = new Weapon('Skybreaker', 'Mistblade', 'sword').addAspects([weaponAspect1, weaponAspect2]);
             weapon.unlock();
             weaponAspect1.level.value = 2;
@@ -297,8 +339,8 @@ describe('Weapon class', () => {
 
     describe('fromStoredData', () => {
         it('should retun expected Weapons instance after loading from data', () => {
-            const weaponAspect1 = new WeaponAspect('Tarak', fakeIcon);
-            const weaponAspect2 = new WeaponAspect('Shokrug', fakeIcon);
+            const weaponAspect1 = new WeaponAspect('Tarak', fakeIcon, [1, 1, 1, 1, 1]);
+            const weaponAspect2 = new WeaponAspect('Shokrug', fakeIcon, [1, 2, 3, 4, 5]);
             const weapon = new Weapon('Skybreaker', 'Mistblade', 'sword').addAspects([weaponAspect1, weaponAspect2]);
             weapon.fromStoredData({
                 isUnlocked: true,
@@ -321,8 +363,8 @@ describe('Weapon class', () => {
 
 describe('Weapons class', () => {
     it('should unlock all aspects as well as all weapons when calling unlockAll', () => {
-        const weapon1 = new Weapon('Skybreaker', 'Mistblade', 'sword').addAspects([new WeaponAspect('Tarak', fakeIcon), new WeaponAspect('Shokrug', fakeIcon)]);
-        const weapon2 = new Weapon('Lightsaber', 'Weapon of the Jedi', 'laser sword').addAspects([new WeaponAspect('Rey', fakeIcon), new WeaponAspect('Luke', fakeIcon), new WeaponAspect('Anakin', fakeIcon)]);
+        const weapon1 = new Weapon('Skybreaker', 'Mistblade', 'sword').addAspects([new WeaponAspect('Tarak', fakeIcon, [1, 1, 1, 1, 1]), new WeaponAspect('Shokrug', fakeIcon, [1, 2, 3, 4, 5])]);
+        const weapon2 = new Weapon('Lightsaber', 'Weapon of the Jedi', 'laser sword').addAspects([new WeaponAspect('Rey', fakeIcon, [1, 1, 1, 1, 1]), new WeaponAspect('Luke', fakeIcon, [1, 2, 3, 4, 5]), new WeaponAspect('Anakin', fakeIcon, [3, 3, 3, 3, 3])]);
         const weapons = new Weapons().addItems([weapon1, weapon2]);
 
         expect(weapons.unlocked).toHaveLength(0);
@@ -341,8 +383,8 @@ describe('Weapons class', () => {
     });
 
     it('should max level all aspects of all weapons when calling maxLevelAll', () => {
-        const weapon1 = new Weapon('Skybreaker', 'Mistblade', 'sword').addAspects([new WeaponAspect('Tarak', fakeIcon), new WeaponAspect('Shokrug', fakeIcon)]);
-        const weapon2 = new Weapon('Lightsaber', 'Weapon of the Jedi', 'laser sword').addAspects([new WeaponAspect('Rey', fakeIcon), new WeaponAspect('Luke', fakeIcon), new WeaponAspect('Anakin', fakeIcon)]);
+        const weapon1 = new Weapon('Skybreaker', 'Mistblade', 'sword').addAspects([new WeaponAspect('Tarak', fakeIcon, [1, 1, 1, 1, 1]), new WeaponAspect('Shokrug', fakeIcon, [1, 2, 3, 4, 5])]);
+        const weapon2 = new Weapon('Lightsaber', 'Weapon of the Jedi', 'laser sword').addAspects([new WeaponAspect('Rey', fakeIcon, [1, 1, 1, 1, 1]), new WeaponAspect('Luke', fakeIcon, [1, 2, 3, 4, 5]), new WeaponAspect('Anakin', fakeIcon, [3, 3, 3, 3, 3])]);
         const weapons = new Weapons().addItems([weapon1, weapon2]);
 
         expect(weapon1.aspects[0].level.value).toBe(0);
@@ -358,5 +400,31 @@ describe('Weapons class', () => {
         expect(weapon2.aspects[0].level.value).toBe(5);
         expect(weapon2.aspects[1].level.value).toBe(5);
         expect(weapon2.aspects[2].level.value).toBe(5);
+    });
+
+    it('should calculate resource values from all weapons', () => {
+        const weapon1 = new Weapon('Skybreaker', 'Mistblade', 'sword').addAspects([new WeaponAspect('Tarak', fakeIcon, [1, 1, 1, 1, 1]), new WeaponAspect('Shokrug', fakeIcon, [1, 2, 3, 4, 5])]);
+        const weapon2 = new Weapon('Lightsaber', 'Weapon of the Jedi', 'laser sword').addAspects([new WeaponAspect('Rey', fakeIcon, [1, 1, 1, 1, 1]), new WeaponAspect('Luke', fakeIcon, [1, 2, 3, 4, 5]), new WeaponAspect('Anakin', fakeIcon, [3, 3, 3, 3, 3])]);
+        const weapons = new Weapons().addItems([weapon1, weapon2]);
+
+        expect(weapons.resourceTotal).toBe(55);
+        expect(weapons.resourceSpent).toBe(0);
+        expect(weapons.resourceRequired).toBe(55);
+    });
+
+    it('should calculate resource values from all weapons when aspects are leveled', () => {
+        const weapon1 = new Weapon('Skybreaker', 'Mistblade', 'sword').addAspects([new WeaponAspect('Tarak', fakeIcon, [1, 1, 1, 1, 1]), new WeaponAspect('Shokrug', fakeIcon, [1, 2, 3, 4, 5])]);
+        const weapon2 = new Weapon('Lightsaber', 'Weapon of the Jedi', 'laser sword').addAspects([new WeaponAspect('Rey', fakeIcon, [1, 1, 1, 1, 1]), new WeaponAspect('Luke', fakeIcon, [1, 2, 3, 4, 5]), new WeaponAspect('Anakin', fakeIcon, [3, 3, 3, 3, 3])]);
+        const weapons = new Weapons().addItems([weapon1, weapon2]);
+
+        weapon1.aspects[0].level.value = 2;
+        weapon1.aspects[1].level.value = 4;
+        weapon2.aspects[0].level.value = 3;
+        weapon2.aspects[1].level.value = 0;
+        weapon2.aspects[2].level.value = 5;
+
+        expect(weapons.resourceTotal).toBe(55);
+        expect(weapons.resourceSpent).toBe(30);
+        expect(weapons.resourceRequired).toBe(25);
     });
 });

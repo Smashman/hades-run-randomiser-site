@@ -9,49 +9,54 @@ import * as keepsakeIcons from './img/keepsake';
 import * as weaponIcons from './img/weapon';
 import * as localForage from 'localforage';
 
+const zagreusBloodCosts = [1, 1, 1, 1, 1];
+const altBloodCosts = [1, 2, 3, 4, 5];
+const godBloodCosts = [2, 2, 3, 4, 5];
+const hiddenBloodCosts = [3, 3, 3, 3, 3];
+
 class Data {
     weapons = new Weapons().addItems([
         new Weapon('Stygius', 'Blade of the Underworld', 'sword', true)
         .addAspects([
-            new WeaponAspect('Zagreus', weaponIcons.sword.zagreus, false, true),
-            new WeaponAspect('Nemesis', weaponIcons.sword.nemesis),
-            new WeaponAspect('Poseidon', weaponIcons.sword.poseidon),
-            new WeaponAspect('Arthur', weaponIcons.sword.arthur, true),
+            new WeaponAspect('Zagreus', weaponIcons.sword.zagreus, zagreusBloodCosts, false, true),
+            new WeaponAspect('Nemesis', weaponIcons.sword.nemesis, altBloodCosts),
+            new WeaponAspect('Poseidon', weaponIcons.sword.poseidon, godBloodCosts),
+            new WeaponAspect('Arthur', weaponIcons.sword.arthur, hiddenBloodCosts, true),
         ]),
         new Weapon('Varatha', 'Eternal Spear', 'spear')
         .addAspects([
-            new WeaponAspect('Zagreus', weaponIcons.spear.zagreus, false, true),
-            new WeaponAspect('Achilles', weaponIcons.spear.achilles),
-            new WeaponAspect('Hades', weaponIcons.spear.hades),
-            new WeaponAspect('Guan Yu', weaponIcons.spear.guanYu, true),
+            new WeaponAspect('Zagreus', weaponIcons.spear.zagreus, zagreusBloodCosts, false, true),
+            new WeaponAspect('Achilles', weaponIcons.spear.achilles, altBloodCosts),
+            new WeaponAspect('Hades', weaponIcons.spear.hades, godBloodCosts),
+            new WeaponAspect('Guan Yu', weaponIcons.spear.guanYu, hiddenBloodCosts, true),
         ]),
         new Weapon('Aegis', 'Shield of Chaos', 'shield')
         .addAspects([
-            new WeaponAspect('Zagreus', weaponIcons.shield.zagreus, false, true),
-            new WeaponAspect('Chaos', weaponIcons.shield.chaos),
-            new WeaponAspect('Zeus', weaponIcons.shield.zeus),
-            new WeaponAspect('Beowulf', weaponIcons.shield.beowulf, true),
+            new WeaponAspect('Zagreus', weaponIcons.shield.zagreus, zagreusBloodCosts, false, true),
+            new WeaponAspect('Chaos', weaponIcons.shield.chaos, altBloodCosts),
+            new WeaponAspect('Zeus', weaponIcons.shield.zeus, godBloodCosts),
+            new WeaponAspect('Beowulf', weaponIcons.shield.beowulf, hiddenBloodCosts, true),
         ]),
         new Weapon('Coronacht', 'Heart-Seeking Bow', 'bow')
         .addAspects([
-            new WeaponAspect('Zagreus', weaponIcons.bow.zagreus, false, true),
-            new WeaponAspect('Chiron', weaponIcons.bow.chiron),
-            new WeaponAspect('Hera', weaponIcons.bow.hera),
-            new WeaponAspect('Rama', weaponIcons.bow.rama, true),
+            new WeaponAspect('Zagreus', weaponIcons.bow.zagreus, zagreusBloodCosts, false, true),
+            new WeaponAspect('Chiron', weaponIcons.bow.chiron, altBloodCosts),
+            new WeaponAspect('Hera', weaponIcons.bow.hera, godBloodCosts),
+            new WeaponAspect('Rama', weaponIcons.bow.rama, hiddenBloodCosts, true),
         ]),
         new Weapon('Malphon', 'Twin Fists', 'fists')
         .addAspects([
-            new WeaponAspect('Zagreus', weaponIcons.fists.zagreus, false, true),
-            new WeaponAspect('Talos', weaponIcons.fists.talos),
-            new WeaponAspect('Demeter', weaponIcons.fists.demeter),
-            new WeaponAspect('Gilgamesh', weaponIcons.fists.gilgamesh, true),
+            new WeaponAspect('Zagreus', weaponIcons.fists.zagreus, zagreusBloodCosts, false, true),
+            new WeaponAspect('Talos', weaponIcons.fists.talos, altBloodCosts),
+            new WeaponAspect('Demeter', weaponIcons.fists.demeter, godBloodCosts),
+            new WeaponAspect('Gilgamesh', weaponIcons.fists.gilgamesh, hiddenBloodCosts, true),
         ]),
         new Weapon('Exagryph', 'Adamant Rail', 'gun')
         .addAspects([
-            new WeaponAspect('Zagreus', weaponIcons.gun.zagreus, false, true),
-            new WeaponAspect('Eris', weaponIcons.gun.eris),
-            new WeaponAspect('Hestia', weaponIcons.gun.hestia),
-            new WeaponAspect('Lucifer', weaponIcons.gun.lucifer, true),
+            new WeaponAspect('Zagreus', weaponIcons.gun.zagreus, zagreusBloodCosts, false, true),
+            new WeaponAspect('Eris', weaponIcons.gun.eris, altBloodCosts),
+            new WeaponAspect('Hestia', weaponIcons.gun.hestia, godBloodCosts),
+            new WeaponAspect('Lucifer', weaponIcons.gun.lucifer, hiddenBloodCosts, true),
         ]),
     ]);
 
@@ -204,4 +209,4 @@ class Data {
 export const data = new Data();
 
 //@ts-ignore
-// window.data = data;
+window.data = data;

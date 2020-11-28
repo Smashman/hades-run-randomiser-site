@@ -1,4 +1,4 @@
-import { getRandomItemFromArray, Item, Level, Options } from './utils';
+import { getRandomItemFromArray, Item, Level, Options, Resource } from './utils';
 import { ItemList } from './utils';
 
 export interface CompanionOptions extends Options {
@@ -30,17 +30,33 @@ export class Companions extends ItemList<Companion> {
     get isAllMaxLevel() {
         return this.items.every(companion => companion.isMaxLevel);
     }
+
+    get resourceTotal() {
+        return this.items.reduce((total, companion) => total + companion.resource.total, 0);
+    }
+
+    get resourceSpent() {
+        return this.items.reduce((total, companion) => total + companion.resource.spent, 0);
+    }
+
+    get resourceRequired() {
+        return this.resourceTotal - this.resourceSpent;
+    }
 }
 
 export class Companion extends Item {
-    level: Level = new Level(1, Companion.minLevel, Companion.maxLevel);
+    level = new Level(1, Companion.minLevel, Companion.maxLevel);
+    resource: Resource;
     isMaxCodex: boolean = false;
+
     constructor(public name: string, public giver: string) {
         super();
+        this.resource = new Resource(Companion.levelCosts, this.level, 'ambrosia');
     }
 
-    static minLevel: number = 1;
-    static maxLevel: number = 5;
+    static levelCosts = [0, 1, 2, 3, 4];
+    static minLevel = 1;
+    static maxLevel = Companion.levelCosts.length;
 
     get isMaxLevel(): boolean {
         return this.level.isMaxLevel();

@@ -1,4 +1,4 @@
-import { Item, ItemList, Options, getRandomItemFromArray, Level, StorableItemListData, StorableItemData } from './utils';
+import { Item, ItemList, Options, getRandomItemFromArray, Level, StorableItemListData, StorableItemData, Resource } from './utils';
 
 export interface WeaponOptions extends Options {
     randomAspect?: boolean;
@@ -14,6 +14,18 @@ export class Weapons extends ItemList<Weapon> {
 
     maxLevelAll() {
         this.items.forEach(weapon => weapon.maxLevelAllAspects());
+    }
+
+    get resourceTotal() {
+        return this.items.reduce((total, weapon) => total + weapon.resourceTotal, 0);
+    }
+
+    get resourceSpent() {
+        return this.items.reduce((total, weapon) => total + weapon.resourceSpent, 0);
+    }
+
+    get resourceRequired() {
+        return this.resourceTotal - this.resourceSpent;
     }
 }
 
@@ -62,6 +74,18 @@ export class Weapon extends Item {
         return getRandomItemFromArray(this.unlockedAspects) ?? null;
     }
 
+    get resourceTotal() {
+        return this.aspects.reduce((total, aspect) => total + aspect.resource.total, 0);
+    }
+
+    get resourceSpent() {
+        return this.aspects.reduce((total, aspect) => total + aspect.resource.spent, 0);
+    }
+
+    get resourceRequired() {
+        return this.resourceTotal - this.resourceSpent;
+    }
+
     toStorableData(): StorableWeaponData {
         const itemData = super.toStorableData();
         return {
@@ -84,17 +108,20 @@ interface StorableWeaponAspectData extends StorableItemData {
 
 export class WeaponAspect extends Item {
     level: Level;
+    resource: Resource;
+    maxLevel: number;
     canBeLocked: boolean = true;
 
-    constructor(public name: string, public icon: string, public isHidden: boolean = false, public isUnlocked: boolean = false){
+    constructor(public name: string, public icon: string, private readonly levelCosts: number[], public isHidden: boolean = false, public isUnlocked: boolean = false){
         super();
         const onLevelChange = this.onLevelChange.bind(this);
-        this.level = new Level(0, WeaponAspect.minLevel, WeaponAspect.maxLevel, onLevelChange);
+        this.maxLevel = levelCosts.length;
+        this.level = new Level(0, WeaponAspect.minLevel, this.maxLevel, onLevelChange);
+        this.resource = new Resource(levelCosts, this.level, 'blood');
         this.canBeLocked = !isUnlocked;
     }
 
     static minLevel = 0;
-    static maxLevel = 5;
 
     lock() {
         if (this.canBeLocked) {

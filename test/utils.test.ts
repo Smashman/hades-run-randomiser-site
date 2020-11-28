@@ -1,4 +1,4 @@
-import { fillArray, getRandomItemFromArray, Item, ItemList, Level } from '../src/utils';
+import { fillArray, getRandomItemFromArray, Item, ItemList, Level, Resource } from '../src/utils';
 
 describe('getRandomItemFromArray', () => {
     const array = [1, 2, 3, 4, 5];
@@ -316,3 +316,54 @@ describe('Level', () => {
         expect(onChangeSpy).toHaveBeenCalledTimes(0);
     });
 });
+
+describe('Resource', () => {
+    let level: Level;
+    beforeEach(() => {
+        level = new Level(0, 0, 5);
+    });
+
+    it('should create expected Resource class instance', () => {
+        const resource = new Resource([1, 1, 1, 1, 1], level);
+
+        expect(resource).toMatchSnapshot();
+    });
+
+    it('should create expected Resource class instance with name', () => {
+        const resource = new Resource([1, 1, 1, 1, 1], level, 'blood');
+
+        expect(resource).toMatchSnapshot();
+    });
+
+    it('should calculated expected resource total value', () => {
+        const resource = new Resource([1, 1, 1, 1, 1], level, 'blood');
+
+        expect(resource.total).toBe(5);
+    });
+
+    it('should return expected spent value when level is 0', () => {
+        const resource = new Resource([1, 1, 1, 1, 1], level, 'blood');
+
+        expect(resource.spent).toBe(0);
+    });
+
+    it('should return expected required value when level is 0', () => {
+        const resource = new Resource([1, 1, 1, 1, 1], level, 'blood');
+
+        expect(resource.required).toBe(5);
+    });
+
+    it('should return expected spent value when level is 2', () => {
+        level.value = 2;
+        const resource = new Resource([1, 1, 1, 1, 1], level, 'blood');
+
+        expect(resource.spent).toBe(2);
+    });
+
+    it('should return expected required value when level is 2', () => {
+        level.value = 2;
+        const resource = new Resource([1, 1, 1, 1, 1], level, 'blood');
+
+        expect(resource.required).toBe(3);
+    });
+})

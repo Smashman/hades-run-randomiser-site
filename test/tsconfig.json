@@ -7,5 +7,4 @@
         "jsx": "react",
         // "strict": true,
     },
-    "exclude": ["test/**/*"],
 }

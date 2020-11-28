@@ -119,3 +119,18 @@ export class Level {
         return this.addValue(-1);
     }
 }
+
+export class Resource {
+    total: number;
+
+    constructor(public readonly costs: number[], public level: Level, public name?: string) {
+        this.total = costs.reduce((totalCost, cost) => totalCost + cost);
+    }
+
+    get spent() {
+        return this.costs.slice(0, this.level.value).reduce((totalCost, cost) => totalCost + cost, 0);
+    }
+    get required() {
+        return this.total - this.spent;
+    }
+}

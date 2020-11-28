@@ -14,7 +14,32 @@ Weapon {
         "min": 0,
         "onChange": [Function],
       },
+      "levelCosts": Array [
+        1,
+        1,
+        1,
+        1,
+        1,
+      ],
+      "maxLevel": 5,
       "name": "Tarak",
+      "resource": Resource {
+        "costs": Array [
+          1,
+          1,
+          1,
+          1,
+          1,
+        ],
+        "level": Level {
+          "_value": 3,
+          "max": 5,
+          "min": 0,
+          "onChange": [Function],
+        },
+        "name": "blood",
+        "total": 5,
+      },
     },
     WeaponAspect {
       "canBeLocked": true,
@@ -27,7 +52,32 @@ Weapon {
         "min": 0,
         "onChange": [Function],
       },
+      "levelCosts": Array [
+        1,
+        2,
+        3,
+        4,
+        5,
+      ],
+      "maxLevel": 5,
       "name": "Shokrug",
+      "resource": Resource {
+        "costs": Array [
+          1,
+          2,
+          3,
+          4,
+          5,
+        ],
+        "level": Level {
+          "_value": 0,
+          "max": 5,
+          "min": 0,
+          "onChange": [Function],
+        },
+        "name": "blood",
+        "total": 15,
+      },
     },
   ],
   "canBeLocked": true,
@@ -93,7 +143,32 @@ WeaponAspect {
     "min": 0,
     "onChange": [Function],
   },
+  "levelCosts": Array [
+    1,
+    1,
+    1,
+    1,
+    1,
+  ],
+  "maxLevel": 5,
   "name": "Tarak",
+  "resource": Resource {
+    "costs": Array [
+      1,
+      1,
+      1,
+      1,
+      1,
+    ],
+    "level": Level {
+      "_value": 2,
+      "max": 5,
+      "min": 0,
+      "onChange": [Function],
+    },
+    "name": "blood",
+    "total": 5,
+  },
 }
 `;
 
@@ -109,7 +184,32 @@ WeaponAspect {
     "min": 0,
     "onChange": [Function],
   },
+  "levelCosts": Array [
+    1,
+    1,
+    1,
+    1,
+    1,
+  ],
+  "maxLevel": 5,
   "name": "Tarak",
+  "resource": Resource {
+    "costs": Array [
+      1,
+      1,
+      1,
+      1,
+      1,
+    ],
+    "level": Level {
+      "_value": 0,
+      "max": 5,
+      "min": 0,
+      "onChange": [Function],
+    },
+    "name": "blood",
+    "total": 5,
+  },
 }
 `;
 
@@ -125,7 +225,32 @@ WeaponAspect {
     "min": 0,
     "onChange": [Function],
   },
+  "levelCosts": Array [
+    1,
+    1,
+    1,
+    1,
+    1,
+  ],
+  "maxLevel": 5,
   "name": "Tarak",
+  "resource": Resource {
+    "costs": Array [
+      1,
+      1,
+      1,
+      1,
+      1,
+    ],
+    "level": Level {
+      "_value": 0,
+      "max": 5,
+      "min": 0,
+      "onChange": [Function],
+    },
+    "name": "blood",
+    "total": 5,
+  },
 }
 `;
 

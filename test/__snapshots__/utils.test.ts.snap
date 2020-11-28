@@ -77,3 +77,43 @@ Level {
   "onChange": undefined,
 }
 `;
+
+exports[`Resource should create expected Resource class instance 1`] = `
+Resource {
+  "costs": Array [
+    1,
+    1,
+    1,
+    1,
+    1,
+  ],
+  "level": Level {
+    "_value": 0,
+    "max": 5,
+    "min": 0,
+    "onChange": undefined,
+  },
+  "name": undefined,
+  "total": 5,
+}
+`;
+
+exports[`Resource should create expected Resource class instance with name 1`] = `
+Resource {
+  "costs": Array [
+    1,
+    1,
+    1,
+    1,
+    1,
+  ],
+  "level": Level {
+    "_value": 0,
+    "max": 5,
+    "min": 0,
+    "onChange": undefined,
+  },
+  "name": "blood",
+  "total": 5,
+}
+`;

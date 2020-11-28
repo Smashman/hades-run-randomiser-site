@@ -104,9 +104,9 @@ describe('Keepsakes class', () => {
         let keepsake4: Keepsake;
 
         beforeEach(() => {
-            keepsake1 = new Keepsake('Shoe', 'Jeff', fakeIcon),
-            keepsake2 = new Keepsake('Coat', 'Delilah', fakeIcon),
-            keepsake3 = new Keepsake('Skirt', 'Bob', fakeIcon),
+            keepsake1 = new Keepsake('Shoe', 'Jeff', fakeIcon);
+            keepsake2 = new Keepsake('Coat', 'Delilah', fakeIcon);
+            keepsake3 = new Keepsake('Skirt', 'Bob', fakeIcon);
             keepsake4 = new Keepsake('Scarf', 'Trevor', fakeIcon);
             keepsakes = new Keepsakes().addItems([keepsake1, keepsake2, keepsake3, keepsake4]);
 
