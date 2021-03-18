@@ -3,7 +3,7 @@ import { data } from '../data';
 import { WeaponsDataProvider, KeepsakesDataProvider, CompanionsDataProvider, MirrorDataProvider, PactDataProvider, DataProvider } from './Data';
 import KeepsakeDisplayCase from './KeepsakeDisplayCase';
 import WeaponsDisplay from './WeaponsDisplay';
-import RunResults from './RunResults';
+import RunInterface from './RunInterface';
 import * as style from '../scss/style.scss';
 import { getRandomItemFromArray } from '../utils';
 import cx from 'classnames';
@@ -60,7 +60,7 @@ export const App: React.FC = (props) => {
             <KeepsakeDisplayCase></KeepsakeDisplayCase>
         </KeepsakesDataProvider>
         <DataProvider>
-            <RunResults></RunResults>
+            <RunInterface></RunInterface>
         </DataProvider>
     </div>;
 }

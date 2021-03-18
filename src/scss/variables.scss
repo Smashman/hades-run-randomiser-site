@@ -4,6 +4,11 @@ $caesar-dressing: 'Caesar Dressing', cursive;
 $crimson-text: 'Crimson Text', serif;
 $spectral-sc: 'Spectral SC', serif;
 
+@mixin alegreya-sans-sc-regular {
+    font-family: $alegreya-sans-sc;
+    font-weight: 400;
+}
+
 @mixin alegreya-sans-sc-bold {
     font-family: $alegreya-sans-sc;
     font-weight: 700;
@@ -15,3 +20,5 @@ $spectral-sc: 'Spectral SC', serif;
 }
 
 $img-head-path: 'src/img/';
+
+$maximum-width: 1200px;

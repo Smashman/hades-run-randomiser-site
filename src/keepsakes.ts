@@ -5,6 +5,12 @@ export interface KeepsakeOptions extends Options {
     changeBetweenBiomes?: boolean;
 }
 
+export const defaultKeepsakeOptions: KeepsakeOptions = {
+    enabled: true,
+    ignoreMaxLevel: true,
+    changeBetweenBiomes: true,
+};
+
 export interface StorableKeepsakesData extends StorableItemListData<StorableKeepsakeData> {
 
 }

@@ -4,6 +4,11 @@ export interface WeaponOptions extends Options {
     randomAspect?: boolean;
 }
 
+export const defaultWeaponOptions: WeaponOptions = {
+    enabled: true,
+    randomAspect: true,
+};
+
 export type StorableWeaponsData = StorableItemListData<StorableWeaponData>;
 
 export class Weapons extends ItemList<Weapon> {

@@ -9,6 +9,14 @@ export interface PactOptions extends Options {
     heatRange?: HeatRange
 }
 
+export const defaultPactOptions: PactOptions = {
+    enabled: true,
+    heatRange: {
+        min: 0,
+        max: 0,
+    },
+};
+
 interface StorablePactData {
     conditions: StorablePactConditionData[];
 }

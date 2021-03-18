@@ -1,8 +1,8 @@
-import { Weapon, WeaponAspect, WeaponOptions, Weapons } from './weapons';
-import { KeepsakeConfiguration, KeepsakeOptions, Keepsakes } from './keepsakes';
-import { Companion, CompanionOptions, Companions } from './companions';
-import { Mirror, MirrorConfiguration, MirrorOptions } from './mirror';
-import { Pact, PactConfiguration, PactOptions } from './pact';
+import { Weapon, WeaponAspect, WeaponOptions, Weapons, defaultWeaponOptions } from './weapons';
+import { KeepsakeConfiguration, KeepsakeOptions, Keepsakes, defaultKeepsakeOptions } from './keepsakes';
+import { Companion, CompanionOptions, Companions, defaultCompanionOptions } from './companions';
+import { Mirror, MirrorConfiguration, MirrorOptions, defaultMirrorOptions } from './mirror';
+import { Pact, PactConfiguration, PactOptions, defaultPactOptions } from './pact';
 
 export interface RunOptions {
     weaponOptions?: WeaponOptions;
@@ -21,29 +21,11 @@ export interface Data {
 }
 
 export const defaultRunOptions: RunOptions = {
-    weaponOptions: {
-        enabled: true,
-        randomAspect: true,
-    },
-    keepsakeOptions: {
-        enabled: true,
-        ignoreMaxLevel: true,
-        changeBetweenBiomes: true,
-    },
-    companionOptions: {
-        enabled: true,
-        ignoreMaxCodex: true,
-    },
-    mirrorOptions: {
-        enabled: true,
-    },
-    pactOptions: {
-        enabled: true,
-        // heatRange: {
-        //     min: 4,
-        //     max: 12,
-        // },
-    }
+    weaponOptions: defaultWeaponOptions,
+    keepsakeOptions: defaultKeepsakeOptions,
+    companionOptions: defaultCompanionOptions,
+    mirrorOptions: defaultMirrorOptions,
+    pactOptions: defaultPactOptions,
 };
 
 export class Run {

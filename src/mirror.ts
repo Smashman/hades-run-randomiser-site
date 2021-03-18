@@ -1,7 +1,10 @@
 import { getRandomItemFromArray, Item, Options, StorableItemData } from './utils';
 
 export interface MirrorOptions extends Options {
+};
 
+export const defaultMirrorOptions: MirrorOptions = {
+    enabled: true,
 };
 
 export class Mirror {

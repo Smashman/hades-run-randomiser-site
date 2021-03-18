@@ -26,6 +26,8 @@ table.display-case {
 
         width: $width;
         height: $height;
+        min-width: $width;
+        min-height: $height;
         max-width: $width;
         max-height: $height;
         background-image: linear-gradient(to top, $black 1px, $blue 1px);

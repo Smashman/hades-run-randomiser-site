@@ -5,6 +5,11 @@ export interface CompanionOptions extends Options {
     ignoreMaxCodex?: boolean;
 }
 
+export const defaultCompanionOptions: CompanionOptions = {
+    enabled: true,
+    ignoreMaxCodex: true,
+};
+
 export class Companions extends ItemList<Companion> {
     getRandomCompanion(companionOptions?: CompanionOptions): Companion | null {
         const companions = (companionOptions?.ignoreMaxCodex && !this.isAllUnlockedMaxLevel) ? [...this.unlocked.filter(companion => !companion.isMaxCodex)] : [...this.unlocked];

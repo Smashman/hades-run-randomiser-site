@@ -3,7 +3,8 @@
 .weapons {
     display: flex;
     flex-wrap: wrap;
-    width: 1200px;
+    max-width: $maximum-width;
+    justify-content: center;
 }
 
 $highlight-color: #3c4036;
@@ -116,7 +117,7 @@ $highlight-color: #3c4036;
     &.aspect-locked {
         .aspect-frame {
             .aspect-icon {
-                opacity: 0.5;
+                opacity: 0.2;
             }
             &:after {
                 content: ' ';

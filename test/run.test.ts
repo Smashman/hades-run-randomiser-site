@@ -3,7 +3,7 @@ import { Weapon, WeaponAspect } from '../src/weapons';
 import { Keepsake, KeepsakeOptions } from '../src/keepsakes';
 import { Companion, CompanionOptions } from '../src/companions';
 import { MirrorConfiguration, MirrorTalent } from '../src/mirror';
-import { HeatRange, Pact, PactCondition, PactConfiguration, PactOptions} from '../src/pact';
+import { HeatRange, Pact, PactCondition, PactConfiguration, PactOptions } from '../src/pact';
 import { fakeIcon } from './helpers';
 import {
     weapons as weaponsFixture,

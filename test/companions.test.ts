@@ -129,7 +129,7 @@ describe('Companions class', () => {
         expect(companions.resourceSpent).toBe(4);
         expect(companions.resourceRequired).toBe(16);
     });
-    
+
     describe('getRandomCompanion', () => {
         let getRandomItemFromArraySpy: jest.SpyInstance;
 
@@ -204,21 +204,21 @@ describe('Companions class', () => {
     describe('toStorableData', () => {
         it('should return expected storable data', () => {
             const companion = new Companion('Fluff', 'Jeff');
-    
+
             expect(companion.toStorableData()).toMatchSnapshot();
         });
 
         it('should return expected storable data with level', () => {
             const companion = new Companion('Fluff', 'Jeff');
             companion.level.value = 3;
-    
+
             expect(companion.toStorableData()).toMatchSnapshot();
         });
 
         it('should return expected storable data with isMaxCodex', () => {
             const companion = new Companion('Fluff', 'Jeff');
             companion.isMaxCodex = true;
-    
+
             expect(companion.toStorableData()).toMatchSnapshot();
         });
     });

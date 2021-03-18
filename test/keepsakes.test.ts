@@ -33,14 +33,14 @@ describe('Keepsake class', () => {
     describe('toStorableData', () => {
         it('should return expected storable data', () => {
             const keepsake = new Keepsake('Shoe', 'Jeff', fakeIcon);
-    
+
             expect(keepsake.toStorableData()).toMatchSnapshot();
         });
 
         it('should return expected storable data with level', () => {
             const keepsake = new Keepsake('Shoe', 'Jeff', fakeIcon);
             keepsake.level.value = 3;
-    
+
             expect(keepsake.toStorableData()).toMatchSnapshot();
         });
     });
@@ -228,7 +228,7 @@ describe('Keepsakes class', () => {
             const keepsake1 = new Keepsake('Shoe', 'Jeff', fakeIcon);
             const keepsake2 = new Keepsake('Coat', 'Delilah', fakeIcon);
             const keepsakes = new Keepsakes().addItems([keepsake1, keepsake2]);
-    
+
             expect(keepsakes.toStorableData()).toMatchSnapshot();
         });
 
@@ -238,7 +238,7 @@ describe('Keepsakes class', () => {
             const keepsakes = new Keepsakes().addItems([keepsake1, keepsake2]);
 
             keepsake1.level.value = 3;
-    
+
             expect(keepsakes.toStorableData()).toMatchSnapshot();
         });
     });
@@ -256,7 +256,7 @@ describe('Keepsakes class', () => {
                 {
                     isUnlocked: false,
                     level: 3,
-                }]
+                },]
             });
 
             expect(keepsakes).toMatchSnapshot();
