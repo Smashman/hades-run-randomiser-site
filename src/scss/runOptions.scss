@@ -146,25 +146,13 @@ $settings-background: #343331;
     display: flex;
     justify-content: center;
     padding: 1em;
+    z-index: 0;
 
     button {
         $background-color: #1f1b1c;
         $top-angle: 55deg;
         $top-corner-width: 6px;
         $highlight-color: #4b4b47;
-        @debug $background-color;
-        @debug saturation($background-color);
-        @debug hue($background-color);
-        @debug lightness($background-color);
-        @debug $highlight-color;
-        @debug saturation($highlight-color);
-        @debug hue($highlight-color);
-        @debug lightness($highlight-color);
-        $adjusted-color: #000;//scale($background-color, $red: 50%);
-        @debug 'adjusted' $adjusted-color;
-        @debug saturation($adjusted-color);
-        @debug hue($adjusted-color);
-        @debug lightness($adjusted-color);
         $bottom-angle: 45deg;
         $bottom-corner-width: 5px;
         $shadow-color: #171614;
@@ -188,19 +176,29 @@ $settings-background: #343331;
         font-size: 1.5em;
         border-radius: $border-radius;
         position: relative;
-        z-index: 0;
 
         &:hover {
-            &:after {
+            background-image: linear-gradient(to bottom, $shadow-color 3px, transparent 0),
+                              linear-gradient(180deg - $top-angle, $shadow-color $top-corner-width, transparent 0),
+                              linear-gradient(180deg + $top-angle, $shadow-color $top-corner-width, transparent 0);
+            &:before {
+                $yellow: #f2e14b;
+                $green: #62db18;
+                $pink: #f1a2d1;
+
                 content: '';
-                width: calc(100% + #{$border-width * 2});
-                height: calc(100% + #{$border-width + $border-top-width});
+                $highlight-width: 3px;
+                width: calc(100% + #{$border-width * 2 + $highlight-width * 2});
+                height: calc(100% + #{$border-width + $border-top-width + $highlight-width * 2});
                 position: absolute;
-                top: -$border-top-width;
-                left: -$border-width;
+                top: -$border-top-width - $highlight-width;
+                left: -$border-width - $highlight-width;
                 border-radius: $border-radius;
-                z-index: 1;
-                // background: red;
+                z-index: -1;
+                background-color: $yellow;
+                background-image: linear-gradient(to bottom, transparent 10%, $yellow 10% 90%, transparent 90%),
+                                  linear-gradient(to left, $yellow 10%, transparent 10%),
+                                  linear-gradient(145deg, $yellow 10%, $green 10% 22%, transparent 22% 28%, $green 28% 30%, transparent 30% 35%, $green 35% 38%, transparent 38% 70%, $pink 70% 90%, transparent 90%);
             }
         }
     }
