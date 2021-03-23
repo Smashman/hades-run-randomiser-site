@@ -1,4 +1,5 @@
-@import 'variables';
+@use 'variables' as v;
+@use 'sass:color';
 
 .level-control {
     display: flex;
@@ -14,7 +15,7 @@
     flex-direction: row;
     margin-bottom: 6px;
     .star {
-        background-image: url($img-head-path + 'level/rank_star.png');
+        background-image: url(v.$img-head-path + 'level/rank_star.png');
         background-size: contain;
         background-repeat: no-repeat;
         width: 17px;
@@ -31,9 +32,9 @@
 }
 
 @mixin button-color($color) {
-    $top-color: adjust-color($color, $lightness: 23, $saturation: 18);
+    $top-color: color.adjust($color, $lightness: 23%, $saturation: 18%);
 
-    &:hover {
+    &:hover:not([disabled]) {
         background-image: linear-gradient(to bottom, $top-color, $color);
         filter: drop-shadow(0 0 0.75em $color);
     }
@@ -50,7 +51,7 @@
     justify-content: center;
 
     .level-button {
-        @include alegreya-sans-sc-extra-bold;
+        @include v.alegreya-sans-sc-extra-bold;
         font-size: 1.5em;
         color: white;
         width: 50%;
@@ -88,10 +89,6 @@
             background-color: #464646;
             color: $disabled-colour;
             border-color: $disabled-colour;
-
-            &:hover {
-                filter: none;
-            }
         }
     }
 

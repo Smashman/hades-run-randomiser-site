@@ -1,9 +1,9 @@
-@import 'variables';
+@use 'variables' as v;
 
 .weapons {
     display: flex;
     flex-wrap: wrap;
-    max-width: $maximum-width;
+    max-width: v.$maximum-width;
     justify-content: center;
 }
 
@@ -21,7 +21,7 @@ $highlight-color: #3c4036;
     $weapon-name-shadow: 0 0.1em 0 black;
     .weapon-name {
         color: white;
-        font-family: $spectral-sc;
+        font-family: v.$spectral-sc;
         font-size: 1.4em;
         background-color: $highlight-color;
         text-shadow: $weapon-name-shadow;
@@ -38,7 +38,7 @@ $highlight-color: #3c4036;
         }
     }
     .weapon-title {
-        font-family: $crimson-text;
+        font-family: v.$crimson-text;
         font-style: italic;
         color: $title-color;
         background-color: #222420;
@@ -67,19 +67,7 @@ $highlight-color: #3c4036;
     }
 
     .aspect-frame {
-        $frame-size: $height;
-        width: $frame-size;
-        height: $frame-size;
-        background-image: url($img-head-path + 'misc/tray.png');
-        background-size: contain;
-        padding: $frame-padding;
-        display: flex;
-        position: relative;
-
-        .aspect-icon {
-            width: 100%;
-            height: 100%;
-        }
+        @include v.item-frame('aspect', $height, $frame-padding);
     }
 
     .aspect-right {
@@ -103,7 +91,7 @@ $highlight-color: #3c4036;
         align-items: flex-end;
     }
     .aspect-name, .aspect-level-text {
-        @include alegreya-sans-sc-bold;
+        @include v.alegreya-sans-sc-bold;
         color: white;
         text-shadow: 0 0.05em 0 black;
         font-size: 1.2em;
@@ -125,7 +113,7 @@ $highlight-color: #3c4036;
                 height: calc(100% - #{$frame-padding * 2});
                 display: block;
                 position: absolute;
-                background-image: url($img-head-path + 'misc/lock.png');
+                background-image: url(v.$img-head-path + 'misc/lock.png');
                 background-repeat: no-repeat;
                 background-size: contain;
             }

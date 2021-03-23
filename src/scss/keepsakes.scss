@@ -1,4 +1,4 @@
-@import 'variables';
+@use 'variables' as v;
 
 $black: black;
 $grey: #0a0b0d;
@@ -70,7 +70,7 @@ table.display-case {
     
     .keepsake-name {
         cursor: default;
-        @include alegreya-sans-sc-bold;
+        @include v.alegreya-sans-sc-bold;
         color: white;
         font-size: 1.1em;
         line-height: 21px;
@@ -86,7 +86,7 @@ table.display-case {
 
         width: $size;
         height: $size;
-        background-image: url($img-head-path + 'keepsake/backing.png');
+        background-image: url(v.$img-head-path + 'keepsake/backing.png');
         background-size: $size;
         background-repeat: no-repeat;
 

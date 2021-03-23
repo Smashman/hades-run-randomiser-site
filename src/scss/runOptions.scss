@@ -1,4 +1,5 @@
-@import 'variables';
+@use 'variables' as v;
+@use 'sass:color';
 
 $checkbox-size: 48px;
 
@@ -10,12 +11,11 @@ $settings-background: #343331;
     background-color: $settings-background;
     color: $grey;
     border: 0.4em solid $gold;
-    border-radius: 0.5em;
     display: flex;
     flex-direction: column;
 
     .title {
-        font-family: $spectral-sc;
+        font-family: v.$spectral-sc;
         text-align: center;
         font-size: 1.8em;
         letter-spacing: 0.3em;
@@ -27,7 +27,7 @@ $settings-background: #343331;
     .settings-container {
         display: flex;
         flex-wrap: wrap;
-        max-width: $maximum-width;
+        max-width: v.$maximum-width;
         justify-content: center;;
     }
 }
@@ -37,7 +37,7 @@ $settings-background: #343331;
 }
 
 .setting-title {
-    font-family: $spectral-sc;
+    font-family: v.$spectral-sc;
     text-align: center;
     font-size: 1.4em;
     letter-spacing: 0.3em;
@@ -48,7 +48,7 @@ $settings-background: #343331;
 .setting {
     $background: #9e9090;
 
-    @include alegreya-sans-sc-regular;
+    @include v.alegreya-sans-sc-regular;
     position: relative;
     display: flex;
     width: 350px;
@@ -161,7 +161,7 @@ $settings-background: #343331;
         $border-top-width: 4px;
         $border-radius: 0.4em;
 
-        @include alegreya-sans-sc-regular;
+        @include v.alegreya-sans-sc-regular;
         background-color: $background-color;
         background-image: linear-gradient(to bottom, $highlight-color 3px, transparent 0),
                           linear-gradient(180deg - $top-angle, $highlight-color $top-corner-width, transparent 0),
@@ -177,7 +177,7 @@ $settings-background: #343331;
         border-radius: $border-radius;
         position: relative;
 
-        &:hover {
+        &:hover:not([disabled]) {
             background-image: linear-gradient(to bottom, $shadow-color 3px, transparent 0),
                               linear-gradient(180deg - $top-angle, $shadow-color $top-corner-width, transparent 0),
                               linear-gradient(180deg + $top-angle, $shadow-color $top-corner-width, transparent 0);
@@ -200,6 +200,14 @@ $settings-background: #343331;
                                   linear-gradient(to left, $yellow 10%, transparent 10%),
                                   linear-gradient(145deg, $yellow 10%, $green 10% 22%, transparent 22% 28%, $green 28% 30%, transparent 30% 35%, $green 35% 38%, transparent 38% 70%, $pink 70% 90%, transparent 90%);
             }
+        }
+
+        &:disabled {
+            $disabled-colour: color.scale($settings-background, $lightness: -50%);
+            background-image: none;
+            background-color: color.scale($settings-background, $lightness: -20%);
+            color: $disabled-colour;
+            border-color: $disabled-colour;
         }
     }
 }

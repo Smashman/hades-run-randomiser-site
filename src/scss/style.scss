@@ -1,4 +1,4 @@
-@import 'variables';
+@use 'variables' as v;
 @import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans&family=Alegreya+Sans+SC:wght@400;700;800&family=Caesar+Dressing&family=Crimson+Text:ital@1&family=Spectral+SC&display=swap');
 
 *, *:before, *:after {
@@ -10,7 +10,7 @@
 }
 
 body {
-    font-family: $alegreya-sans;
+    font-family: v.$alegreya-sans;
     margin: 0;
     background: black;
     color: white;
@@ -23,13 +23,13 @@ body {
 }
 
 .loading {
-    @include alegreya-sans-sc-extra-bold;
+    @include v.alegreya-sans-sc-extra-bold;
     font-size: 3em;
     justify-content: center;
     height: 100%;
 
     .spinner {
-        background-image: url($img-head-path + 'misc/skelly.png');
+        background-image: url(v.$img-head-path + 'misc/skelly.png');
         background-size: contain;
         background-repeat: no-repeat;
         width: 120px;
